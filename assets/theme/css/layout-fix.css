@@ -1,0 +1,330 @@
+/* 布局修复样式 */
+@charset "UTF-8";
+
+/* 修复计数器section的布局 */
+.counters4 {
+  background: #f8f9fa;
+  padding: 4rem 0;
+}
+
+.counters4 .card {
+  margin-bottom: 1rem;
+  height: 100%;
+  border: none;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  background: white;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.counters4 .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.counters4 .card-wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.counters4 .count-wrapper {
+  margin-bottom: 1rem;
+}
+
+.counters4 .mbr-number {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #007bff;
+  margin-bottom: 0.5rem;
+  line-height: 1;
+}
+
+.counters4 .card-box {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.counters4 .card-title {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  line-height: 1.4;
+}
+
+/* 修复关于我们section的布局 */
+.article07 {
+  background: #ffffff;
+  padding: 4rem 0;
+}
+
+.article07 .card {
+  margin-bottom: 2rem;
+  border: none;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+}
+
+.article07 .card-wrapper {
+  padding: 3rem;
+}
+
+.article07 .card-title {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #333;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.article07 .item-wrapper {
+  text-align: center;
+}
+
+.article07 .mbr-text {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+  color: #666;
+}
+
+.article07 .btn {
+  padding: 0.75rem 2rem;
+  font-size: 1.1rem;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+}
+
+.article07 .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+}
+
+/* 修复联系表单section的布局 */
+.form5 {
+  background: #f8f9fa;
+  padding: 4rem 0;
+}
+
+.form5 .card {
+  margin-bottom: 2rem;
+  border: none;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  background: white;
+}
+
+.form5 .card-wrapper {
+  padding: 3rem;
+}
+
+.form5 .image-wrapper {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.form5 .image-wrapper img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.form5 .card-box {
+  padding: 1rem;
+}
+
+.form5 .mbr-section-title {
+  margin-bottom: 1.5rem;
+  color: #333;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.form5 .mbr-text {
+  margin-bottom: 2rem;
+  color: #666;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.form5 .btn {
+  padding: 0.75rem 2rem;
+  font-size: 1.1rem;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+}
+
+.form5 .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+}
+
+/* 修复页脚布局 */
+.footer3 {
+  background: #333;
+  color: white;
+  padding: 3rem 0 2rem 0;
+}
+
+.footer3 .media-container-row {
+  padding: 0;
+}
+
+.footer3 .social-row {
+  margin-bottom: 2rem;
+}
+
+.footer3 .social-list {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.footer3 .soc-item a {
+  display: inline-block;
+  width: 45px;
+  height: 45px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  text-align: center;
+  line-height: 45px;
+  transition: all 0.3s ease;
+  color: white;
+  text-decoration: none;
+}
+
+.footer3 .soc-item a:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.footer3 .row-copirayt {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.footer3 .copyright {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+}
+
+.footer3 .row-links {
+  text-align: center;
+}
+
+.footer3 .row-links a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  margin: 0 0.75rem;
+  transition: color 0.3s ease;
+  font-size: 1rem;
+}
+
+.footer3 .row-links a:hover {
+  color: white;
+}
+
+/* 响应式修复 */
+@media (max-width: 768px) {
+  .counters4 .col-md-4 {
+    margin-bottom: 2rem;
+  }
+  
+  .counters4 .card {
+    height: auto;
+  }
+  
+  .counters4 .mbr-number {
+    font-size: 2.5rem;
+  }
+  
+  .article07 .card-wrapper,
+  .form5 .card-wrapper {
+    padding: 2rem 1.5rem;
+  }
+  
+  .article07 .card-title,
+  .form5 .mbr-section-title {
+    font-size: 1.8rem;
+  }
+  
+  .footer3 .social-list {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .footer3 .row-links a {
+    display: block;
+    margin: 0.5rem 0;
+  }
+}
+
+/* 确保所有section都有正确的间距 */
+section {
+  padding: 3rem 0;
+}
+
+section:last-child {
+  margin-bottom: 0;
+}
+
+/* 修复可能的Bootstrap冲突 */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.row {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+.row > [class*="col-"] {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* 修复导航栏样式 */
+.navbar-fixed-top {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand img {
+  transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover img {
+  transform: scale(1.05);
+}
+
+.nav-link {
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: #007bff;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}

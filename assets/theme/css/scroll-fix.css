@@ -1,0 +1,19 @@
+/* 滚动修复样式 - 最简版本 */
+@charset "UTF-8";
+
+/* 只修复滚动问题，不影响原有布局 */
+body {
+  overflow: visible !important;
+  overflow-x: auto !important;
+  overflow-y: auto !important;
+}
+
+/* 确保所有section都可以正常滚动 */
+section {
+  overflow: visible !important;
+}
+
+/* 修复全屏section的滚动问题 */
+.mbr-fullscreen {
+  overflow: visible !important;
+}
