@@ -2633,8 +2633,14 @@
     }, 5000);
   }
   
-  // 支持回车键验证密码
+  // 页面加载时初始化
   document.addEventListener('DOMContentLoaded', function() {
+    console.log('页面加载完成，开始初始化...');
+    
+    // 检查登录状态
+    checkLoginStatus();
+    
+    // 支持回车键验证密码
     const passwordInput = document.getElementById('accessPassword');
     if (passwordInput) {
       passwordInput.addEventListener('keypress', function(e) {
