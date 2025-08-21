@@ -2010,29 +2010,7 @@
   </div>
   
   <a href="../news/index.html" class="btn btn-primary back-btn">← 返回文章列表</a>
-  
-  <script>
-    function formatDate(dateStr) {
-      const date = new Date(dateStr);
-      return date.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' });
-    }
-    
-    function getCategoryName(category) {
-      const categories = {
-        'policy-research': '政策研究',
-        'industry-analysis': '行业分析',
-        'regional-development': '区域发展',
-        'market-insights': '市场洞察',
-        'case-studies': '案例研究',
-        'expert-opinion': '专家观点',
-        'news': '行业新闻',
-        'other': '其他'
-      };
-      return categories[category] || category;
-    }
-  </script>
-</body>
-</html>`;
+</div>`;
     
     // 创建下载链接
     const blob = new Blob([articleHtml], { type: 'text/html' });
