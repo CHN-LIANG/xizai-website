@@ -1,4 +1,4 @@
-name: 简单部署到GitHub Pages
+name: 文章更新提醒
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
   workflow_dispatch: # 允许手动触发
 
 jobs:
-  deploy:
+  notify:
     runs-on: ubuntu-latest
     
     steps:
@@ -20,22 +20,25 @@ jobs:
         if [ -f "data/articles.json" ]; then
           echo "✅ 找到文章文件"
           echo "📄 文章数量: $(jq '.articles | length' data/articles.json)"
+          echo "📝 最新文章: $(jq -r '.articles[0].title' data/articles.json)"
         else
           echo "❌ 文章文件不存在"
           exit 1
         fi
         
-    - name: 推送到gh-pages分支
+    - name: 生成部署提醒
       run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git checkout -b gh-pages
-        git add .
-        git commit -m "自动更新文章: $(date)"
-        git push origin gh-pages --force
+        echo "📢 文章已更新，需要手动部署！"
+        echo "📋 部署步骤："
+        echo "1. 进入GitHub仓库Settings → Pages"
+        echo "2. 确保Source选择'Deploy from a branch'"
+        echo "3. 选择main分支，点击Save"
+        echo "4. 等待几分钟，网站将自动更新"
+        echo ""
+        echo "🌐 或者使用Vercel自动部署（推荐）"
         
-    - name: 部署完成通知
+    - name: 部署提醒完成
       run: |
-        echo "✅ 文章已推送到gh-pages分支！"
+        echo "✅ 部署提醒已生成！"
         echo "📅 时间: $(date)"
-        echo "🌐 请确保GitHub Pages设置为从gh-pages分支部署"
+        echo "💡 建议：考虑使用Vercel等第三方服务实现真正的自动部署"
