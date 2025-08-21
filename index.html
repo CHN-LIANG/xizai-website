@@ -58,6 +58,170 @@
       text-align: center;
       padding: 10px;
     }
+    
+    /* 导航栏美化样式 */
+    .navbar {
+      background: rgba(255, 255, 255, 0.95) !important;
+      backdrop-filter: blur(10px) !important;
+      border-bottom: 1px solid rgba(102, 126, 234, 0.1) !important;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+      transition: all 0.3s ease !important;
+      padding: 0.5rem 0 !important;
+    }
+    
+    .navbar.scrolled {
+      background: rgba(255, 255, 255, 0.98) !important;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12) !important;
+    }
+    
+    .navbar-brand {
+      display: flex !important;
+      align-items: center !important;
+      gap: 1rem !important;
+    }
+    
+    .navbar-logo div {
+      transition: all 0.3s ease !important;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3) !important;
+    }
+    
+    .navbar-logo:hover div {
+      transform: scale(1.05) !important;
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4) !important;
+    }
+    
+    .navbar-caption {
+      font-weight: 700 !important;
+      font-size: 1.5rem !important;
+      color: #2c3e50 !important;
+      transition: color 0.3s ease !important;
+    }
+    
+    .navbar-caption:hover {
+      color: #667eea !important;
+    }
+    
+    .navbar-nav {
+      margin-left: auto !important;
+      gap: 0.5rem !important;
+    }
+    
+    .nav-item {
+      position: relative !important;
+    }
+    
+    .nav-link {
+      color: #5a6c7d !important;
+      font-weight: 500 !important;
+      font-size: 1rem !important;
+      padding: 0.75rem 1.2rem !important;
+      border-radius: 25px !important;
+      transition: all 0.3s ease !important;
+      position: relative !important;
+      overflow: hidden !important;
+    }
+    
+    .nav-link::before {
+      content: '' !important;
+      position: absolute !important;
+      top: 0 !important;
+      left: -100% !important;
+      width: 100% !important;
+      height: 100% !important;
+      background: linear-gradient(135deg, #667eea, #764ba2) !important;
+      transition: left 0.3s ease !important;
+      z-index: -1 !important;
+    }
+    
+    .nav-link:hover::before {
+      left: 0 !important;
+    }
+    
+    .nav-link:hover {
+      color: white !important;
+      transform: translateY(-2px) !important;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3) !important;
+    }
+    
+    .nav-link.active {
+      background: linear-gradient(135deg, #667eea, #764ba2) !important;
+      color: white !important;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3) !important;
+    }
+    
+    .navbar-toggler {
+      border: none !important;
+      padding: 0.5rem !important;
+      border-radius: 8px !important;
+      transition: all 0.3s ease !important;
+    }
+    
+    .navbar-toggler:hover {
+      background: rgba(102, 126, 234, 0.1) !important;
+    }
+    
+    .hamburger {
+      width: 24px !important;
+      height: 20px !important;
+      position: relative !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: space-between !important;
+    }
+    
+    .hamburger span {
+      width: 100% !important;
+      height: 3px !important;
+      background: #667eea !important;
+      border-radius: 2px !important;
+      transition: all 0.3s ease !important;
+    }
+    
+    .navbar-toggler[aria-expanded="true"] .hamburger span:nth-child(1) {
+      transform: rotate(45deg) translate(6px, 6px) !important;
+    }
+    
+    .navbar-toggler[aria-expanded="true"] .hamburger span:nth-child(2) {
+      opacity: 0 !important;
+    }
+    
+    .navbar-toggler[aria-expanded="true"] .hamburger span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px) !important;
+    }
+    
+    /* 响应式优化 */
+    @media (max-width: 991px) {
+      .navbar-nav {
+        margin: 1rem 0 !important;
+        gap: 0.25rem !important;
+      }
+      
+      .nav-link {
+        padding: 0.75rem 1rem !important;
+        text-align: center !important;
+        border-radius: 15px !important;
+      }
+      
+      .navbar-collapse {
+        background: rgba(255, 255, 255, 0.98) !important;
+        border-radius: 15px !important;
+        margin-top: 1rem !important;
+        padding: 1rem !important;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1) !important;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .navbar-caption {
+        font-size: 1.2rem !important;
+      }
+      
+      .navbar-logo div {
+        height: 3.5rem !important;
+        width: 3.5rem !important;
+        font-size: 1rem !important;
+      }
+    }
   </style>
   
 </head>
@@ -83,21 +247,21 @@
           </div>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav nav-dropdown" data-app-modern-menu="true">
+          <ul class="navbar-nav nav-dropdown ml-auto" data-app-modern-menu="true">
             <li class="nav-item">
-              <a class="nav-link link text-black display-4" href="/services/">服务类型</a>
+              <a class="nav-link link text-black display-4" href="/">首页</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link link text-black display-4" href="/news/">行业洞察</a>
+              <a class="nav-link link text-black display-4" href="/about/">关于我们</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link link text-black display-4" href="/news/">行业资讯</a>
             </li>
             <li class="nav-item">
               <a class="nav-link link text-black display-4" href="/contact/">联系我们</a>
             </li>
           </ul>
-          
-          <div class="navbar-buttons mbr-section-btn">
-            <a class="btn btn-primary display-4" href="/">首页</a>
-          </div>
+        </div>
         </div>
       </div>
     </nav>
@@ -359,6 +523,47 @@
   <script src="assets/theme/js/script.js"></script>
   <script src="assets/theme/js/scroll-fix.js"></script>
   <script src="assets/theme/js/video-fix.js"></script>
+  
+  <!-- 导航栏美化脚本 -->
+  <script>
+    // 导航栏滚动效果
+    window.addEventListener('scroll', function() {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+    
+    // 当前页面高亮
+    document.addEventListener('DOMContentLoaded', function() {
+      const currentPath = window.location.pathname;
+      const navLinks = document.querySelectorAll('.nav-link');
+      
+      navLinks.forEach(link => {
+        if (link.getAttribute('href') === currentPath || 
+            (currentPath === '/' && link.getAttribute('href') === '/') ||
+            (currentPath !== '/' && link.getAttribute('href').includes(currentPath))) {
+          link.classList.add('active');
+        }
+      });
+    });
+    
+    // 平滑滚动到锚点
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
 
   
   <!-- YouTube背景视频播放器 -->
