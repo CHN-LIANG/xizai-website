@@ -5,8 +5,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
   <link rel="shortcut icon" href="../assets/images/photo-1704022810195-de7199db478c.jpeg" type="image/x-icon">
-  <meta name="description" content="熙载咨询 - 行业资讯，政策分析，经济趋势，战略洞察">
-  <title>行业资讯 - 熙载咨询</title>
+  <meta name="description" content="熙载咨询 - 行业洞察与政策分析，为您提供最新的政策解读和行业趋势分析">
+  <title>行业洞察 - 熙载咨询</title>
   <link rel="stylesheet" href="../assets/web/assets/mobirise-icons2/mobirise2.css">
   <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap-grid.min.css">
@@ -19,6 +19,99 @@
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;700&display=swap&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;700&display=swap&display=swap"></noscript>
   <link rel="preload" as="style" href="../assets/mobirise/css/mbr-additional.css?v=Z0vp81"><link rel="stylesheet" href="../assets/mobirise/css/mbr-additional.css?v=Z0vp81" type="text/css">
+  
+  <!-- 图片错误处理样式 -->
+  <style>
+    .img-error {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 14px;
+      text-align: center;
+      padding: 20px;
+      border-radius: 8px;
+    }
+    
+    .img-loading {
+      background: #f8f9fa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #6c757d;
+      font-size: 14px;
+    }
+    
+    .img-placeholder {
+      background: #e9ecef;
+      border: 2px dashed #dee2e6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #6c757d;
+      font-size: 12px;
+      text-align: center;
+      padding: 10px;
+    }
+  </style>
+  
+  <!-- 图片错误处理脚本 -->
+  <script>
+    // 图片错误处理函数
+    function handleImageError(img) {
+      console.log('图片加载失败:', img.src);
+      
+      // 创建占位符
+      const placeholder = document.createElement('div');
+      placeholder.className = 'img-placeholder';
+      placeholder.innerHTML = '<div>图片加载失败<br><small>点击重试</small></div>';
+      placeholder.style.width = img.style.width || '100%';
+      placeholder.style.height = img.style.height || '100%';
+      placeholder.style.minHeight = '100px';
+      
+      // 添加点击重试功能
+      placeholder.addEventListener('click', function() {
+        img.src = img.src + '?t=' + new Date().getTime();
+        img.style.display = 'block';
+        placeholder.remove();
+      });
+      
+      // 替换图片
+      img.style.display = 'none';
+      img.parentNode.insertBefore(placeholder, img);
+    }
+    
+    // 图片加载成功处理
+    function handleImageLoad(img) {
+      img.style.opacity = '1';
+      img.style.transition = 'opacity 0.3s ease';
+    }
+    
+    // 页面加载完成后初始化图片处理
+    document.addEventListener('DOMContentLoaded', function() {
+      const images = document.querySelectorAll('img');
+      images.forEach(function(img) {
+        // 设置初始透明度
+        img.style.opacity = '0';
+        
+        // 添加错误处理
+        img.addEventListener('error', function() {
+          handleImageError(this);
+        });
+        
+        // 添加加载成功处理
+        img.addEventListener('load', function() {
+          handleImageLoad(this);
+        });
+        
+        // 如果图片已经加载完成
+        if (img.complete) {
+          handleImageLoad(img);
+        }
+      });
+    });
+  </script>
 </head>
 <body>
 
@@ -29,7 +122,7 @@
       <div class="navbar-brand">
         <span class="navbar-logo">
           <a href="../index.html">
-            <img src="../assets/images/photo-1704022810195-de7199db478c.jpeg" alt="熙载咨询" style="height: 4.3rem;">
+            <img src="../assets/images/photo-1704022810195-de7199db478c.jpeg" alt="熙载咨询" style="height: 4.3rem;" onerror="handleImageError(this)">
           </a>
         </span>
         <span class="navbar-caption-wrap"><a class="navbar-caption text-black display-4" href="../index.html">熙载咨询</a></span>
@@ -96,7 +189,7 @@
       <div class="item features-image col-12 col-md-6 col-lg-4 active">
         <div class="item-wrapper">
           <div class="item-img mb-3">
-            <img src="../assets/images/photo-1608095479881-dcb9a9629301.jpeg" alt="新政策发布" title="">
+                            <img src="../assets/images/photo-1608095479881-dcb9a9629301.jpeg" alt="新政策发布" title="" onerror="handleImageError(this)">
           </div>
           <div class="item-content align-left">
             <h5 class="item-title mbr-fonts-style mt-0 mb-2 display-5">
@@ -113,7 +206,7 @@
       <div class="item features-image col-12 col-md-6 col-lg-4">
         <div class="item-wrapper">
           <div class="item-img mb-3">
-            <img src="../assets/images/photo-1591623773385-fc25c8543a3d.jpeg" alt="制造业分析" title="">
+                            <img src="../assets/images/photo-1591623773385-fc25c8543a3d.jpeg" alt="制造业分析" title="" onerror="handleImageError(this)">
           </div>
           <div class="item-content align-left">
             <h5 class="item-title mbr-fonts-style mb-2 mt-0 display-5">
@@ -130,7 +223,7 @@
       <div class="item features-image col-12 col-md-6 col-lg-4">
         <div class="item-wrapper">
           <div class="item-img mb-3">
-            <img src="../assets/images/photo-1725254059557-b693618728b5.jpeg" alt="绿色能源" title="">
+                            <img src="../assets/images/photo-1725254059557-b693618728b5.jpeg" alt="绿色能源" title="" onerror="handleImageError(this)">
           </div>
           <div class="item-content align-left">
             <h5 class="item-title mbr-fonts-style mb-2 mt-0 display-5">
@@ -147,7 +240,7 @@
       <div class="item features-image col-12 col-md-6 col-lg-4">
         <div class="item-wrapper">
           <div class="item-img mb-3">
-            <img src="../assets/images/photo-1696360089951-0d0d93e662d2.jpeg" alt="旅游业发展" title="">
+                            <img src="../assets/images/photo-1696360089951-0d0d93e662d2.jpeg" alt="旅游业发展" title="" onerror="handleImageError(this)">
           </div>
           <div class="item-content align-left">
             <h5 class="item-title mbr-fonts-style mb-2 mt-0 display-5">
@@ -164,7 +257,7 @@
       <div class="item features-image col-12 col-md-6 col-lg-4">
         <div class="item-wrapper">
           <div class="item-img mb-3">
-            <img src="../assets/images/photo-1641419986545-d7523c05195e.jpeg" alt="数字经济" title="">
+                            <img src="../assets/images/photo-1641419986545-d7523c05195e.jpeg" alt="数字经济" title="" onerror="handleImageError(this)">
           </div>
           <div class="item-content align-left">
             <h5 class="item-title mbr-fonts-style mb-2 mt-0 display-5">
@@ -181,7 +274,7 @@
       <div class="item features-image col-12 col-md-6 col-lg-4">
         <div class="item-wrapper">
           <div class="item-img mb-3">
-            <img src="../assets/images/photo-1736782683272-6ac722caa90b.jpeg" alt="乡村振兴" title="">
+                            <img src="../assets/images/photo-1736782683272-6ac722caa90b.jpeg" alt="乡村振兴" title="" onerror="handleImageError(this)">
           </div>
           <div class="item-content align-left">
             <h5 class="item-title mbr-fonts-style mb-2 mt-0 display-5">

@@ -1,1 +1,4 @@
 * [32mmain[m ee2f17d [[34morigin/main[m: ahead 1, behind 3] 修复网站滚动问题、PC端布局和乱码问题
+[33m58d163c[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m 修复：增加服务类型选择框高度，确保文字完整显示
+[33mcfedb71[m[33m ([m[1;31morigin/main[m[33m)[m 删除未使用的图片文件，优化网站资源
+[33m52f07fc[m 完成合并：同步远程更改

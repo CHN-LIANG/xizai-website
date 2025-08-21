@@ -23,6 +23,45 @@
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;700&display=swap&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;700&display=swap&display=swap"></noscript>
   <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css?v=Z0vp81"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css?v=Z0vp81" type="text/css">
+  
+  <!-- 图片错误处理样式 -->
+  <style>
+    .img-error {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 14px;
+      text-align: center;
+      padding: 20px;
+      border-radius: 8px;
+    }
+    
+    .img-loading {
+      background: #f8f9fa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #6c757d;
+      font-size: 14px;
+    }
+    
+    .img-placeholder {
+      background: #e9ecef;
+      border: 2px dashed #dee2e6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #6c757d;
+      font-size: 12px;
+      text-align: center;
+      padding: 10px;
+    }
+  </style>
+  
+  <!-- 引入图片处理模块 -->
+  <script src="assets/theme/js/image-handler.js"></script>
 </head>
 <body>
   
@@ -32,7 +71,7 @@
         <div class="navbar-brand">
           <span class="navbar-logo">
             <a href="/">
-              <img src="assets/images/photo-1704022810195-de7199db478c.jpeg" alt="熙载咨询" style="height: 4.3rem;">
+              <img src="assets/images/photo-1704022810195-de7199db478c.jpeg" alt="熙载咨询" style="height: 4.3rem;" onerror="handleImageError(this)">
             </a>
           </span>
           <span class="navbar-caption-wrap"><a class="navbar-caption text-black display-4" href="/">熙载咨询</a></span>
@@ -73,7 +112,7 @@
     <div class="mbr-background-video">
       <div id="ytplayer" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></div>
       <!-- 备用背景图片 -->
-      <img src="assets/images/background1.jpg" alt="背景图片" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1;">
+      <img src="assets/images/background1.jpg" alt="背景图片" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1;" onerror="handleImageError(this)">
     </div>
     
     <div class="container-fluid">
@@ -269,7 +308,7 @@
               <div class="row align-items-center">
                 <div class="col-12 col-lg-4">
                   <div class="image-wrapper">
-                    <img src="assets/images/photo-1612487528505-d2338264c821.jpeg" alt="熙载咨询">
+                    <img src="assets/images/photo-1612487528505-d2338264c821.jpeg" alt="熙载咨询" onerror="handleImageError(this)">
                   </div>
                 </div>
                 <div class="col-12 col-lg-8">
