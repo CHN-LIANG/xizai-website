@@ -986,8 +986,8 @@
             </p>
             <p class="mbr-text mbr-fonts-style mb-3 display-7" style="color: #666;">${article.summary}</p>
             ${article.tags ? `
-              <div class="mb-3" style="display: flex; flex-wrap: wrap; gap: 0.25rem;">
-                ${article.tags.split(',').map(tag => `<span class="badge bg-primary" style="font-size: 0.75rem; padding: 0.25rem 0.5rem;">${tag.trim()}</span>`).join('')}
+              <div class="mb-3" style="display: flex; flex-wrap: wrap; gap: 0.25rem; max-width: 100%; overflow: hidden;">
+                ${article.tags.split(',').map(tag => `<span class="badge bg-primary" style="font-size: 0.75rem; padding: 0.25rem 0.5rem; flex-shrink: 0;">${tag.trim()}</span>`).join('')}
               </div>
             ` : ''}
             <div class="mbr-section-btn item-footer">
@@ -1048,9 +1048,9 @@
           <div class="container">
             <h1 class="display-4">${article.title}</h1>
             <div class="article-meta">
-              <p><strong>作者：</strong>${article.authorName}${article.authorTitle ? ' - ' + article.authorTitle : ''}</p>
-              <p><strong>发布时间：</strong>${publishDate}</p>
-              <p><strong>分类：</strong>${categoryName}</p>
+              <p style="color: #333 !important;"><strong>作者：</strong>${article.authorName}${article.authorTitle ? ' - ' + article.authorTitle : ''}</p>
+              <p style="color: #333 !important;"><strong>发布时间：</strong>${publishDate}</p>
+              <p style="color: #333 !important;"><strong>分类：</strong>${categoryName}</p>
             </div>
           </div>
         </div>
@@ -1062,9 +1062,11 @@
           </div>
           
           ${article.tags ? `
-            <div class="article-tags" style="display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center;">
-              <strong style="color: #333;">标签：</strong>
-              ${article.tags.split(',').map(tag => `<span class="tag" style="font-size: 0.85rem;">${tag.trim()}</span>`).join('')}
+            <div class="article-tags" style="display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; max-width: 100%; overflow: hidden;">
+              <strong style="color: #333; flex-shrink: 0;">标签：</strong>
+              <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; max-width: calc(100% - 50px);">
+                ${article.tags.split(',').map(tag => `<span class="tag" style="font-size: 0.85rem; flex-shrink: 0;">${tag.trim()}</span>`).join('')}
+              </div>
             </div>
           ` : ''}
           
