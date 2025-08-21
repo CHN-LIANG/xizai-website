@@ -10,32 +10,41 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     
     steps:
     - name: 检出代码
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       
     - name: 设置Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: '18'
         
-    - name: 安装依赖
-      run: |
-        npm install -g gh-pages
-        
     - name: 构建网站
       run: |
-        echo "网站构建完成"
+        echo "✅ 网站构建完成"
+        echo "📁 当前目录: $(pwd)"
+        echo "📄 文件列表:"
+        ls -la
+        
+    - name: 配置Pages
+      uses: actions/configure-pages@v4
+      
+    - name: 上传到Pages
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: '.'
         
     - name: 部署到GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: .
-        publish_branch: gh-pages
-        
+      id: deployment
+      uses: actions/deploy-pages@v4
+      
     - name: 部署完成通知
       run: |
         echo "✅ 文章已自动部署到GitHub Pages！"
-        echo "🌐 网站地址: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
+        echo "🌐 部署状态: ${{ steps.deployment.outcome }}"
+        echo "📅 部署时间: $(date)"
