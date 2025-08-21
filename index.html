@@ -228,47 +228,14 @@
       z-index: 1030 !important;
     }
     
-    /* 为全屏section添加适当的上边距，避免遮挡 - 使用更强的选择器 */
-    section.mbr-fullscreen,
-    .mbr-fullscreen,
-    section[class*="mbr-fullscreen"] {
-      padding-top: 88px !important;
-      margin-top: 0 !important;
+    /* 为全屏section添加适当的上边距，避免遮挡 */
+    .mbr-fullscreen {
+      padding-top: 80px !important;
     }
     
-    /* 为其他section添加适当的上边距，确保与页面色彩协调 */
-    section:not(.mbr-fullscreen) {
-      margin-top: 28px !important;
-    }
-    
-    /* 确保导航栏下方的内容不被遮挡，保持色彩连续性 */
-    .navbar + section {
-      margin-top: 0 !important;
-    }
-    
-    /* 优化页面整体布局协调性 */
+    /* 确保页面整体布局协调 */
     body {
       overflow-x: hidden;
-    }
-    
-    /* 确保section之间的过渡更加平滑 */
-    section {
-      position: relative;
-    }
-    
-    /* 优化第一个section的顶部间距，避免突兀感 */
-    section:first-of-type {
-      margin-top: 0 !important;
-    }
-    
-    /* 强制覆盖任何可能的padding-top冲突 */
-    section.mbr-fullscreen[style*="padding-top"] {
-      padding-top: 88px !important;
-    }
-    
-    /* 确保hero section有足够的顶部空间 */
-    #hero-16-uUmwyFE9FU {
-      padding-top: 88px !important;
     }
   </style>
   
@@ -315,7 +282,7 @@
     </nav>
   </section>
 
-  <section data-bs-version="5.1" class="header18 cid-uUmwyFE9FU mbr-fullscreen" id="hero-16-uUmwyFE9FU" style="padding-top: 88px !important;">
+  <section data-bs-version="5.1" class="header18 cid-uUmwyFE9FU mbr-fullscreen" id="hero-16-uUmwyFE9FU">
     <div class="mbr-overlay" style="opacity: 0.5; background-color: rgb(0, 0, 0);"></div>
     
     <!-- YouTube背景视频 -->
@@ -327,7 +294,7 @@
     
     <div class="container-fluid">
       <div class="row">
-        <div class="content-wrap col-12 col-md-12" style="margin-top: -44px;">
+        <div class="content-wrap col-12 col-md-12">
           <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-4 display-1">
             <strong>熙载咨询</strong>
           </h1>
