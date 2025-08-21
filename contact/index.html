@@ -1922,7 +1922,7 @@
   }
   
   // 保存文章
-  function saveArticle(articleData) {
+  async function saveArticle(articleData) {
     try {
       // 获取现有文章列表
       let articles = JSON.parse(localStorage.getItem('publishedArticles') || '[]');
@@ -1932,6 +1932,14 @@
       
       // 保存到本地存储
       localStorage.setItem('publishedArticles', JSON.stringify(articles));
+      
+      // 尝试更新JSON文件（需要服务器支持）
+      try {
+        await updateArticlesJsonFile(articles);
+        console.log('文章已同步到JSON文件');
+      } catch (error) {
+        console.log('JSON文件更新失败，仅保存到localStorage:', error);
+      }
       
       // 生成文章HTML文件
       generateArticlePage(articleData);
@@ -1958,6 +1966,30 @@
       const submitBtn = document.querySelector('#newsUploadForm button[type="submit"]');
       submitBtn.innerHTML = '📤 提交文章';
       submitBtn.disabled = false;
+    }
+  }
+  
+  // 更新JSON文件（需要服务器支持）
+  async function updateArticlesJsonFile(articles) {
+    try {
+      const response = await fetch('/api/update-articles', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          articles: articles,
+          lastUpdated: new Date().toISOString()
+        })
+      });
+      
+      if (!response.ok) {
+        throw new Error('服务器响应错误');
+      }
+      
+      return await response.json();
+    } catch (error) {
+      throw error;
     }
   }
   

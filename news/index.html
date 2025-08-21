@@ -926,10 +926,24 @@
     });
   });
   
-  // 加载文章
-  function loadArticles() {
+    // 加载文章
+  async function loadArticles() {
     try {
-      const articles = JSON.parse(localStorage.getItem('publishedArticles') || '[]');
+      // 优先从JSON文件加载，如果没有则从localStorage加载
+      let articles = [];
+      
+      try {
+        const response = await fetch('/data/articles.json');
+        if (response.ok) {
+          const data = await response.json();
+          articles = data.articles || [];
+          console.log('从JSON文件加载文章:', articles.length);
+        }
+      } catch (error) {
+        console.log('无法从JSON文件加载，使用localStorage:', error);
+        articles = JSON.parse(localStorage.getItem('publishedArticles') || '[]');
+      }
+      
       const container = document.getElementById('articles-container');
       
       if (articles.length === 0) {
@@ -954,7 +968,7 @@
           <div class="alert alert-danger" role="alert">
             <strong>❌ 加载文章失败</strong><br>
             <small>请刷新页面重试</small>
-          </div>
+            </div>
         </div>
       `;
     }
@@ -1000,9 +1014,22 @@
   }
   
   // 查看文章详情
-  function viewArticle(articleId) {
+  async function viewArticle(articleId) {
     try {
-      const articles = JSON.parse(localStorage.getItem('publishedArticles') || '[]');
+      let articles = [];
+      
+      // 优先从JSON文件加载
+      try {
+        const response = await fetch('/data/articles.json');
+        if (response.ok) {
+          const data = await response.json();
+          articles = data.articles || [];
+        }
+      } catch (error) {
+        // 如果JSON文件加载失败，使用localStorage
+        articles = JSON.parse(localStorage.getItem('publishedArticles') || '[]');
+      }
+      
       const article = articles.find(a => a.id === articleId);
       
       if (article) {
@@ -1013,6 +1040,8 @@
         const newWindow = window.open('', '_blank');
         newWindow.document.write(articleHtml);
         newWindow.document.close();
+      } else {
+        alert('文章不存在');
       }
     } catch (error) {
       console.error('查看文章失败:', error);
