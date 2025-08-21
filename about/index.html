@@ -54,6 +54,168 @@
       text-align: center;
       padding: 10px;
     }
+    
+    /* 专家团队页面美化样式 */
+    .people03 {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      padding: 4rem 0;
+    }
+    
+    .people03 .mbr-section-title {
+      color: #2c3e50;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+    
+    .people03 .mbr-section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 2px;
+    }
+    
+    .item-wrapper {
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      border: 1px solid #f0f0f0;
+      height: 100%;
+    }
+    
+    .item-wrapper:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+    
+    .item-img div {
+      border-radius: 20px 20px 0 0;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .item-img div::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+      pointer-events: none;
+    }
+    
+    .item-content {
+      padding: 2rem;
+      text-align: center;
+    }
+    
+    .item-title {
+      color: #2c3e50;
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+    
+    .item-subtitle {
+      color: #667eea;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .mbr-text {
+      color: #5a6c7d;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+    
+    .research-areas {
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      border-radius: 15px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      border-left: 4px solid #667eea;
+    }
+    
+    .research-areas h6 {
+      color: #2c3e50;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+    
+    .research-areas ul {
+      margin: 0;
+      padding: 0;
+    }
+    
+    .research-areas li {
+      color: #5a6c7d;
+      margin-bottom: 0.5rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #e9ecef;
+      transition: all 0.3s ease;
+    }
+    
+    .research-areas li:last-child {
+      border-bottom: none;
+    }
+    
+    .research-areas li:hover {
+      color: #667eea;
+      transform: translateX(5px);
+    }
+    
+    .mbr-section-btn .btn {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border: none;
+      border-radius: 25px;
+      padding: 0.8rem 2rem;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+    
+    .mbr-section-btn .btn:hover {
+      background: linear-gradient(135deg, #5a6fd8, #6a4190);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    }
+    
+    /* 响应式优化 */
+    @media (max-width: 768px) {
+      .people03 {
+        padding: 2rem 0;
+      }
+      
+      .item-content {
+        padding: 1.5rem;
+      }
+      
+      .research-areas {
+        padding: 1rem;
+      }
+      
+      .people03 .mbr-section-title {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+      }
+    }
   </style>
   
   <!-- 引入图片处理模块 -->
@@ -234,7 +396,7 @@
             </div>
             
             <div class="mbr-section-btn mt-4">
-              <a href="timeline.html" class="btn btn-primary display-7">查看详细履历</a>
+              <a href="timeline.html" class="btn btn-primary display-7">新闻动态</a>
             </div>
           </div>
         </div>

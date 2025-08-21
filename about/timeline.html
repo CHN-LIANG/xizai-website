@@ -5,8 +5,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
   <link rel="shortcut icon" href="../assets/images/photo-1704022810195-de7199db478c.jpeg" type="image/x-icon">
-  <meta name="description" content="梁大伟个人履历时间轴 - 熙载咨询首席咨询师的专业经历">
-  <title>梁大伟 · 个人履历时间轴 | 熙载咨询</title>
+  <meta name="description" content="梁大伟新闻动态 - 熙载咨询首席咨询师的最新动态与成就">
+  <title>梁大伟 · 新闻动态 | 熙载咨询</title>
   <link rel="stylesheet" href="../assets/web/assets/mobirise-icons2/mobirise2.css">
   <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap-grid.min.css">
@@ -20,65 +20,137 @@
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;700&display=swap&display=swap"></noscript>
   <link rel="preload" as="style" href="../assets/mobirise/css/mbr-additional.css?v=Z0vp81"><link rel="stylesheet" href="../assets/mobirise/css/mbr-additional.css?v=Z0vp81" type="text/css">
   <style>
+    body {
+      font-family: "Source Han Sans SC","Noto Sans SC","Microsoft YaHei","PingFang SC",Arial,sans-serif;
+      margin: 0;
+      background: #f4f6f9;
+      color: #333;
+    }
+    
     .timeline-year {
-      font-size: 1.5rem;
+      font-size: 22px;
       font-weight: bold;
-      margin-top: 3rem;
-      margin-bottom: 1.5rem;
+      margin: 40px 0 20px;
       border-left: 4px solid #007acc;
-      padding-left: 1rem;
+      padding-left: 10px;
       color: #007acc;
     }
+    
     .timeline-event {
       background: #fff;
-      border: 1px solid #eee;
-      border-radius: 8px;
-      padding: 1.5rem;
-      margin: 1rem 0;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      margin-bottom: 18px;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+      transition: transform .2s ease, box-shadow .2s ease;
     }
+    
     .timeline-event:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
     }
+    
     .timeline-date {
-      font-size: 0.9rem;
-      font-weight: bold;
-      color: #555;
-      margin-bottom: 0.5rem;
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 6px;
     }
+    
     .timeline-title {
-      font-size: 1.1rem;
-      margin: 0.5rem 0;
-      color: #222;
-      font-weight: 600;
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #005a99;
     }
+    
     .timeline-source {
-      font-size: 0.8rem;
+      font-size: 12px;
       color: #999;
-      margin-bottom: 0.8rem;
+      margin-bottom: 8px;
       font-style: italic;
     }
+    
     .timeline-summary {
-      font-size: 0.95rem;
-      line-height: 1.6;
+      font-size: 15px;
+      line-height: 1.7;
       color: #444;
-      margin: 0;
     }
+    
     .timeline-container {
-      max-width: 900px;
+      max-width: 1000px;
       margin: 0 auto;
+      padding: 0 20px;
     }
+    
     .back-btn {
       position: fixed;
       top: 100px;
       left: 20px;
       z-index: 1000;
     }
+    
+    .back-btn .btn {
+      background: linear-gradient(135deg, #007acc, #005a99);
+      border: none;
+      border-radius: 25px;
+      padding: 0.8rem 1.5rem;
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 122, 204, 0.3);
+    }
+    
+    .back-btn .btn:hover {
+      background: linear-gradient(135deg, #005a99, #004080);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 122, 204, 0.4);
+    }
+    
+    /* 页面整体美化 */
+    .article07 {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      padding: 4rem 0;
+    }
+    
+    .mbr-section-title {
+      color: #2c3e50;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+    
+    .mbr-section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(135deg, #007acc, #005a99);
+      border-radius: 2px;
+    }
+    
     @media (max-width: 768px) {
       .back-btn {
         position: static;
+        margin-bottom: 2rem;
+      }
+      
+      .timeline-container {
+        padding: 0 15px;
+      }
+      
+      .timeline-event {
+        padding: 15px;
+      }
+      
+      .timeline-title {
+        font-size: 16px;
+      }
+      
+      .mbr-section-title {
+        font-size: 2rem;
         margin-bottom: 2rem;
       }
     }
@@ -236,131 +308,149 @@
     <div class="row">
       <div class="content-wrap col-12 col-md-12">
         <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-4 display-1">
-          <strong>梁大伟 · 个人履历时间轴</strong>
+          <strong>梁大伟 · 新闻动态</strong>
         </h1>
-        <p class="mbr-fonts-style mbr-text mbr-white mb-4 display-7">专业经历与重要成就</p>
+        <p class="mbr-fonts-style mbr-text mbr-white mb-4 display-7">最新动态与重要成就</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 履历时间轴 -->
+<!-- 新闻动态时间轴 -->
 <section data-bs-version="5.1" class="article07 cid-uUmwyFFFfX" id="timeline-section">
   <div class="container">
     <div class="timeline-container">
       
+      <!-- 2024 -->
+      <div class="timeline-year">2024年</div>
+      <div class="timeline-event">
+        <div class="timeline-date">09月</div>
+        <div class="timeline-title">农业农村部计划财务司牵头 · 中国天然橡胶产业金融支持战略座谈会</div>
+        <div class="timeline-source">来源：农业农村部</div>
+        <div class="timeline-summary">牵头与农业农村部、农垦局、中国工商银行等单位座谈，聚焦天然橡胶产业的金融支持与政策协同。</div>
+      </div>
+
+      <!-- 2023 -->
       <div class="timeline-year">2023年</div>
       <div class="timeline-event">
-        <div class="timeline-date">2023-09-20</div>
-        <div class="timeline-title">中智智库产业会客厅第102期 · 预制菜产业发展沙龙</div>
-        <div class="timeline-source">来源：中智智库产业会客厅</div>
-        <div class="timeline-summary">在北京举办第102期活动，主题聚焦"预制菜产业发展"。中国农业科学院梁大伟受邀参会，与专家研讨产业链与人才培养。</div>
+        <div class="timeline-date">07月26日</div>
+        <div class="timeline-title">农业农村部主办"耕耘者振兴计划"全国示范培训班 · 贵州站</div>
+        <div class="timeline-source">来源：农业农村部</div>
+        <div class="timeline-summary">作为特邀老师，授课《合作社规范建设与品牌推广》，分享合作社发展与品牌案例。</div>
       </div>
       <div class="timeline-event">
-        <div class="timeline-date">2023-07-26</div>
-        <div class="timeline-title">"耕耘者振兴计划"贵州合作社示范社培训班</div>
-        <div class="timeline-source">来源：天眼新闻</div>
-        <div class="timeline-summary">贵州专题培训班在贵阳开班，中国农业科学院成果转化处处长梁大伟授课，分享合作社规范建设与品牌推广经验。</div>
+        <div class="timeline-date">09月20日</div>
+        <div class="timeline-title">国家级产业创新论坛 · 中智智库产业会客厅第102期 · 预制菜产业发展专题</div>
+        <div class="timeline-source">来源：中智智库</div>
+        <div class="timeline-summary">受邀分享食品产业链政策和人才培养方案。</div>
       </div>
 
+      <!-- 2022 -->
       <div class="timeline-year">2022年</div>
       <div class="timeline-event">
-        <div class="timeline-date">2022-07-01</div>
-        <div class="timeline-title">黔东南榕江非遗蓝染文创数字化发展</div>
+        <div class="timeline-date">07月01日</div>
+        <div class="timeline-title">黔东南文化产业数字化高峰论坛 · 榕江分会场</div>
         <div class="timeline-source">来源：榕江发布</div>
-        <div class="timeline-summary">榕江县携手太一数艺推动非遗文创数字化，梁大伟作为全国工商联农业商会经济部部长发言，指出数字媒介助力非遗品牌拓展，为乡村注入新活力。</div>
+        <div class="timeline-summary">应邀发言，探讨数字化技术助推传统产业发展。</div>
       </div>
       <div class="timeline-event">
-        <div class="timeline-date">2022-06</div>
-        <div class="timeline-title">青海"万企兴万村"专题讲课</div>
-        <div class="timeline-source">来源：地方报道</div>
-        <div class="timeline-summary">在青海万企兴万村活动中，梁大伟授课，围绕产业链帮扶与企业助力乡村振兴展开分享。</div>
+        <div class="timeline-date">06月</div>
+        <div class="timeline-title">青海省"万企兴万村"行动 · 区域产业发展专题讲座</div>
+        <div class="timeline-source">来源：青海日报</div>
+        <div class="timeline-summary">分享产业链帮扶与企业助力乡村振兴的经验。</div>
       </div>
       <div class="timeline-event">
-        <div class="timeline-date">2022-03-12</div>
-        <div class="timeline-title">乡村振兴重点帮扶县产业对接会</div>
-        <div class="timeline-source">来源：国务院扶贫办官网</div>
-        <div class="timeline-summary">作为中国扶贫志愿服务促进会副秘书长，发布《特色农业帮扶指南》，促成20家企业与重点帮扶县签约。</div>
+        <div class="timeline-date">03月12日</div>
+        <div class="timeline-title">全国乡村振兴战略合作对接大会 · 重点帮扶县专场</div>
+        <div class="timeline-source">来源：国务院扶贫办</div>
+        <div class="timeline-summary">发布《特色农业帮扶指南》，推动企业签约合作。</div>
       </div>
 
+      <!-- 2021 -->
       <div class="timeline-year">2021年</div>
       <div class="timeline-event">
-        <div class="timeline-date">2021-07-01</div>
-        <div class="timeline-title">"万企兴万村"行动全国推广启动</div>
-        <div class="timeline-source">来源：国务院扶贫办官网</div>
-        <div class="timeline-summary">参加全国推广启动仪式，倡导企业参与并推动重点项目落地。</div>
+        <div class="timeline-date">07月01日</div>
+        <div class="timeline-title">"万企兴万村"行动全国推广启动仪式</div>
+        <div class="timeline-source">来源：国务院扶贫办</div>
+        <div class="timeline-summary">推动政企合作与重点项目落地。</div>
       </div>
       <div class="timeline-event">
-        <div class="timeline-date">2021-06-18</div>
-        <div class="timeline-title">消费扶贫创新案例发布会</div>
+        <div class="timeline-date">06月18日</div>
+        <div class="timeline-title">国家消费扶贫创新案例发布会</div>
         <div class="timeline-source">来源：人民网</div>
-        <div class="timeline-summary">代表中扶公司介绍"扶贫产品溯源系统"，推动消费扶贫向品牌化、标准化发展。</div>
+        <div class="timeline-summary">分享"扶贫产品溯源系统"，推动消费扶贫品牌化与标准化。</div>
       </div>
 
+      <!-- 2019 -->
       <div class="timeline-year">2019年</div>
       <div class="timeline-event">
-        <div class="timeline-date">2019-11</div>
-        <div class="timeline-title">筹备中国消费扶贫联盟</div>
+        <div class="timeline-date">11月</div>
+        <div class="timeline-title">中国消费扶贫联盟筹备工作会议</div>
         <div class="timeline-source">来源：北京大学元培智库</div>
-        <div class="timeline-summary">筹备中国消费扶贫联盟，组织互联网企业参与，推动贫困地区农产品上行。</div>
+        <div class="timeline-summary">组织互联网企业参与，探索农产品上行新渠道。</div>
       </div>
       <div class="timeline-event">
-        <div class="timeline-date">2019-03</div>
-        <div class="timeline-title">国务院扶贫办消费扶贫专班</div>
-        <div class="timeline-source">来源：北京大学元培智库</div>
-        <div class="timeline-summary">担任成员，参与起草《关于深入开展消费扶贫》的政策材料。</div>
+        <div class="timeline-date">03月</div>
+        <div class="timeline-title">国务院消费扶贫政策研讨 · 专班工作会议</div>
+        <div class="timeline-source">来源：国务院扶贫办</div>
+        <div class="timeline-summary">参与起草《关于深入开展消费扶贫》的政策建议。</div>
       </div>
 
+      <!-- 2018 -->
       <div class="timeline-year">2018年</div>
       <div class="timeline-event">
-        <div class="timeline-date">2018-08-21</div>
-        <div class="timeline-title">渭源县电子商务公共服务中心调研</div>
+        <div class="timeline-date">08月21日</div>
+        <div class="timeline-title">电商与产业扶贫融合调研 · 渭源县专题座谈</div>
         <div class="timeline-source">来源：渭源电商</div>
-        <div class="timeline-summary">中扶公司调研组赴渭源县电商中心调研，考察组成员包括梁大伟（旅游扶贫事业部副总经理），重点关注电商与产业扶贫结合。</div>
+        <div class="timeline-summary">交流"电商+产业扶贫"的典型模式。</div>
       </div>
       <div class="timeline-event">
-        <div class="timeline-date">2018-08-05 ~ 08-08</div>
+        <div class="timeline-date">08月05日-08日</div>
         <div class="timeline-title">第四届中国北方自驾游发展高峰论坛</div>
         <div class="timeline-source">来源：时讯阅读</div>
-        <div class="timeline-summary">论坛主题为"旅游扶贫"，梁大伟作专题演讲《自驾游助力旅游扶贫驶入快车道》，提出推动旅游与扶贫融合。</div>
+        <div class="timeline-summary">作专题演讲《自驾游助力旅游扶贫驶入快车道》。</div>
       </div>
 
+      <!-- 2017 -->
       <div class="timeline-year">2017年</div>
       <div class="timeline-event">
-        <div class="timeline-date">2017-11-23</div>
-        <div class="timeline-title">农业产业化国家重点龙头企业培训</div>
+        <div class="timeline-date">11月23日</div>
+        <div class="timeline-title">全国农业产业化龙头企业培训大会</div>
         <div class="timeline-source">来源：农业农村部</div>
-        <div class="timeline-summary">作为农科院代表，梁大伟授课"农产品加工技术创新与产业升级"，展示多个省区案例。</div>
+        <div class="timeline-summary">授课《农产品加工技术创新与产业升级》。</div>
       </div>
       <div class="timeline-event">
-        <div class="timeline-date">2017-06-10</div>
-        <div class="timeline-title">麻类研究所扶贫项目调研</div>
+        <div class="timeline-date">06月10日</div>
+        <div class="timeline-title">"科技扶贫"调研活动 · 麻类研究所专场</div>
         <div class="timeline-source">来源：中国农业科学院</div>
-        <div class="timeline-summary">赴麻类研究所调研扶贫工作，提出"科技扶贫"路径。</div>
+        <div class="timeline-summary">探讨科技创新赋能扶贫的路径。</div>
       </div>
 
+      <!-- 2016 -->
       <div class="timeline-year">2016年</div>
       <div class="timeline-event">
-        <div class="timeline-date">2016-03-15</div>
-        <div class="timeline-title">扶贫开发公司年度会议</div>
+        <div class="timeline-date">03月15日</div>
+        <div class="timeline-title">全国扶贫开发企业社会责任交流大会</div>
         <div class="timeline-source">来源：中华工商时报</div>
-        <div class="timeline-summary">中扶公司总经理梁大伟总结扶贫经验，强调企业社会责任与扶贫结合。</div>
+        <div class="timeline-summary">分享扶贫经验，推动产业助力脱贫模式。</div>
       </div>
 
+      <!-- 2015 -->
       <div class="timeline-year">2015年</div>
       <div class="timeline-event">
-        <div class="timeline-date">2015-04-08</div>
-        <div class="timeline-title">武陵山片区扶贫工作座谈会</div>
+        <div class="timeline-date">04月08日</div>
+        <div class="timeline-title">武陵山片区扶贫工作跨省协作座谈会</div>
         <div class="timeline-source">来源：新华社</div>
-        <div class="timeline-summary">作为扶贫办项目官员，汇报区域产业帮扶成效，提出跨省协作建议。</div>
+        <div class="timeline-summary">汇报扶贫成效，提出跨省协作建议。</div>
       </div>
 
+      <!-- 2013 -->
       <div class="timeline-year">2013年</div>
       <div class="timeline-event">
-        <div class="timeline-date">2013-08-21</div>
-        <div class="timeline-title">贫困村创业致富带头人培训班</div>
+        <div class="timeline-date">08月21日</div>
+        <div class="timeline-title">贫困地区创业致富带头人培养计划 · 全国首期培训班</div>
         <div class="timeline-source">来源：中国扶贫杂志</div>
-        <div class="timeline-summary">在中扶公司任职期间，设计"合作社+技能培训+市场对接"模式，首期培训覆盖6省区200人。</div>
+        <div class="timeline-summary">推动"合作社+技能培训+市场对接"模式，覆盖6省区200人。</div>
       </div>
 
     </div>
