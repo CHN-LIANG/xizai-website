@@ -1550,6 +1550,43 @@
   </div>
 </section>
 
+<!-- 文章管理区域 -->
+<section data-bs-version="5.1" class="form5 cid-uUmwyFNH81" id="article-management" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 content-head">
+        <div class="mbr-section-head mb-5">
+          <h3 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
+            <strong>📚 文章管理</strong>
+          </h3>
+          <p class="mbr-text mbr-fonts-style align-center mt-3 display-7">管理已发布的文章，支持查看和删除操作</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row justify-content-center">
+      <div class="col-lg-10 mx-auto">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body p-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <h5 class="card-title mb-0">📋 文章列表</h5>
+              <button class="btn btn-outline-primary btn-sm" onclick="refreshArticleList()">
+                🔄 刷新列表
+              </button>
+            </div>
+            
+            <div id="articleListContainer">
+              <div class="text-center text-muted py-4">
+                <p>正在加载文章列表...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- 合作流程 -->
 <section data-bs-version="5.1" class="features12 cid-uUmwyFMs9n" id="features-12-uUmwyFMs9n">
   <div class="container">
@@ -2092,6 +2129,220 @@
     alert(instructions);
   }
   
+  // ===== 文章管理功能 =====
+  
+  // 刷新文章列表
+  function refreshArticleList() {
+    loadArticleList();
+  }
+  
+  // 加载文章列表
+  function loadArticleList() {
+    try {
+      const articles = JSON.parse(localStorage.getItem('publishedArticles') || '[]');
+      const container = document.getElementById('articleListContainer');
+      
+      if (!container) return;
+      
+      if (articles.length === 0) {
+        container.innerHTML = `
+          <div class="text-center text-muted py-4">
+            <p>📝 暂无已发布的文章</p>
+            <small>发布文章后将在这里显示</small>
+          </div>
+        `;
+        return;
+      }
+      
+      // 显示文章列表
+      container.innerHTML = articles.map(article => createArticleListItem(article)).join('');
+      
+    } catch (error) {
+      console.error('加载文章列表失败:', error);
+      document.getElementById('articleListContainer').innerHTML = `
+        <div class="text-center text-danger py-4">
+          <p>❌ 加载文章列表失败</p>
+          <small>请刷新页面重试</small>
+        </div>
+      `;
+    }
+  }
+  
+  // 创建文章列表项
+  function createArticleListItem(article) {
+    const publishDate = formatDate(article.publishDate);
+    const categoryName = getCategoryName(article.category);
+    
+    return `
+      <div class="article-item border rounded p-3 mb-3" style="background: white;">
+        <div class="row align-items-center">
+          <div class="col-md-8">
+            <h6 class="mb-2" style="color: #333;">${article.title}</h6>
+            <div class="d-flex flex-wrap gap-2 mb-2">
+              <span class="badge bg-primary" style="font-size: 0.75rem;">${categoryName}</span>
+              <span class="badge bg-secondary" style="font-size: 0.75rem;">${article.authorName}</span>
+              <span class="badge bg-info" style="font-size: 0.75rem;">${publishDate}</span>
+            </div>
+            <p class="text-muted mb-0" style="font-size: 0.9rem;">${article.summary}</p>
+          </div>
+          <div class="col-md-4 text-end">
+            <div class="btn-group" role="group">
+              <button class="btn btn-outline-primary btn-sm" onclick="viewArticle('${article.id}')" title="查看文章">
+                👁️ 查看
+              </button>
+              <button class="btn btn-outline-danger btn-sm" onclick="deleteArticle('${article.id}')" title="删除文章">
+                🗑️ 删除
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+  
+  // 查看文章
+  function viewArticle(articleId) {
+    try {
+      const articles = JSON.parse(localStorage.getItem('publishedArticles') || '[]');
+      const article = articles.find(a => a.id === articleId);
+      
+      if (article) {
+        // 创建文章详情页面
+        const articleHtml = createArticleDetailPage(article);
+        
+        // 在新窗口中打开
+        const newWindow = window.open('', '_blank');
+        newWindow.document.write(articleHtml);
+        newWindow.document.close();
+      } else {
+        alert('文章不存在');
+      }
+    } catch (error) {
+      console.error('查看文章失败:', error);
+      alert('查看文章失败，请重试');
+    }
+  }
+  
+  // 删除文章
+  function deleteArticle(articleId) {
+    try {
+      const articles = JSON.parse(localStorage.getItem('publishedArticles') || '[]');
+      const articleIndex = articles.findIndex(a => a.id === articleId);
+      
+      if (articleIndex === -1) {
+        alert('文章不存在');
+        return;
+      }
+      
+      const article = articles[articleIndex];
+      
+      // 确认删除
+      if (!confirm(`确定要删除文章"${article.title}"吗？\n\n此操作不可恢复！`)) {
+        return;
+      }
+      
+      // 删除文章
+      articles.splice(articleIndex, 1);
+      localStorage.setItem('publishedArticles', JSON.stringify(articles));
+      
+      // 更新最后修改时间
+      localStorage.setItem('articlesLastUpdated', new Date().toISOString());
+      
+      // 刷新列表
+      loadArticleList();
+      
+      // 显示成功消息
+      alert(`✅ 文章"${article.title}"已删除！`);
+      
+      // 尝试更新JSON文件
+      try {
+        updateArticlesJsonFile(articles);
+      } catch (error) {
+        console.log('JSON文件更新失败:', error);
+      }
+      
+    } catch (error) {
+      console.error('删除文章失败:', error);
+      alert('删除文章失败，请重试');
+    }
+  }
+  
+  // 创建文章详情页面
+  function createArticleDetailPage(article) {
+    const categoryName = getCategoryName(article.category);
+    const publishDate = formatDate(article.publishDate);
+    
+    return `
+      <!DOCTYPE html>
+      <html lang="zh-CN">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>${article.title} - 熙载咨询</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+          body { font-family: 'Inter Tight', sans-serif; line-height: 1.8; }
+          .article-header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 4rem 0; }
+          .article-content { max-width: 800px; margin: 0 auto; padding: 3rem 1rem; }
+          .article-meta { background: #f8f9fa; padding: 1rem; border-radius: 8px; margin: 2rem 0; color: #333; }
+          .article-tags { margin: 1rem 0; }
+          .tag { display: inline-block; background: #667eea; color: white; padding: 0.3rem 0.8rem; border-radius: 20px; margin: 0.2rem; font-size: 0.9rem; }
+          .back-btn { position: fixed; bottom: 2rem; right: 2rem; z-index: 1000; }
+        </style>
+      </head>
+      <body>
+        <div class="article-header">
+          <div class="container">
+            <h1 class="display-4">${article.title}</h1>
+            <div class="article-meta">
+              <p style="color: #333 !important;"><strong>作者：</strong>${article.authorName}${article.authorTitle ? ' - ' + article.authorTitle : ''}</p>
+              <p style="color: #333 !important;"><strong>发布时间：</strong>${publishDate}</p>
+              <p style="color: #333 !important;"><strong>分类：</strong>${categoryName}</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="article-content">
+          <div class="article-summary">
+            <h3 style="color: #333;">文章摘要</h3>
+            <p style="color: #666;">${article.summary}</p>
+          </div>
+          
+          ${article.tags ? `
+            <div class="article-tags" style="display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center;">
+              <strong style="color: #333;">标签：</strong>
+              ${article.tags.split(',').map(tag => `<span class="tag" style="font-size: 0.85rem;">${tag.trim()}</span>`).join('')}
+            </div>
+          ` : ''}
+          
+          <div class="article-body">
+            ${formatArticleContentForDisplay(article.content)}
+          </div>
+        </div>
+        
+        <a href="javascript:window.close()" class="btn btn-primary back-btn">← 关闭页面</a>
+      </body>
+      </html>
+    `;
+  }
+  
+  // 格式化文章内容用于HTML显示
+  function formatArticleContentForDisplay(content) {
+    if (!content) return '';
+    
+    // 按换行符分割内容
+    const paragraphs = content.split('\n').filter(p => p.trim());
+    
+    // 为每个段落添加HTML标签
+    return paragraphs.map((paragraph, index) => {
+      const trimmed = paragraph.trim();
+      if (trimmed) {
+        return `<p class="mb-3" style="text-indent: 2em; line-height: 1.8; color: #333;">${trimmed}</p>`;
+      }
+      return '';
+    }).join('');
+  }
+  
   // 生成文章HTML页面
   function generateArticlePage(articleData) {
     const articleHtml = `<!DOCTYPE html>
@@ -2276,6 +2527,8 @@
       if (hoursDiff < 24) {
         // 登录未过期，直接显示上传表单
         showUploadForm();
+        // 加载文章列表
+        loadArticleList();
       } else {
         // 登录已过期，清除状态
         logoutAccess();
@@ -2287,6 +2540,8 @@
   function showUploadForm() {
     document.getElementById('accessControl').style.display = 'none';
     document.getElementById('uploadForm').style.display = 'block';
+    // 加载文章列表
+    loadArticleList();
   }
   
   // 隐藏上传表单
