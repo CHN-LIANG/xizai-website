@@ -2103,9 +2103,13 @@
   
   // 验证访问权限
   function verifyAccess() {
+    console.log('verifyAccess函数被调用');
     const password = document.getElementById('accessPassword').value;
+    console.log('输入的密码:', password);
+    console.log('正确密码:', ACCESS_PASSWORD);
     
     if (password === ACCESS_PASSWORD) {
+      console.log('密码正确，显示上传表单');
       // 密码正确，显示上传表单
       showUploadForm();
       
@@ -2119,6 +2123,7 @@
       // 显示成功消息
       showAccessSuccessMessage();
     } else {
+      console.log('密码错误，显示错误消息');
       // 密码错误
       showAccessErrorMessage();
       document.getElementById('accessPassword').value = '';
@@ -2267,13 +2272,16 @@
   }
   
   function generateArticlePage(articleData) {
-    const articleHtml = '<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>' + articleData.title + ' - 熙载咨询</title><link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" href="../assets/theme/css/style.css"><style>body{font-family:"Inter Tight",sans-serif;line-height:1.8}.article-header{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:white;padding:4rem 0}.article-content{max-width:800px;margin:0 auto;padding:3rem 1rem}.article-meta{background:#f8f9fa;padding:1rem;border-radius:8px;margin:2rem 0}.article-tags{margin:1rem 0}.tag{display:inline-block;background:#667eea;color:white;padding:.3rem .8rem;border-radius:20px;margin:.2rem;font-size:.9rem}.back-btn{position:fixed;bottom:2rem;right:2rem;z-index:1000}</style></head><body><div class="article-header"><div class="container"><h1 class="display-4">' + articleData.title + '</h1><div class="article-meta"><p><strong>作者：</strong>' + articleData.authorName + (articleData.authorTitle ? ' - ' + articleData.authorTitle : '') + '</p><p><strong>发布时间：</strong>' + formatDate(articleData.publishDate) + '</p><p><strong>分类：</strong>' + getCategoryName(articleData.category) + '</p></div></div></div><div class="article-content"><div class="article-summary"><h3>文章摘要</h3><p>' + articleData.summary + '</p></div><div class="article-tags"><strong>标签：</strong>' + (articleData.tags ? articleData.tags.split(',').map(function(tag){return \'<span class="tag">\' + tag.trim() + \'</span>\';}).join(\'\') : \'\') + '</div><div class="article-body">' + articleData.content + '</div></div><a href="../news/index.html" class="btn btn-primary back-btn">← 返回文章列表</a></body></html>';
+    // 简化的文章生成功能
+    console.log('生成文章页面:', articleData.title);
     
-    const blob = new Blob([articleHtml], { type: 'text/html' });
+    // 创建简单的下载链接
+    const content = `文章标题: ${articleData.title}\n作者: ${articleData.authorName}\n内容: ${articleData.content}`;
+    const blob = new Blob([content], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = (articleData.title.replace(/[<>:"/\\|?*]/g, '_') || 'article') + '.html';
+    a.download = (articleData.title.replace(/[<>:"/\\|?*]/g, '_') || 'article') + '.txt';
     a.style.display = 'none';
     document.body.appendChild(a);
     a.click();
