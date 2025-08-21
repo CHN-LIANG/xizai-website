@@ -1,4 +1,4 @@
-name: 文章更新提醒
+name: 自动部署文章
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
   workflow_dispatch: # 允许手动触发
 
 jobs:
-  notify:
+  deploy:
     runs-on: ubuntu-latest
     
     steps:
@@ -26,19 +26,23 @@ jobs:
           exit 1
         fi
         
-    - name: 生成部署提醒
-      run: |
-        echo "📢 文章已更新，需要手动部署！"
-        echo "📋 部署步骤："
-        echo "1. 进入GitHub仓库Settings → Pages"
-        echo "2. 确保Source选择'Deploy from a branch'"
-        echo "3. 选择main分支，点击Save"
-        echo "4. 等待几分钟，网站将自动更新"
-        echo ""
-        echo "🌐 或者使用Vercel自动部署（推荐）"
+    - name: 配置Pages
+      uses: actions/configure-pages@v4
+      
+    - name: 上传到Pages
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: '.'
         
-    - name: 部署提醒完成
+    - name: 部署到GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
+      
+    - name: 部署完成通知
       run: |
-        echo "✅ 部署提醒已生成！"
-        echo "📅 时间: $(date)"
-        echo "💡 建议：考虑使用Vercel等第三方服务实现真正的自动部署"
+        echo "🎉 文章已自动部署到GitHub Pages！"
+        echo "🌐 部署状态: ${{ steps.deployment.outcome }}"
+        echo "📅 部署时间: $(date)"
+        echo "🔗 网站地址: ${{ steps.deployment.outputs.page_url }}"
+        echo ""
+        echo "✅ 现在其他设备也能看到你的文章了！"
