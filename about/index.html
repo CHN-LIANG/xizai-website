@@ -197,25 +197,50 @@
       box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
     }
     
-    /* 响应式优化 */
-    @media (max-width: 768px) {
-      .people03 {
-        padding: 2rem 0;
-      }
-      
-      .item-content {
-        padding: 1.5rem;
-      }
-      
-      .research-areas {
-        padding: 1rem;
-      }
-      
-      .people03 .mbr-section-title {
-        font-size: 2rem;
-        margin-bottom: 2rem;
-      }
-    }
+         /* 公司简介样式 */
+     .company-intro {
+       background: #ffffff;
+       border-radius: 15px;
+       padding: 2rem;
+       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+       border: 1px solid #f0f0f0;
+     }
+     
+     .company-intro .mbr-text {
+       color: #5a6c7d;
+       line-height: 1.8;
+       margin-bottom: 1.5rem;
+       font-size: 1rem;
+       text-align: justify;
+     }
+     
+     .company-intro .mbr-text:last-child {
+       margin-bottom: 0;
+     }
+     
+     /* 响应式优化 */
+     @media (max-width: 768px) {
+       .people03 {
+         padding: 2rem 0;
+       }
+       
+       .item-content {
+         padding: 1.5rem;
+       }
+       
+       .research-areas {
+         padding: 1rem;
+       }
+       
+       .people03 .mbr-section-title {
+         font-size: 2rem;
+         margin-bottom: 2rem;
+       }
+       
+       .company-intro {
+         padding: 1.5rem;
+       }
+     }
   </style>
   
   <!-- 引入图片处理模块 -->
@@ -285,28 +310,14 @@
 <section data-bs-version="5.1" class="article07 cid-uUmwyFFFfX" id="about-us-7-uUmwyFFFfX">
   <div class="container">
     <div class="row justify-content-center">
-      <div class="card col-md-12 col-lg-10">
-        <div class="card-wrapper">
-          <h3 class="card-title mbr-fonts-style mbr-white mt-3 mb-4 display-2">
-            <strong>公司简介</strong>
-          </h3>
-          <div class="row card-box align-left">
-            <div class="item features-without-image col-12">
-              <div class="item-wrapper">
-                <p class="mbr-text mbr-fonts-style display-7">熙载咨询是一家专注于政策研究、战略咨询和区域经济发展的专业咨询机构。我们致力于为地方政府和企业提供高质量的咨询服务，助力区域经济可持续发展。</p>
-              </div>
-            </div>
-            <div class="item features-without-image col-12">
-              <div class="item-wrapper">
-                <p class="mbr-text mbr-fonts-style display-7">我们的服务涵盖政策分析、产业规划、投资咨询、区域发展战略等多个领域，为客户的决策提供科学依据和可行方案。</p>
-              </div>
-            </div>
-            <div class="item features-without-image col-12">
-              <div class="item-wrapper">
-                <p class="mbr-text mbr-fonts-style display-7">自成立以来，我们已成功服务众多地方政府和企业客户，在业界建立了良好的声誉和口碑。</p>
-              </div>
-            </div>
-          </div>
+      <div class="col-md-12 col-lg-10">
+        <h3 class="mbr-section-title mbr-fonts-style align-center mb-4 display-2">
+          <strong>公司简介</strong>
+        </h3>
+        <div class="company-intro">
+          <p class="mbr-text mbr-fonts-style display-7">熙载咨询是一家专注于政策研究、战略咨询和区域经济发展的专业咨询机构。我们致力于为地方政府和企业提供高质量的咨询服务，助力区域经济可持续发展。</p>
+          <p class="mbr-text mbr-fonts-style display-7">我们的服务涵盖政策分析、产业规划、投资咨询、区域发展战略等多个领域，为客户的决策提供科学依据和可行方案。</p>
+          <p class="mbr-text mbr-fonts-style display-7">自成立以来，我们已成功服务众多地方政府和企业客户，在业界建立了良好的声誉和口碑。</p>
         </div>
       </div>
     </div>
