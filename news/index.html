@@ -975,7 +975,7 @@
             </div>
           </div>
           <div class="item-content align-left">
-            <h5 class="item-title mbr-fonts-style mb-2 mt-0 display-5">
+            <h5 class="item-title mbr-fonts-style mb-2 mt-0 display-5" style="color: #333;">
               <strong>${article.title}</strong>
             </h5>
             <p class="mbr-text mbr-fonts-style mb-2 display-7">
@@ -984,7 +984,7 @@
             <p class="mbr-text mbr-fonts-style mb-2 display-7">
               <small class="text-muted">👤 ${article.authorName}${article.authorTitle ? ' - ' + article.authorTitle : ''}</small>
             </p>
-            <p class="mbr-text mbr-fonts-style mb-3 display-7">${article.summary}</p>
+            <p class="mbr-text mbr-fonts-style mb-3 display-7" style="color: #666;">${article.summary}</p>
             ${article.tags ? `
               <div class="mb-3">
                 ${article.tags.split(',').map(tag => `<span class="badge bg-primary me-1">${tag.trim()}</span>`).join('')}
@@ -1057,8 +1057,8 @@
         
         <div class="article-content">
           <div class="article-summary">
-            <h3>文章摘要</h3>
-            <p>${article.summary}</p>
+            <h3 style="color: #333;">文章摘要</h3>
+            <p style="color: #666;">${article.summary}</p>
           </div>
           
           ${article.tags ? `
@@ -1069,7 +1069,7 @@
           ` : ''}
           
           <div class="article-body">
-            ${article.content}
+            ${formatArticleContentForDisplay(article.content)}
           </div>
         </div>
         
@@ -1099,6 +1099,23 @@
     if (!dateStr) return '未设置';
     const date = new Date(dateStr);
     return date.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' });
+  }
+  
+  // 格式化文章内容用于HTML显示
+  function formatArticleContentForDisplay(content) {
+    if (!content) return '';
+    
+    // 按换行符分割内容
+    const paragraphs = content.split('\n').filter(p => p.trim());
+    
+    // 为每个段落添加HTML标签
+    return paragraphs.map((paragraph, index) => {
+      const trimmed = paragraph.trim();
+      if (trimmed) {
+        return `<p class="mb-3" style="text-indent: 2em; line-height: 1.8; color: #333;">${trimmed}</p>`;
+      }
+      return '';
+    }).join('');
   }
 </script>
 

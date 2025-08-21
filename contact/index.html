@@ -1488,9 +1488,9 @@
           
           <div class="form-group mb-3">
             <label for="articleContent" class="form-label">文章内容 *</label>
-            <textarea id="articleContent" name="articleContent" class="form-control" rows="8" placeholder="请输入文章正文内容，支持HTML格式" required style="min-height: 200px; font-size: 16px;"></textarea>
+            <textarea id="articleContent" name="articleContent" class="form-control" rows="8" placeholder="请输入文章正文内容，每段之间请按回车键换行" required style="min-height: 200px; font-size: 16px;"></textarea>
             <div class="form-text">
-              <small>💡 支持HTML标签，如：&lt;strong&gt;粗体&lt;/strong&gt;、&lt;em&gt;斜体&lt;/em&gt;、&lt;br&gt;换行等</small>
+              <small>💡 段落排版提示：每按一次回车键会创建一个新段落，系统会自动为段落添加编号和格式</small>
             </div>
           </div>
           
@@ -2275,8 +2275,11 @@
     // 简化的文章生成功能
     console.log('生成文章页面:', articleData.title);
     
+    // 格式化文章内容，添加段落分隔
+    const formattedContent = formatArticleContent(articleData.content);
+    
     // 创建简单的下载链接
-    const content = `文章标题: ${articleData.title}\n作者: ${articleData.authorName}\n内容: ${articleData.content}`;
+    const content = `文章标题: ${articleData.title}\n作者: ${articleData.authorName}\n\n${formattedContent}`;
     const blob = new Blob([content], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -2287,6 +2290,23 @@
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+  }
+  
+  // 格式化文章内容，添加段落分隔
+  function formatArticleContent(content) {
+    if (!content) return '';
+    
+    // 按换行符分割内容
+    const paragraphs = content.split('\n').filter(p => p.trim());
+    
+    // 为每个段落添加编号和格式化
+    return paragraphs.map((paragraph, index) => {
+      const trimmed = paragraph.trim();
+      if (trimmed) {
+        return `第${index + 1}段：${trimmed}\n`;
+      }
+      return '';
+    }).join('\n');
   }
   
   function updateArticlesList() {
