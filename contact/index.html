@@ -1394,9 +1394,9 @@
       <div class="col-12 content-head">
         <div class="mbr-section-head mb-5">
           <h3 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
-            <strong>📝 新闻/文章上传</strong>
+            <strong>📝 发布文章</strong>
           </h3>
-          <p class="mbr-text mbr-fonts-style align-center mt-3 display-7">分享您的行业见解和最新资讯</p>
+          <p class="mbr-text mbr-fonts-style align-center mt-3 display-7">直接发布文章到行业资讯页面</p>
         </div>
       </div>
     </div>
@@ -1431,11 +1431,11 @@
       <div class="col-lg-10 mx-auto mbr-form">
         <form id="newsUploadForm" class="mbr-form form-with-styler">
           <div class="row">
-            <div class="col-12">
-              <div class="alert alert-info" role="alert">
-                <strong>💡 提示：</strong> 支持上传新闻、行业分析、政策解读等类型的内容，我们将审核后发布到网站。
-              </div>
+                      <div class="col-12">
+            <div class="alert alert-info" role="alert">
+              <strong>💡 提示：</strong> 支持发布新闻、行业分析、政策解读等类型的内容，文章将直接发布到行业资讯页面。
             </div>
+          </div>
           </div>
           
           <div class="row">
@@ -1534,7 +1534,7 @@
           <div class="row">
             <div class="col-12 align-center mbr-section-btn">
               <button type="submit" class="btn btn-success display-7 me-3" style="background: linear-gradient(135deg, #10b981, #059669);">
-                📤 提交文章
+                📤 发布文章
               </button>
               <button type="button" class="btn btn-outline-secondary display-7" onclick="resetNewsForm()">
                 🔄 重置表单
@@ -2066,7 +2066,7 @@
     const alertDiv = document.createElement('div');
     alertDiv.className = 'alert alert-success alert-dismissible fade show';
     alertDiv.innerHTML = `
-      <strong>✅ 提交成功！</strong> 您的文章已提交，我们将尽快审核并在3-5个工作日内通过邮箱通知您结果。
+      <strong>✅ 发布成功！</strong> 您的文章已直接发布到行业资讯页面，现在就可以查看了！
       <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     `;
     
@@ -2078,7 +2078,7 @@
       if (alertDiv.parentNode) {
         alertDiv.remove();
       }
-    }, 10000);
+    }, 8000);
   }
   
   // 重置新闻表单

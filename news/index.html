@@ -507,6 +507,43 @@
     section:first-of-type {
       padding-top: 88px !important;
     }
+    
+    /* 最新文章区域样式 */
+    #latest-articles .item-wrapper {
+      background: white !important;
+      border-radius: 16px !important;
+      padding: 2rem !important;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08) !important;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      border: 1px solid rgba(0, 0, 0, 0.04) !important;
+      height: 100% !important;
+    }
+    
+    #latest-articles .item-wrapper:hover {
+      transform: translateY(-8px) !important;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15) !important;
+      border-color: rgba(102, 126, 234, 0.2) !important;
+    }
+    
+    #latest-articles .item-img div {
+      transition: all 0.3s ease !important;
+    }
+    
+    #latest-articles .item-wrapper:hover .item-img div {
+      transform: scale(1.05) !important;
+    }
+    
+    #latest-articles .badge {
+      font-size: 0.75rem !important;
+      padding: 0.4rem 0.6rem !important;
+    }
+    
+    #latest-articles .alert {
+      border: none !important;
+      border-radius: 12px !important;
+      padding: 2rem !important;
+      font-size: 1rem !important;
+    }
   </style>
   
   <!-- 图片错误处理脚本 -->
@@ -745,6 +782,28 @@
   </div>
 </section>
 
+<!-- 最新文章 -->
+<section data-bs-version="5.1" class="features5 cid-uUmwyFFG6k" id="latest-articles">
+  <div class="container">
+    <div class="row mb-5 justify-content-center">
+      <div class="col-12 content-head">
+        <h3 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
+          <strong>📝 最新文章</strong>
+        </h3>
+        <p class="mbr-text mbr-fonts-style align-center mt-3 display-7">来自我们专业团队和合作伙伴的最新见解</p>
+      </div>
+    </div>
+    <div class="row" id="articles-container">
+      <!-- 文章将通过JavaScript动态加载 -->
+      <div class="col-12 text-center">
+        <div class="alert alert-info" role="alert">
+          <strong>💡 提示：</strong> 文章正在加载中...
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- 热门话题 -->
 <section data-bs-version="5.1" class="features5 cid-uUmwyFFG6k" id="features-22-uUmwyFFG6k">
   <div class="container">
@@ -854,6 +913,194 @@
 <script src="../assets/theme/js/scroll-fix.js"></script>
 <script src="../assets/theme/js/video-fix.js"></script>
 
+<script>
+  // 文章管理功能
+  document.addEventListener('DOMContentLoaded', function() {
+    loadArticles();
+    
+    // 监听文章更新
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'publishedArticles' || e.key === 'articlesLastUpdated') {
+        loadArticles();
+      }
+    });
+  });
+  
+  // 加载文章
+  function loadArticles() {
+    try {
+      const articles = JSON.parse(localStorage.getItem('publishedArticles') || '[]');
+      const container = document.getElementById('articles-container');
+      
+      if (articles.length === 0) {
+        container.innerHTML = `
+          <div class="col-12 text-center">
+            <div class="alert alert-info" role="alert">
+              <strong>📝 暂无文章</strong><br>
+              <small>文章提交后将在这里显示</small>
+            </div>
+          </div>
+        `;
+        return;
+      }
+      
+      // 显示文章
+      container.innerHTML = articles.map(article => createArticleCard(article)).join('');
+      
+    } catch (error) {
+      console.error('加载文章失败:', error);
+      document.getElementById('articles-container').innerHTML = `
+        <div class="col-12 text-center">
+          <div class="alert alert-danger" role="alert">
+            <strong>❌ 加载文章失败</strong><br>
+            <small>请刷新页面重试</small>
+          </div>
+        </div>
+      `;
+    }
+  }
+  
+  // 创建文章卡片
+  function createArticleCard(article) {
+    const categoryName = getCategoryName(article.category);
+    const publishDate = formatDate(article.publishDate);
+    
+    return `
+      <div class="item features-image col-12 col-md-6 col-lg-4 item-mb">
+        <div class="item-wrapper">
+          <div class="item-img mb-3">
+            <div style="width: 100%; height: 200px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; font-weight: bold; flex-direction: column;">
+              <div>${categoryName.charAt(0)}</div>
+              <div style="font-size: 0.8rem; margin-top: 0.5rem;">${categoryName}</div>
+            </div>
+          </div>
+          <div class="item-content align-left">
+            <h5 class="item-title mbr-fonts-style mb-2 mt-0 display-5">
+              <strong>${article.title}</strong>
+            </h5>
+            <p class="mbr-text mbr-fonts-style mb-2 display-7">
+              <small class="text-muted">📅 ${publishDate}</small>
+            </p>
+            <p class="mbr-text mbr-fonts-style mb-2 display-7">
+              <small class="text-muted">👤 ${article.authorName}${article.authorTitle ? ' - ' + article.authorTitle : ''}</small>
+            </p>
+            <p class="mbr-text mbr-fonts-style mb-3 display-7">${article.summary}</p>
+            ${article.tags ? `
+              <div class="mb-3">
+                ${article.tags.split(',').map(tag => `<span class="badge bg-primary me-1">${tag.trim()}</span>`).join('')}
+              </div>
+            ` : ''}
+            <div class="mbr-section-btn item-footer">
+              <button class="btn item-btn btn-primary display-7" onclick="viewArticle('${article.id}')">阅读全文</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+  
+  // 查看文章详情
+  function viewArticle(articleId) {
+    try {
+      const articles = JSON.parse(localStorage.getItem('publishedArticles') || '[]');
+      const article = articles.find(a => a.id === articleId);
+      
+      if (article) {
+        // 创建文章详情页面
+        const articleHtml = createArticleDetailPage(article);
+        
+        // 在新窗口中打开
+        const newWindow = window.open('', '_blank');
+        newWindow.document.write(articleHtml);
+        newWindow.document.close();
+      }
+    } catch (error) {
+      console.error('查看文章失败:', error);
+      alert('查看文章失败，请重试');
+    }
+  }
+  
+  // 创建文章详情页面
+  function createArticleDetailPage(article) {
+    const categoryName = getCategoryName(article.category);
+    const publishDate = formatDate(article.publishDate);
+    
+    return `
+      <!DOCTYPE html>
+      <html lang="zh-CN">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>${article.title} - 熙载咨询</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+          body { font-family: 'Inter Tight', sans-serif; line-height: 1.8; }
+          .article-header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 4rem 0; }
+          .article-content { max-width: 800px; margin: 0 auto; padding: 3rem 1rem; }
+          .article-meta { background: #f8f9fa; padding: 1rem; border-radius: 8px; margin: 2rem 0; }
+          .article-tags { margin: 1rem 0; }
+          .tag { display: inline-block; background: #667eea; color: white; padding: 0.3rem 0.8rem; border-radius: 20px; margin: 0.2rem; font-size: 0.9rem; }
+          .back-btn { position: fixed; bottom: 2rem; right: 2rem; z-index: 1000; }
+        </style>
+      </head>
+      <body>
+        <div class="article-header">
+          <div class="container">
+            <h1 class="display-4">${article.title}</h1>
+            <div class="article-meta">
+              <p><strong>作者：</strong>${article.authorName}${article.authorTitle ? ' - ' + article.authorTitle : ''}</p>
+              <p><strong>发布时间：</strong>${publishDate}</p>
+              <p><strong>分类：</strong>${categoryName}</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="article-content">
+          <div class="article-summary">
+            <h3>文章摘要</h3>
+            <p>${article.summary}</p>
+          </div>
+          
+          ${article.tags ? `
+            <div class="article-tags">
+              <strong>标签：</strong>
+              ${article.tags.split(',').map(tag => `<span class="tag">${tag.trim()}</span>`).join('')}
+            </div>
+          ` : ''}
+          
+          <div class="article-body">
+            ${article.content}
+          </div>
+        </div>
+        
+        <a href="javascript:window.close()" class="btn btn-primary back-btn">← 关闭页面</a>
+      </body>
+      </html>
+    `;
+  }
+  
+  // 获取分类名称
+  function getCategoryName(category) {
+    const categories = {
+      'policy-research': '政策研究',
+      'industry-analysis': '行业分析',
+      'regional-development': '区域发展',
+      'market-insights': '市场洞察',
+      'case-studies': '案例研究',
+      'expert-opinion': '专家观点',
+      'news': '行业新闻',
+      'other': '其他'
+    };
+    return categories[category] || category;
+  }
+  
+  // 格式化日期
+  function formatDate(dateStr) {
+    if (!dateStr) return '未设置';
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' });
+  }
+</script>
 
 </body>
 </html>
