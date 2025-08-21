@@ -2138,11 +2138,18 @@
   
   // 加载文章列表
   function loadArticleList() {
+    console.log('开始加载文章列表...');
     try {
       const articles = JSON.parse(localStorage.getItem('publishedArticles') || '[]');
       const container = document.getElementById('articleListContainer');
       
-      if (!container) return;
+      console.log('找到文章数量:', articles.length);
+      console.log('找到容器元素:', container);
+      
+      if (!container) {
+        console.error('找不到文章列表容器');
+        return;
+      }
       
       if (articles.length === 0) {
         container.innerHTML = `
