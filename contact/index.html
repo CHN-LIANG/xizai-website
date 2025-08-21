@@ -2269,69 +2269,7 @@
     }
   });
   
-  // 文章管理功能
-  function generateArticleId() {
-    return 'article_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-  }
-  
-  function saveArticle(articleData) {
-    try {
-      let articles = JSON.parse(localStorage.getItem('publishedArticles') || '[]');
-      articles.unshift(articleData);
-      localStorage.setItem('publishedArticles', JSON.stringify(articles));
-      generateArticlePage(articleData);
-      updateArticlesList();
-      console.log('文章保存成功:', articleData.title);
-    } catch (error) {
-      console.error('保存文章失败:', error);
-      throw error;
-    }
-  }
-  
-  function generateArticlePage(articleData) {
-    const articleHtml = '<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>' + articleData.title + ' - 熙载咨询</title><link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" href="../assets/theme/css/style.css"><style>body{font-family:"Inter Tight",sans-serif;line-height:1.8}.article-header{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:white;padding:4rem 0}.article-content{max-width:800px;margin:0 auto;padding:3rem 1rem}.article-meta{background:#f8f9fa;padding:1rem;border-radius:8px;margin:2rem 0}.article-tags{margin:1rem 0}.tag{display:inline-block;background:#667eea;color:white;padding:.3rem .8rem;border-radius:20px;margin:.2rem;font-size:.9rem}.back-btn{position:fixed;bottom:2rem;right:2rem;z-index:1000}</style></head><body><div class="article-header"><div class="container"><h1 class="display-4">' + articleData.title + '</h1><div class="article-meta"><p><strong>作者：</strong>' + articleData.authorName + (articleData.authorTitle ? ' - ' + articleData.authorTitle : '') + '</p><p><strong>发布时间：</strong>' + formatDate(articleData.publishDate) + '</p><p><strong>分类：</strong>' + getCategoryName(articleData.category) + '</p></div></div></div><div class="article-content"><div class="article-summary"><h3>文章摘要</h3><p>' + articleData.summary + '</p></div><div class="article-tags"><strong>标签：</strong>' + (articleData.tags ? articleData.tags.split(',').map(function(tag){return \'<span class="tag">\' + tag.trim() + \'</span>\';}).join(\'\') : \'\') + '</div><div class="article-body">' + articleData.content + '</div></div><a href="../news/index.html" class="btn btn-primary back-btn">← 返回文章列表</a></body></html>';
-    
-    const blob = new Blob([articleHtml], { type: 'text/html' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = (articleData.title.replace(/[<>:"/\\|?*]/g, '_') || 'article') + '.html';
-    a.style.display = 'none';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  }
-  
-  function updateArticlesList() {
-    try {
-      const articles = JSON.parse(localStorage.getItem('publishedArticles') || '[]');
-      localStorage.setItem('articlesLastUpdated', new Date().toISOString());
-      console.log('文章列表已更新，当前共有 ' + articles.length + ' 篇文章');
-    } catch (error) {
-      console.error('更新文章列表失败:', error);
-    }
-  }
-  
-  function formatDate(dateStr) {
-    if (!dateStr) return '未设置';
-    const date = new Date(dateStr);
-    return date.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' });
-  }
-  
-  function getCategoryName(category) {
-    const categories = {
-      'policy-research': '政策研究',
-      'industry-analysis': '行业分析',
-      'regional-development': '区域发展',
-      'market-insights': '市场洞察',
-      'case-studies': '案例研究',
-      'expert-opinion': '专家观点',
-      'news': '行业新闻',
-      'other': '其他'
-    };
-    return categories[category] || category;
-  }
+
 </script>
 
 </body>
