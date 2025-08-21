@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简单图片测试</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 20px; 
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .image-test { 
+            margin: 20px 0; 
+            padding: 20px; 
+            border: 1px solid #ddd; 
+            border-radius: 8px;
+            background: #fafafa;
+        }
+        .image-test img { 
+            max-width: 300px; 
+            margin: 10px; 
+            border: 2px solid #ddd;
+            border-radius: 5px;
+        }
+        .status { 
+            padding: 10px; 
+            margin: 10px 0; 
+            border-radius: 5px; 
+            font-weight: bold;
+        }
+        .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .loading { background-color: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        
+        .debug-info {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        
+        .controls {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🖼️ 图片加载测试页面</h1>
+        <p>这个页面用于测试图片加载功能和诊断问题。</p>
+        
+        <div class="controls">
+            <button class="btn" onclick="testAllImages()">测试所有图片</button>
+            <button class="btn" onclick="clearCache()">清除缓存</button>
+            <button class="btn" onclick="showDebugInfo()">显示调试信息</button>
+        </div>
+        
+        <div class="image-test">
+            <h3>测试1: Logo图片</h3>
+            <p>路径: <code>assets/images/photo-1704022810195-de7199db478c.jpeg</code></p>
+            <img src="assets/images/photo-1704022810195-de7199db478c.jpeg" alt="Logo测试" 
+                 onload="showStatus(this, 'success')" onerror="showStatus(this, 'error')">
+            <div id="status-1" class="status loading">⏳ 加载中...</div>
+        </div>
+
+        <div class="image-test">
+            <h3>测试2: 背景图片</h3>
+            <p>路径: <code>assets/images/background1.jpg</code></p>
+            <img src="assets/images/background1.jpg" alt="背景测试" 
+                 onload="showStatus(this, 'success')" onerror="showStatus(this, 'error')">
+            <div id="status-2" class="status loading">⏳ 加载中...</div>
+        </div>
+
+        <div class="image-test">
+            <h3>测试3: 团队成员图片</h3>
+            <p>路径: <code>assets/images/photo-1607556114526-058f5efdf49e.jpeg</code></p>
+            <img src="assets/images/photo-1607556114526-058f5efdf49e.jpeg" alt="团队成员测试" 
+                 onload="showStatus(this, 'success')" onerror="showStatus(this, 'error')">
+            <div id="status-3" class="status loading">⏳ 加载中...</div>
+        </div>
+
+        <div class="image-test">
+            <h3>测试4: 新闻图片</h3>
+            <p>路径: <code>assets/images/photo-1591623773385-fc25c8543a3d.jpeg</code></p>
+            <img src="assets/images/photo-1591623773385-fc25c8543a3d.jpeg" alt="新闻测试" 
+                 onload="showStatus(this, 'success')" onerror="showStatus(this, 'error')">
+            <div id="status-4" class="status loading">⏳ 加载中...</div>
+        </div>
+
+        <div class="debug-info" id="debug-info" style="display: none;">
+            <h4>调试信息</h4>
+            <div id="debug-content"></div>
+        </div>
+    </div>
+
+    <script src="assets/theme/js/image-handler.js"></script>
+    <script>
+        function showStatus(img, status) {
+            const imgIndex = img.parentNode.querySelector('h3').textContent.match(/\d+/)[0];
+            const statusDiv = document.getElementById(`status-${imgIndex}`);
+            
+            if (status === 'success') {
+                statusDiv.className = 'status success';
+                statusDiv.innerHTML = '✅ 图片加载成功';
+            } else if (status === 'error') {
+                statusDiv.className = 'status error';
+                statusDiv.innerHTML = '❌ 图片加载失败: ' + img.src;
+            }
+        }
+
+        function testAllImages() {
+            console.log('🧪 开始测试所有图片...');
+            const images = document.querySelectorAll('img');
+            images.forEach((img, index) => {
+                if (img.complete) {
+                    if (img.naturalWidth === 0) {
+                        showStatus(img, 'error');
+                    } else {
+                        showStatus(img, 'success');
+                    }
+                }
+            });
+        }
+
+        function clearCache() {
+            console.log('🗑️ 清除浏览器缓存...');
+            if ('caches' in window) {
+                caches.keys().then(names => {
+                    names.forEach(name => {
+                        caches.delete(name);
+                    });
+                    console.log('✅ 缓存已清除');
+                    location.reload();
+                });
+            } else {
+                console.log('⚠️ 浏览器不支持缓存API');
+                location.reload();
+            }
+        }
+
+        function showDebugInfo() {
+            const debugInfo = document.getElementById('debug-info');
+            const debugContent = document.getElementById('debug-content');
+            
+            if (debugInfo.style.display === 'none') {
+                debugInfo.style.display = 'block';
+                
+                // 收集调试信息
+                const info = {
+                    userAgent: navigator.userAgent,
+                    online: navigator.onLine,
+                    cookieEnabled: navigator.cookieEnabled,
+                    language: navigator.language,
+                    platform: navigator.platform,
+                    imageHandler: window.imageHandler ? '已加载' : '未加载',
+                    images: document.querySelectorAll('img').length,
+                    timestamp: new Date().toLocaleString()
+                };
+                
+                let html = '';
+                for (const [key, value] of Object.entries(info)) {
+                    html += `<div><strong>${key}:</strong> ${value}</div>`;
+                }
+                
+                debugContent.innerHTML = html;
+            } else {
+                debugInfo.style.display = 'none';
+            }
+        }
+
+        // 页面加载完成后自动测试
+        window.addEventListener('load', function() {
+            console.log('🚀 页面加载完成，开始自动测试...');
+            setTimeout(testAllImages, 1000);
+        });
+
+        // 检查图片处理脚本是否加载
+        window.addEventListener('load', function() {
+            if (window.imageHandler) {
+                console.log('✅ 图片处理脚本已加载');
+                // 5秒后生成报告
+                setTimeout(() => {
+                    if (window.imageHandler.generateReport) {
+                        window.imageHandler.generateReport();
+                    }
+                }, 5000);
+            } else {
+                console.error('❌ 图片处理脚本未加载');
+            }
+        });
+    </script>
+</body>
+</html>

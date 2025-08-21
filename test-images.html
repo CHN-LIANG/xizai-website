@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片加载测试</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .image-test { margin: 20px 0; padding: 20px; border: 1px solid #ccc; }
+        .image-test img { max-width: 300px; margin: 10px; }
+        .status { padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .success { background-color: #d4edda; color: #155724; }
+        .error { background-color: #f8d7da; color: #721c24; }
+        .loading { background-color: #d1ecf1; color: #0c5460; }
+    </style>
+</head>
+<body>
+    <h1>图片加载测试页面</h1>
+    
+    <div class="image-test">
+        <h3>测试1: Logo图片</h3>
+        <p>路径: assets/images/photo-1704022810195-de7199db478c.jpeg</p>
+        <img src="assets/images/photo-1704022810195-de7199db478c.jpeg" alt="Logo测试" onload="showStatus(this, 'success')" onerror="showStatus(this, 'error')">
+        <div id="status-1" class="status loading">加载中...</div>
+    </div>
+
+    <div class="image-test">
+        <h3>测试2: 背景图片</h3>
+        <p>路径: assets/images/background1.jpg</p>
+        <img src="assets/images/background1.jpg" alt="背景测试" onload="showStatus(this, 'success')" onerror="showStatus(this, 'error')">
+        <div id="status-2" class="status loading">加载中...</div>
+    </div>
+
+    <div class="image-test">
+        <h3>测试3: 团队成员图片</h3>
+        <p>路径: assets/images/photo-1607556114526-058f5efdf49e.jpeg</p>
+        <img src="assets/images/photo-1607556114526-058f5efdf49e.jpeg" alt="团队成员测试" onload="showStatus(this, 'success')" onerror="showStatus(this, 'error')">
+        <div id="status-3" class="status loading">加载中...</div>
+    </div>
+
+    <div class="image-test">
+        <h3>测试4: 新闻图片</h3>
+        <p>路径: assets/images/photo-1591623773385-fc25c8543a3d.jpeg</p>
+        <img src="assets/images/photo-1591623773385-fc25c8543a3d.jpeg" alt="新闻测试" onload="showStatus(this, 'success')" onerror="showStatus(this, 'error')">
+        <div id="status-4" class="status loading">加载中...</div>
+    </div>
+
+    <script src="debug-images.js"></script>
+    <script>
+        function showStatus(img, status) {
+            const imgIndex = img.parentNode.querySelector('h3').textContent.match(/\d+/)[0];
+            const statusDiv = document.getElementById(`status-${imgIndex}`);
+            
+            if (status === 'success') {
+                statusDiv.className = 'status success';
+                statusDiv.textContent = '✅ 图片加载成功';
+            } else if (status === 'error') {
+                statusDiv.className = 'status error';
+                statusDiv.textContent = '❌ 图片加载失败: ' + img.src;
+            }
+        }
+
+        // 检查图片加载状态
+        window.addEventListener('load', function() {
+            const images = document.querySelectorAll('img');
+            images.forEach((img, index) => {
+                if (img.complete) {
+                    if (img.naturalWidth === 0) {
+                        showStatus(img, 'error');
+                    } else {
+                        showStatus(img, 'success');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
