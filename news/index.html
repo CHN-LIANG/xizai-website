@@ -986,8 +986,8 @@
             </p>
             <p class="mbr-text mbr-fonts-style mb-3 display-7" style="color: #666;">${article.summary}</p>
             ${article.tags ? `
-              <div class="mb-3">
-                ${article.tags.split(',').map(tag => `<span class="badge bg-primary me-1">${tag.trim()}</span>`).join('')}
+              <div class="mb-3" style="display: flex; flex-wrap: wrap; gap: 0.25rem;">
+                ${article.tags.split(',').map(tag => `<span class="badge bg-primary" style="font-size: 0.75rem; padding: 0.25rem 0.5rem;">${tag.trim()}</span>`).join('')}
               </div>
             ` : ''}
             <div class="mbr-section-btn item-footer">
@@ -1037,7 +1037,7 @@
           body { font-family: 'Inter Tight', sans-serif; line-height: 1.8; }
           .article-header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 4rem 0; }
           .article-content { max-width: 800px; margin: 0 auto; padding: 3rem 1rem; }
-          .article-meta { background: #f8f9fa; padding: 1rem; border-radius: 8px; margin: 2rem 0; }
+          .article-meta { background: #f8f9fa; padding: 1rem; border-radius: 8px; margin: 2rem 0; color: #333; }
           .article-tags { margin: 1rem 0; }
           .tag { display: inline-block; background: #667eea; color: white; padding: 0.3rem 0.8rem; border-radius: 20px; margin: 0.2rem; font-size: 0.9rem; }
           .back-btn { position: fixed; bottom: 2rem; right: 2rem; z-index: 1000; }
@@ -1062,9 +1062,9 @@
           </div>
           
           ${article.tags ? `
-            <div class="article-tags">
-              <strong>标签：</strong>
-              ${article.tags.split(',').map(tag => `<span class="tag">${tag.trim()}</span>`).join('')}
+            <div class="article-tags" style="display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center;">
+              <strong style="color: #333;">标签：</strong>
+              ${article.tags.split(',').map(tag => `<span class="tag" style="font-size: 0.85rem;">${tag.trim()}</span>`).join('')}
             </div>
           ` : ''}
           
