@@ -115,13 +115,17 @@
   
   <!-- 解决固定导航栏遮挡内容的样式 -->
   <style>
+    /* 解决固定导航栏遮挡内容的问题 */
     .navbar-fixed-top {
       z-index: 1030 !important;
     }
     
-    /* 为全屏section添加适当的上边距，避免遮挡 */
-    .mbr-fullscreen {
+    /* 为全屏section添加适当的上边距，避免遮挡 - 使用更强的选择器 */
+    section.mbr-fullscreen,
+    .mbr-fullscreen,
+    section[class*="mbr-fullscreen"] {
       padding-top: 88px !important;
+      margin-top: 0 !important;
     }
     
     /* 为其他section添加适当的上边距，确保与页面色彩协调 */
@@ -147,6 +151,16 @@
     /* 优化第一个section的顶部间距，避免突兀感 */
     section:first-of-type {
       margin-top: 0 !important;
+    }
+    
+    /* 强制覆盖任何可能的padding-top冲突 */
+    section.mbr-fullscreen[style*="padding-top"] {
+      padding-top: 88px !important;
+    }
+    
+    /* 确保第一个section有足够的顶部空间 */
+    section:first-of-type {
+      padding-top: 88px !important;
     }
   </style>
 </head>
