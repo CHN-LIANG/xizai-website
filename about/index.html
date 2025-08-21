@@ -304,18 +304,30 @@
       }
     }
      
-     /* 解决固定导航栏遮挡内容的问题 */
-     .navbar-fixed-top {
-       z-index: 1030 !important;
-     }
-     
-     /* 为全屏section添加适当的上边距，避免遮挡 - 使用更强的选择器 */
-     section.mbr-fullscreen,
-     .mbr-fullscreen,
-     section[class*="mbr-fullscreen"] {
-       padding-top: 88px !important;
-       margin-top: 0 !important;
-     }
+           /* 统一页面背景颜色 */
+      body {
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
+        color: #1a202c !important;
+      }
+      
+      /* 统一section背景 */
+      section {
+        background: rgba(255, 255, 255, 0.95) !important;
+        backdrop-filter: blur(10px) !important;
+      }
+      
+      /* 解决固定导航栏遮挡内容的问题 */
+      .navbar-fixed-top {
+        z-index: 1030 !important;
+      }
+      
+      /* 为全屏section添加适当的上边距，避免遮挡 - 使用更强的选择器 */
+      section.mbr-fullscreen,
+      .mbr-fullscreen,
+      section[class*="mbr-fullscreen"] {
+        padding-top: 88px !important;
+        margin-top: 0 !important;
+      }
      
      /* 为其他section添加适当的上边距，确保与页面色彩协调 */
      section:not(.mbr-fullscreen) {
@@ -407,7 +419,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="content-wrap col-12 col-md-12" style="margin-top: -44px;">
-        <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-4 display-2">
+        <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-4 display-2" style="margin-top: 2rem;">
           <strong>关于熙载咨询</strong>
         </h1>
         <p class="mbr-fonts-style mbr-text mbr-white mb-4 display-7">专业政策研究与战略咨询，助力区域经济发展</p>
