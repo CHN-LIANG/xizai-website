@@ -55,27 +55,104 @@
       padding: 10px;
     }
     
-    /* 新闻卡片按钮对齐样式 */
+    /* 新闻卡片整体布局和视觉效果 */
+    .features-image .item {
+      height: 100% !important;
+      display: flex !important;
+      flex-direction: column !important;
+      margin-bottom: 2rem !important;
+    }
+    
     .item-wrapper {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
+      display: flex !important;
+      flex-direction: column !important;
+      height: 100% !important;
+      background: #ffffff !important;
+      border-radius: 15px !important;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+      overflow: hidden !important;
+      transition: all 0.3s ease !important;
+      border: 1px solid #f0f0f0 !important;
+    }
+    
+    .item-wrapper:hover {
+      transform: translateY(-5px) !important;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15) !important;
+    }
+    
+    .item-img {
+      margin-bottom: 0 !important;
+    }
+    
+    .item-img div {
+      border-radius: 15px 15px 0 0 !important;
+      margin: 0 !important;
     }
     
     .item-content {
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
+      display: flex !important;
+      flex-direction: column !important;
+      flex-grow: 1 !important;
+      padding: 1.5rem !important;
+      background: #ffffff !important;
+    }
+    
+    .item-title {
+      color: #2c3e50 !important;
+      margin-bottom: 0.75rem !important;
+      line-height: 1.3 !important;
+      font-size: 1.1rem !important;
+    }
+    
+    .item-content .mbr-text {
+      color: #7f8c8d !important;
+      margin-bottom: 0.5rem !important;
+      font-size: 0.9rem !important;
+    }
+    
+    .item-content .mbr-text:last-of-type {
+      color: #34495e !important;
+      line-height: 1.6 !important;
+      margin-bottom: 1.5rem !important;
+      flex-grow: 1 !important;
     }
     
     .item-footer {
-      margin-top: auto;
-      padding-top: 1rem;
+      margin-top: auto !important;
+      padding: 0 1.5rem 1.5rem 1.5rem !important;
+      background: #ffffff !important;
     }
     
     .item-btn {
-      width: 100%;
-      text-align: center;
+      width: 100% !important;
+      text-align: center !important;
+      background: linear-gradient(135deg, #667eea, #764ba2) !important;
+      border: none !important;
+      border-radius: 8px !important;
+      padding: 0.75rem 1.5rem !important;
+      font-weight: 600 !important;
+      transition: all 0.3s ease !important;
+    }
+    
+    .item-btn:hover {
+      background: linear-gradient(135deg, #5a6fd8, #6a4190) !important;
+      transform: translateY(-2px) !important;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4) !important;
+    }
+    
+    /* 响应式布局优化 */
+    @media (max-width: 768px) {
+      .features-image .item {
+        margin-bottom: 1.5rem !important;
+      }
+      
+      .item-content {
+        padding: 1rem !important;
+      }
+      
+      .item-footer {
+        padding: 0 1rem 1rem 1rem !important;
+      }
     }
   </style>
   
