@@ -158,6 +158,20 @@
         padding: 0 1rem 1rem 1rem !important;
       }
     }
+    
+    /* 解决固定导航栏遮挡内容的问题 */
+    body {
+      padding-top: 80px !important;
+    }
+    
+    .navbar-fixed-top {
+      z-index: 1030 !important;
+    }
+    
+    /* 确保第一个section不被遮挡 */
+    section:first-of-type {
+      margin-top: 0 !important;
+    }
   </style>
   
   <!-- 图片错误处理脚本 -->
