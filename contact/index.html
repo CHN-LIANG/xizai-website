@@ -1969,28 +1969,127 @@
     }
   }
   
-  // 更新JSON文件（需要服务器支持）
+  // 自动更新JSON文件并提交到Git
   async function updateArticlesJsonFile(articles) {
     try {
-      const response = await fetch('/api/update-articles', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          articles: articles,
-          lastUpdated: new Date().toISOString()
-        })
-      });
+      // 创建新的JSON数据
+      const jsonData = {
+        articles: articles,
+        lastUpdated: new Date().toISOString()
+      };
       
-      if (!response.ok) {
-        throw new Error('服务器响应错误');
+      // 尝试自动提交到Git（如果支持）
+      try {
+        await autoCommitToGit(jsonData);
+        showAutoDeploySuccess();
+        return { success: true, message: '文章已自动部署！' };
+      } catch (error) {
+        console.log('自动部署失败，使用手动方式:', error);
+        // 回退到手动方式
+        downloadJsonFile(jsonData);
+        showManualUpdateInstructions();
+        return { success: true, message: 'JSON文件已生成，请手动更新' };
       }
-      
-      return await response.json();
     } catch (error) {
       throw error;
     }
+  }
+  
+  // 自动提交到Git
+  async function autoCommitToGit(jsonData) {
+    try {
+      // 检查是否在GitHub环境中
+      if (typeof GitHub !== 'undefined') {
+        // 使用GitHub API自动提交
+        const response = await fetch('/api/git-commit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            content: JSON.stringify(jsonData, null, 2),
+            message: '自动更新文章列表'
+          })
+        });
+        
+        if (!response.ok) {
+          throw new Error('Git提交失败');
+        }
+        
+        return await response.json();
+      } else {
+        throw new Error('不在GitHub环境中');
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
+  
+  // 下载JSON文件
+  function downloadJsonFile(jsonData) {
+    const blob = new Blob([JSON.stringify(jsonData, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'articles.json';
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+  
+  // 显示自动部署成功消息
+  function showAutoDeploySuccess() {
+    const message = `
+      🎉 文章发布成功！
+      
+      ✅ 文章已自动保存
+      ✅ 已自动提交到Git
+      ✅ 正在自动部署到GitHub Pages
+      
+      🌐 几分钟后其他设备就能看到你的文章了！
+      
+      注意：首次部署可能需要5-10分钟
+    `;
+    
+    alert(message);
+  }
+  
+  // 显示手动更新说明
+  function showManualUpdateInstructions() {
+    const instructions = `
+      📝 文章发布成功！请按以下步骤完成发布：
+      
+      1. 下载的 articles.json 文件已保存到你的电脑
+      2. 将此文件复制到网站的 data/ 文件夹
+      3. 运行以下命令上传到服务器：
+         git add data/articles.json
+         git commit -m "更新文章列表"
+         git push origin main
+      
+      完成这些步骤后，其他设备就能看到你的文章了！
+    `;
+    
+    alert(instructions);
+  }
+  
+  // 显示更新说明
+  function showUpdateInstructions() {
+    const instructions = `
+      📝 文章发布成功！请按以下步骤完成发布：
+      
+      1. 下载的 articles.json 文件已保存到你的电脑
+      2. 将此文件复制到网站的 data/ 文件夹
+      3. 运行以下命令上传到服务器：
+         git add data/articles.json
+         git commit -m "更新文章列表"
+         git push origin main
+      
+      完成这些步骤后，其他设备就能看到你的文章了！
+    `;
+    
+    alert(instructions);
   }
   
   // 生成文章HTML页面

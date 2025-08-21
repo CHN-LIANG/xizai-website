@@ -1,0 +1,41 @@
+name: 自动部署文章
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'data/articles.json'
+  workflow_dispatch: # 允许手动触发
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 检出代码
+      uses: actions/checkout@v3
+      
+    - name: 设置Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        
+    - name: 安装依赖
+      run: |
+        npm install -g gh-pages
+        
+    - name: 构建网站
+      run: |
+        echo "网站构建完成"
+        
+    - name: 部署到GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: .
+        publish_branch: gh-pages
+        
+    - name: 部署完成通知
+      run: |
+        echo "✅ 文章已自动部署到GitHub Pages！"
+        echo "🌐 网站地址: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
