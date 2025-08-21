@@ -1,34 +1,48 @@
-name: 测试部署
+name: 自动部署文章
 
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'data/articles.json'
   workflow_dispatch: # 允许手动触发
 
 jobs:
-  test:
+  deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     
     steps:
     - name: 检出代码
       uses: actions/checkout@v4
       
-    - name: 显示文件列表
-      run: |
-        echo "📁 当前目录: $(pwd)"
-        echo "📄 文件列表:"
-        ls -la
-        
     - name: 检查文章文件
       run: |
         if [ -f "data/articles.json" ]; then
           echo "✅ 找到文章文件"
-          cat data/articles.json | head -5
+          echo "📄 文章数量: $(jq '.articles | length' data/articles.json)"
         else
           echo "❌ 文章文件不存在"
+          exit 1
         fi
         
-    - name: 测试完成
+    - name: 配置Pages
+      uses: actions/configure-pages@v4
+      
+    - name: 上传到Pages
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: '.'
+        
+    - name: 部署到GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
+      
+    - name: 部署完成通知
       run: |
-        echo "✅ 测试完成！"
-        echo "📅 时间: $(date)"
+        echo "✅ 文章已自动部署到GitHub Pages！"
+        echo "🌐 部署状态: ${{ steps.deployment.outcome }}"
+        echo "📅 部署时间: $(date)"
+        echo "🔗 网站地址: ${{ steps.deployment.outputs.page_url }}"
