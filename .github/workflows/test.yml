@@ -1,0 +1,26 @@
+name: 基础测试
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: # 允许手动触发
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 检出代码
+      uses: actions/checkout@v4
+      
+    - name: 显示基本信息
+      run: |
+        echo "✅ 工作流开始运行"
+        echo "📁 当前目录: $(pwd)"
+        echo "📄 文件列表:"
+        ls -la
+        
+    - name: 测试完成
+      run: |
+        echo "✅ 基础测试完成！"
+        echo "📅 时间: $(date)"
