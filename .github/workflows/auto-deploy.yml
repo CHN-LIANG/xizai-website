@@ -1,46 +1,53 @@
-name: 自动部署文章
+name: 构建并部署官网
 
 on:
   push:
-    branches: [ main ]
-  workflow_dispatch: # 允许手动触发
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-    
     steps:
-    - name: 检出代码
-      uses: actions/checkout@v4
-      
-    - name: 检查文章文件
-      run: |
-        if [ -f "data/articles.json" ]; then
-          echo "✅ 找到文章文件"
-          echo "📄 文章数量: $(jq '.articles | length' data/articles.json)"
-          echo "📝 最新文章: $(jq -r '.articles[0].title' data/articles.json)"
-        else
-          echo "❌ 文章文件不存在"
-          exit 1
-        fi
-        
-    - name: 配置Pages
-      uses: actions/configure-pages@v4
-      
-    - name: 上传到Pages
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: '.'
-        
-    - name: 部署到GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v4
-      
-    - name: 部署完成通知
-      run: |
-        echo "🎉 文章已自动部署到GitHub Pages！"
-        echo "🌐 部署状态: ${{ steps.deployment.outcome }}"
-        echo "📅 部署时间: $(date)"
-        echo "🔗 网站地址: ${{ steps.deployment.outputs.page_url }}"
-        echo ""
-        echo "✅ 现在其他设备也能看到你的文章了！"
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 配置 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: 安装依赖
+        run: npm ci
+
+      - name: 构建静态站点
+        run: npm run build
+
+      - name: 配置 GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: 上传构建产物
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: 部署到 GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
