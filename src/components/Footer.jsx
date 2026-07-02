@@ -1,4 +1,4 @@
-import { navItems } from '../data/siteData.js';
+import { navItems, publicEmailContacts, wechatAccount } from '../data/siteData.js';
 import TaiHexagramLogo from './TaiHexagramLogo.jsx';
 
 export default function Footer() {
@@ -25,9 +25,13 @@ export default function Footer() {
           ))}
         </div>
         <div className="footer__contact">
-          <span>所在城市：北京</span>
-          <span>联系电话：待补充</span>
-          <span>邮箱：待补充</span>
+          <span>总部所在地：北京</span>
+          <a href={`mailto:${publicEmailContacts[0].email}`}>{publicEmailContacts[0].email}</a>
+          <a href={`mailto:${publicEmailContacts[1].email}`}>{publicEmailContacts[1].email}</a>
+          <div className="footer__wechat">
+            <img src={wechatAccount.qrCode} alt={`${wechatAccount.name}微信公众号二维码`} />
+            <span>微信公众号：{wechatAccount.name}<br />微信搜一搜：{wechatAccount.name}</span>
+          </div>
         </div>
       </div>
       <div className="footer__bottom">

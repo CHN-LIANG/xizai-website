@@ -20,7 +20,7 @@ export default function Navbar() {
         <TaiHexagramLogo compact />
         <span>
           <strong>熙载咨询</strong>
-          <small>地天交泰，熙载百业</small>
+          <small>县域产业与企业服务</small>
         </span>
       </a>
 

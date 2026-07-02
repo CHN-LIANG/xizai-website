@@ -11,6 +11,7 @@ export default function BusinessCard({ service, index }) {
       </div>
       <h3>{service.title}</h3>
       <p>{service.summary}</p>
+      {service.fit && <p className="business-card__fit">{service.fit}</p>}
       <ul>
         {service.items.map((item) => (
           <li key={item}>{item}</li>

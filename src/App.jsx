@@ -10,13 +10,29 @@ import ComplianceCard from './components/ComplianceCard.jsx';
 import { businessServices, researchColumns } from './data/services.js';
 import { methods, networkNodes, partnerTypes, values } from './data/culture.js';
 import { complianceRules, financeDirections } from './data/finance.js';
+import { cooperationOptions, publicEmailContacts, wechatAccount } from './data/siteData.js';
 
 function App() {
   const [formStatus, setFormStatus] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setFormStatus('当前为静态官网版本，表单未连接后台。请在补充正式联系电话或邮箱后接入提交服务。');
+    const formData = new FormData(event.currentTarget);
+    const recipient = publicEmailContacts[0].email;
+    const subject = `官网合作意向 - ${formData.get('organization') || formData.get('name') || '未填写单位'}`;
+    const body = [
+      `姓名：${formData.get('name') || ''}`,
+      `单位名称：${formData.get('organization') || ''}`,
+      `联系电话：${formData.get('phone') || ''}`,
+      `联系邮箱：${formData.get('email') || ''}`,
+      `合作方向：${formData.get('direction') || ''}`,
+      '',
+      '需求说明：',
+      formData.get('message') || '',
+    ].join('\n');
+
+    window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    setFormStatus(`已为您生成邮件内容。如邮件客户端未自动打开，请直接发送至 ${recipient}。`);
   };
 
   return (
@@ -27,11 +43,8 @@ function App() {
           <div className="hero__texture" />
           <div className="container hero__grid">
             <Reveal className="hero__content">
-              <span className="eyebrow">熙载太和</span>
-              <h1>
-                <span>熙载咨询（北京）</span>
-                <span>有限公司</span>
-              </h1>
+              <span className="eyebrow">北京资源 · 县域产业 · 中小企业服务</span>
+              <h1>熙载咨询</h1>
               <p className="hero__subtitle">县域产业与中小企业发展服务机构</p>
               <p className="hero__text">
                 立足北京，连接协会、科研院所、专家、金融机构和产业服务资源，服务县域产业升级与中小企业成长。
@@ -49,8 +62,8 @@ function App() {
             <Reveal className="hero__symbol" delay={0.12}>
               <TaiHexagramMark size={180} color="rgba(255,253,248,0.9)" accent="#C8A46B" withCircle />
               <div>
-                <strong>地天交泰，熙载百业</strong>
-                <span>让北京资源下沉，让县域需求上达，让产业资源流动，让企业发展通达。</span>
+                <strong>地天交泰，百业通达</strong>
+                <span>上坤下乾，象征上下贯通、资源流动。用于表达咨询机构的组织、连接和落地能力。</span>
               </div>
             </Reveal>
           </div>
@@ -58,16 +71,16 @@ function App() {
 
         <section className="section intro" id="about">
           <div className="container intro__grid">
-            <SectionTitle eyebrow="关于熙载" title="承载光明，成就兴盛">
-              “熙”有光明、兴盛、和乐之意；“载”有承载、载物、成业之意。熙载咨询以坤厚之德承载企业成长，以专业服务助力事业兴盛。
+            <SectionTitle eyebrow="关于熙载" title="熙载咨询（北京）有限公司">
+              熙载咨询是一家立足北京、面向县域产业与中小企业发展服务的综合咨询机构，重视资源组织、方案协同、项目推进和合规边界。
             </SectionTitle>
             <div className="intro__panel">
-              <h3>熙载太和：地天交泰，熙载百业</h3>
+              <h3>文化理念：熙载太和</h3>
               <p>
                 “熙载”为地，为坤厚载物之德；“太和”为天，为乾元通达之道。二者合为《易经》地天泰之象，寓意上下贯通、资源流动、万物通达、百业兴盛。
               </p>
               <p>
-                公司以北京资源为枢纽，以县域产业和中小企业需求为服务入口，推动协会、科研、专家、金融、地方平台和企业资源进入具体项目场景。
+                熙载为地，太和为天；地天交泰，百业通达。公司以北京资源为枢纽，以县域产业和中小企业需求为服务入口，推动协会、科研、专家、金融、地方平台和企业资源进入具体项目场景。
               </p>
             </div>
           </div>
@@ -160,8 +173,8 @@ function App() {
 
         <section className="section section--warm" id="network">
           <div className="container">
-            <SectionTitle eyebrow="服务网络" title="北京总部为枢纽，省域办公室为节点，县域服务站为触点" align="center">
-              以北京总部组织资源，以项目办公室推进省域落地，以县域服务站贴近企业和项目现场。
+            <SectionTitle eyebrow="服务网络" title="北京资源枢纽、省域项目节点、县域服务触点、合作服务网络" align="center">
+              通过总部资源组织、省域项目推进、县域服务触点和合作伙伴网络，形成资源下沉与需求上达的双向通道。
             </SectionTitle>
             <div className="network">
               {networkNodes.map((node, index) => (
@@ -170,6 +183,11 @@ function App() {
                   <h3>{node.title}</h3>
                   <strong>{node.subtitle}</strong>
                   <p>{node.text}</p>
+                  <ul>
+                    {node.items.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
                 </Reveal>
               ))}
             </div>
@@ -222,18 +240,63 @@ function App() {
           </div>
         </section>
 
+        <section className="section home-cta">
+          <div className="container home-cta__grid">
+            <div>
+              <span className="eyebrow">合作入口</span>
+              <h2>欢迎通过邮箱或微信公众号交流合作</h2>
+              <p>
+                面向政府平台、协会、科研院所、园区、国企平台、农业产业企业和中小企业，熙载咨询提供克制、合规、可落地的产业服务协同。
+              </p>
+              <div className="hero__actions">
+                <a className="button button--primary" href="mailto:contact@xizai.asia">
+                  发送合作邮件
+                </a>
+                <a className="button button--ghost button--dark" href="#contact">
+                  查看联系渠道
+                </a>
+              </div>
+            </div>
+            <div className="wechat-card wechat-card--featured">
+              <img src={wechatAccount.qrCode} alt={`${wechatAccount.name}微信公众号二维码`} />
+              <div>
+                <strong>微信公众号</strong>
+                <span>{wechatAccount.name}</span>
+                <em>微信搜一搜：{wechatAccount.name}</em>
+                <p>扫码关注，后续将持续更新县域产业观察、中小企业服务研究与产业金融合规观察。</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section className="section contact" id="contact">
           <div className="container contact__grid">
             <div>
-              <SectionTitle eyebrow="联系我们" title="欢迎交流合作">
+              <SectionTitle eyebrow="联系我们" title="联系我们">
                 如您关注县域产业服务、中小企业成长、农业产业项目、企业信用评价、项目资源对接或产业金融咨询服务，欢迎与熙载咨询联系。
               </SectionTitle>
-              <div className="contact-card">
+              <div className="contact-card contact-card--company">
                 <strong>熙载咨询（北京）有限公司</strong>
-                <span>所在城市：北京</span>
-                <span>联系电话：待补充</span>
-                <span>邮箱：待补充</span>
+                <span>总部所在地：北京</span>
                 <span>合作方向：县域产业、中小企业服务、项目策划、资源对接、产业金融咨询</span>
+              </div>
+              <div className="email-grid">
+                {publicEmailContacts.map((contact) => (
+                  <a className="email-card" href={`mailto:${contact.email}`} key={contact.email}>
+                    <strong>{contact.label}</strong>
+                    <span>{contact.email}</span>
+                    <p>{contact.text}</p>
+                  </a>
+                ))}
+              </div>
+              <div className="wechat-card">
+                <img src={wechatAccount.qrCode} alt={`${wechatAccount.name}微信公众号二维码`} />
+                <div>
+                  <strong>微信公众号</strong>
+                  <span>{wechatAccount.name}</span>
+                  <em>微信搜一搜：{wechatAccount.name}</em>
+                  <p>如二维码暂不可用，可在微信内搜索“{wechatAccount.name}”。</p>
+                </div>
               </div>
             </div>
             <form className="contact-form" onSubmit={handleSubmit}>
@@ -242,20 +305,38 @@ function App() {
                 <input name="name" placeholder="请输入姓名" required />
               </label>
               <label>
-                单位
+                单位名称
                 <input name="organization" placeholder="请输入单位名称" required />
               </label>
               <label>
-                电话
+                联系电话
                 <input name="phone" placeholder="请输入联系电话" required />
               </label>
               <label>
-                合作需求
+                联系邮箱
+                <input name="email" type="email" placeholder="请输入联系邮箱" required />
+              </label>
+              <label>
+                合作方向
+                <select name="direction" required defaultValue="">
+                  <option value="" disabled>
+                    请选择合作方向
+                  </option>
+                  {cooperationOptions.map((option) => (
+                    <option value={option} key={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label>
+                需求说明
                 <textarea name="message" placeholder="请简要说明合作方向或项目需求" rows="5" required />
               </label>
               <button className="button button--primary" type="submit">
-                提交合作意向
+                通过邮箱发送合作意向
               </button>
+              <p className="form-note">当前官网不保存表单内容，提交后将调用您的邮件客户端发送至 contact@xizai.asia。</p>
               {formStatus && <p className="form-status">{formStatus}</p>}
             </form>
           </div>
