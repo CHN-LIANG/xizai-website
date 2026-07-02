@@ -919,16 +919,36 @@ svg {
 }
 
 .insight-grid article {
-  min-height: 218px;
+  display: flex;
+  min-height: 100%;
+}
+
+.insight-card {
+  display: flex;
+  width: 100%;
+  min-height: 318px;
+  flex-direction: column;
   padding: 26px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--white);
   box-shadow: 0 12px 30px rgba(13, 27, 42, 0.06);
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
 }
 
-.insight-grid span {
+.insight-card:hover {
+  border-color: rgba(200, 164, 107, 0.48);
+  box-shadow: 0 18px 42px rgba(13, 27, 42, 0.1);
+  transform: translateY(-3px);
+}
+
+.insight-card span,
+.insight-detail__category {
   display: inline-flex;
+  width: fit-content;
   margin-bottom: 18px;
   padding: 6px 10px;
   border: 1px solid rgba(200, 164, 107, 0.32);
@@ -940,16 +960,155 @@ svg {
   font-weight: 700;
 }
 
-.insight-grid h3 {
+.insight-card h3 {
   margin: 0 0 12px;
   font-size: 1.25rem;
+  line-height: 1.42;
 }
 
-.insight-grid p {
+.insight-card p {
   margin: 0;
   color: var(--gray);
   font-family: "Microsoft YaHei", system-ui, sans-serif;
   line-height: 1.78;
+}
+
+.insight-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 22px;
+  color: rgba(13, 27, 42, 0.5);
+  font-family: "Microsoft YaHei", system-ui, sans-serif;
+}
+
+.insight-card strong {
+  display: inline-flex;
+  width: fit-content;
+  margin-top: 14px;
+  color: var(--teal);
+  font-family: "Microsoft YaHei", system-ui, sans-serif;
+  font-size: 0.95rem;
+}
+
+.insight-detail {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: clamp(26px, 4vw, 46px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--white);
+  box-shadow: 0 18px 48px rgba(13, 27, 42, 0.1);
+}
+
+.insight-back {
+  display: inline-flex;
+  margin-bottom: 26px;
+  color: var(--teal);
+  font-family: "Microsoft YaHei", system-ui, sans-serif;
+  font-weight: 800;
+}
+
+.insight-detail h3 {
+  max-width: 860px;
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(1.8rem, 3vw, 2.55rem);
+  line-height: 1.26;
+}
+
+.insight-detail__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+  color: var(--gray);
+  font-family: "Microsoft YaHei", system-ui, sans-serif;
+}
+
+.insight-detail__meta span + span::before {
+  margin-right: 10px;
+  content: "/";
+  color: rgba(13, 27, 42, 0.28);
+}
+
+.insight-detail__lead {
+  margin: 24px 0 0;
+  padding: 20px 22px;
+  border-left: 4px solid var(--gold);
+  border-radius: var(--radius);
+  color: var(--ink-soft);
+  background: rgba(247, 244, 236, 0.78);
+  font-family: "Microsoft YaHei", system-ui, sans-serif;
+  font-size: 1.08rem;
+  line-height: 1.85;
+}
+
+.insight-detail__body {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 28px;
+  margin-top: 30px;
+}
+
+.insight-detail__body h4 {
+  margin: 0 0 14px;
+  color: var(--teal);
+  font-size: 1.18rem;
+}
+
+.insight-detail__body ul {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding-left: 18px;
+  color: var(--gray);
+  font-family: "Microsoft YaHei", system-ui, sans-serif;
+  line-height: 1.8;
+}
+
+.insight-detail__body p {
+  margin: 0;
+  color: var(--gray);
+  font-family: "Microsoft YaHei", system-ui, sans-serif;
+  line-height: 1.9;
+}
+
+.insight-detail__body p + p {
+  margin-top: 14px;
+}
+
+.insight-detail__source {
+  display: grid;
+  gap: 8px;
+  margin-top: 30px;
+  padding: 20px;
+  border: 1px solid rgba(15, 91, 83, 0.14);
+  border-radius: var(--radius);
+  background: rgba(15, 91, 83, 0.05);
+  font-family: "Microsoft YaHei", system-ui, sans-serif;
+}
+
+.insight-detail__source span {
+  color: var(--teal);
+  font-weight: 800;
+}
+
+.insight-detail__source a {
+  color: var(--ink);
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.insight-detail__source a:hover {
+  color: var(--teal);
+}
+
+.insight-detail__source p {
+  margin: 0;
+  color: var(--gray);
+  line-height: 1.7;
 }
 
 .home-cta {
@@ -1415,7 +1574,8 @@ svg {
   .method-card,
   .finance-cards article,
   .compliance-card,
-  .insight-grid article,
+  .insight-card,
+  .insight-detail,
   .network article,
   .email-card,
   .wechat-card,
@@ -1426,6 +1586,10 @@ svg {
   .wechat-card {
     display: grid;
     justify-items: start;
+  }
+
+  .insight-detail__body {
+    grid-template-columns: 1fr;
   }
 
   .footer__bottom {

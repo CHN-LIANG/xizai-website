@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Navbar from './components/Navbar.jsx';
 import Footer from './components/Footer.jsx';
 import SectionTitle from './components/SectionTitle.jsx';
@@ -7,13 +7,42 @@ import MethodCard from './components/MethodCard.jsx';
 import TaiHexagramMark from './components/TaiHexagramMark.jsx';
 import Reveal from './components/Reveal.jsx';
 import ComplianceCard from './components/ComplianceCard.jsx';
-import { businessServices, researchColumns } from './data/services.js';
+import { businessServices } from './data/services.js';
 import { methods, networkNodes, partnerTypes, values } from './data/culture.js';
 import { complianceRules, financeDirections } from './data/finance.js';
+import { insightArticles } from './data/insights.js';
 import { cooperationOptions, publicEmailContacts, wechatAccount } from './data/siteData.js';
+
+const getInsightSlugFromHash = () => {
+  if (typeof window === 'undefined') {
+    return '';
+  }
+
+  const prefix = '#insights/';
+  return window.location.hash.startsWith(prefix) ? decodeURIComponent(window.location.hash.slice(prefix.length)) : '';
+};
 
 function App() {
   const [formStatus, setFormStatus] = useState('');
+  const [activeInsightSlug, setActiveInsightSlug] = useState(getInsightSlugFromHash);
+  const activeInsight = insightArticles.find((article) => article.slug === activeInsightSlug);
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      const nextSlug = getInsightSlugFromHash();
+      setActiveInsightSlug(nextSlug);
+
+      if (nextSlug) {
+        window.requestAnimationFrame(() => {
+          document.getElementById('insights')?.scrollIntoView({ block: 'start' });
+        });
+      }
+    };
+
+    handleHashChange();
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -225,18 +254,63 @@ function App() {
 
         <section className="section insights section--warm" id="insights">
           <div className="container">
-            <SectionTitle eyebrow="研究洞察" title="聚焦县域产业、中小企业服务与合规产业金融" align="center">
-              不伪造新闻，不堆砌空泛观点。研究栏目将围绕真实服务场景持续沉淀。
+            <SectionTitle eyebrow="研究洞察" title="公开行业新闻与熙载观察" align="center">
+              选取与县域产业、中小企业服务、企业信用和合规产业金融相关的公开权威信息，做摘要、要点和服务启示，不转载全文。
             </SectionTitle>
-            <div className="insight-grid">
-              {researchColumns.map((column, index) => (
-                <Reveal as="article" delay={index * 0.06} key={column.title}>
-                  <span>{column.status}</span>
-                  <h3>{column.title}</h3>
-                  <p>{column.text}</p>
-                </Reveal>
-              ))}
-            </div>
+            {activeInsight ? (
+              <Reveal as="article" className="insight-detail" key={activeInsight.slug}>
+                <a className="insight-back" href="#insights" onClick={() => setActiveInsightSlug('')}>
+                  返回研究洞察
+                </a>
+                <span className="insight-detail__category">{activeInsight.category}</span>
+                <h3>{activeInsight.title}</h3>
+                <div className="insight-detail__meta">
+                  <span>{activeInsight.date}</span>
+                  <span>{activeInsight.sourceName}</span>
+                </div>
+                <p className="insight-detail__lead">{activeInsight.summary}</p>
+                <div className="insight-detail__body">
+                  <div>
+                    <h4>行业要点</h4>
+                    <ul>
+                      {activeInsight.keyPoints.map((point) => (
+                        <li key={point}>{point}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <h4>熙载观察</h4>
+                    {activeInsight.xizaiView.map((paragraph) => (
+                      <p key={paragraph}>{paragraph}</p>
+                    ))}
+                  </div>
+                </div>
+                <div className="insight-detail__source">
+                  <span>公开来源</span>
+                  <a href={activeInsight.sourceUrl} target="_blank" rel="noreferrer">
+                    查看原文：{activeInsight.sourceName}
+                  </a>
+                  <p>本站仅作公开信息摘要与行业观察，不构成政策承诺、融资承诺或法律意见。</p>
+                </div>
+              </Reveal>
+            ) : (
+              <div className="insight-grid">
+                {insightArticles.map((article, index) => (
+                  <Reveal as="article" delay={Math.min(index * 0.04, 0.18)} key={article.slug}>
+                    <a className="insight-card" href={`#insights/${article.slug}`}>
+                      <span>{article.category}</span>
+                      <h3>{article.title}</h3>
+                      <p>{article.summary}</p>
+                      <div className="insight-card__meta">
+                        <small>{article.date}</small>
+                        <small>{article.sourceName}</small>
+                      </div>
+                      <strong>阅读详情</strong>
+                    </a>
+                  </Reveal>
+                ))}
+              </div>
+            )}
           </div>
         </section>
 
