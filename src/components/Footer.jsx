@@ -14,7 +14,7 @@ export default function Footer() {
             </div>
           </div>
           <p>
-            以北京资源，服务县域产业与中小企业成长。守正合规，明势聚源，助企成事。
+            以专业资源协同，服务县域产业与中小企业成长。守正合规，明势聚源，助企成事。
           </p>
         </div>
         <div className="footer__links">

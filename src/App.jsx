@@ -72,11 +72,11 @@ function App() {
           <div className="hero__texture" />
           <div className="container hero__grid">
             <Reveal className="hero__content">
-              <span className="eyebrow">北京资源 · 县域产业 · 中小企业服务</span>
+              <span className="eyebrow">专业资源协同 · 县域产业 · 中小企业服务</span>
               <h1>熙载咨询</h1>
               <p className="hero__subtitle">县域产业与中小企业发展服务机构</p>
               <p className="hero__text">
-                立足北京，连接协会、科研院所、专家、金融机构和产业服务资源，服务县域产业升级与中小企业成长。
+                依托首都专业资源，连接协会、科研院所、专家、金融机构和产业服务平台，服务县域产业升级与中小企业成长。
               </p>
               <div className="hero__actions">
                 <a className="button button--primary" href="#services">
@@ -101,7 +101,7 @@ function App() {
         <section className="section intro" id="about">
           <div className="container intro__grid">
             <SectionTitle eyebrow="关于熙载" title="熙载咨询（北京）有限公司">
-              熙载咨询是一家立足北京、面向县域产业与中小企业发展服务的综合咨询机构，重视资源组织、方案协同、项目推进和合规边界。
+              熙载咨询是一家面向县域产业与中小企业发展服务的综合咨询机构，重视资源协同、方案组织、项目推进和合规边界。
             </SectionTitle>
             <div className="intro__panel">
               <h3>文化理念：熙载太和</h3>
@@ -109,7 +109,7 @@ function App() {
                 “熙载”为地，为坤厚载物之德；“太和”为天，为乾元通达之道。二者合为《易经》地天泰之象，寓意上下贯通、资源流动、万物通达、百业兴盛。
               </p>
               <p>
-                熙载为地，太和为天；地天交泰，百业通达。公司以北京资源为枢纽，以县域产业和中小企业需求为服务入口，推动协会、科研、专家、金融、地方平台和企业资源进入具体项目场景。
+                熙载为地，太和为天；地天交泰，百业通达。公司以专业资源协同为支撑，以县域产业和中小企业需求为服务入口，推动协会、科研、专家、金融、地方平台和企业资源进入具体项目场景。
               </p>
             </div>
           </div>
@@ -117,7 +117,7 @@ function App() {
           <div className="container culture-grid">
             <article>
               <span>使命</span>
-              <p>以北京资源，服务县域产业与中小企业成长。</p>
+              <p>以专业资源协同，服务县域产业与中小企业成长。</p>
             </article>
             <article>
               <span>愿景</span>
@@ -148,19 +148,19 @@ function App() {
         <section className="section finance" id="finance">
           <div className="container finance__grid">
             <div>
-              <SectionTitle eyebrow="产业金融" title="产业金融咨询与结构化融资组织服务">
-                熙载咨询定位为实体产业与金融资源之间的翻译者、组织者和方案协同者。以产业为根，以信用为桥，以资产为底，以合规为界。
+              <SectionTitle eyebrow="产业金融" title="产业金融咨询与融资方案协同服务">
+                熙载咨询定位为实体产业与金融机构之间的翻译者、组织者和方案协同者。以产业为根，以信用为桥，以资产为底，以合规为界。
               </SectionTitle>
               <div className="quote-panel">
-                不做资金掮客，做产业金融的翻译者与组织者。
+                不做资金中介，做产业金融的翻译者与组织者。
                 <span>金融服务产业，信用承载发展。</span>
               </div>
             </div>
             <div className="finance__boundary">
-              <h3>合规边界</h3>
-              <strong>不碰钱、不担保、不承诺结果。</strong>
+              <h3>服务边界</h3>
+              <strong>不经手客户资金、不提供担保、不承诺融资结果。</strong>
               <p>
-                公司不设立资金池，不直接从事放贷、担保、理财、资管、证券发行承销等需持牌经营的金融业务。涉及持牌业务，应由具备相应资质或牌照的机构依法开展。
+                熙载咨询提供产业金融咨询、项目诊断、方案协同和持牌机构对接服务，不设立资金池，不经手客户资金，不直接从事放贷、担保、理财、资管、证券发行承销等需持牌经营的金融业务。涉及银行、保理、融资租赁、担保、证券化等持牌事项，由具备相应资质的机构依法独立办理。
               </p>
             </div>
           </div>
@@ -202,7 +202,7 @@ function App() {
 
         <section className="section section--warm" id="network">
           <div className="container">
-            <SectionTitle eyebrow="服务网络" title="北京资源枢纽、省域项目节点、县域服务触点、合作服务网络" align="center">
+            <SectionTitle eyebrow="服务网络" title="首都资源枢纽、省域项目节点、县域服务触点、合作服务网络" align="center">
               通过总部资源组织、省域项目推进、县域服务触点和合作伙伴网络，形成资源下沉与需求上达的双向通道。
             </SectionTitle>
             <div className="network">
