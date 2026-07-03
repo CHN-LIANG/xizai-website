@@ -44,6 +44,16 @@
       "permanent": true
     }
   ],
+  "rewrites": [
+    {
+      "source": "/insights/:slug",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/insights/:slug/:path*",
+      "destination": "/index.html"
+    }
+  ],
   "headers": [
     {
       "source": "/assets/(.*)",

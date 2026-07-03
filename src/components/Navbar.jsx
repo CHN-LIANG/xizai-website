@@ -16,7 +16,7 @@ export default function Navbar() {
 
   return (
     <header className={`site-header ${scrolled ? 'site-header--scrolled' : ''}`}>
-      <a className="brand" href="#home" aria-label="返回首页">
+      <a className="brand" href="/#home" aria-label="返回首页">
         <TaiHexagramLogo compact />
         <span>
           <strong>熙载咨询</strong>

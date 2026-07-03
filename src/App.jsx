@@ -12,6 +12,7 @@ import { methods, networkNodes, partnerTypes, values } from './data/culture.js';
 import { complianceRules, financeDirections } from './data/finance.js';
 import { insightArticles } from './data/insights.js';
 import { cooperationOptions, publicEmailContacts, wechatAccount } from './data/siteData.js';
+import { insightPathFor, updatePageSeo } from './utils/seo.js';
 
 const getInsightSlugFromHash = () => {
   if (typeof window === 'undefined') {
@@ -22,11 +23,29 @@ const getInsightSlugFromHash = () => {
   return window.location.hash.startsWith(prefix) ? decodeURIComponent(window.location.hash.slice(prefix.length)) : '';
 };
 
+const getInsightSlugFromPath = () => {
+  if (typeof window === 'undefined') {
+    return '';
+  }
+
+  const prefix = '/insights/';
+  const pathname = window.location.pathname.replace(/\/$/, '');
+  return pathname.startsWith(prefix) ? decodeURIComponent(pathname.slice(prefix.length)) : '';
+};
+
+const getInsightSlugFromLocation = () => getInsightSlugFromHash() || getInsightSlugFromPath();
+
 const legacySectionIds = new Set(['about', 'services', 'finance', 'methodology', 'network', 'insights', 'contact']);
+
+const scrollToInsights = () => {
+  window.requestAnimationFrame(() => {
+    document.getElementById('insights')?.scrollIntoView({ block: 'start' });
+  });
+};
 
 function App() {
   const [formStatus, setFormStatus] = useState('');
-  const [activeInsightSlug, setActiveInsightSlug] = useState(getInsightSlugFromHash);
+  const [activeInsightSlug, setActiveInsightSlug] = useState(getInsightSlugFromLocation);
   const activeInsight = insightArticles.find((article) => article.slug === activeInsightSlug);
 
   useEffect(() => {
@@ -43,21 +62,41 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const handleHashChange = () => {
-      const nextSlug = getInsightSlugFromHash();
+    const syncInsightRoute = () => {
+      const nextSlug = getInsightSlugFromLocation();
       setActiveInsightSlug(nextSlug);
 
       if (nextSlug) {
-        window.requestAnimationFrame(() => {
-          document.getElementById('insights')?.scrollIntoView({ block: 'start' });
-        });
+        scrollToInsights();
       }
     };
 
-    handleHashChange();
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    syncInsightRoute();
+    window.addEventListener('hashchange', syncInsightRoute);
+    window.addEventListener('popstate', syncInsightRoute);
+    return () => {
+      window.removeEventListener('hashchange', syncInsightRoute);
+      window.removeEventListener('popstate', syncInsightRoute);
+    };
   }, []);
+
+  useEffect(() => {
+    updatePageSeo(activeInsight);
+  }, [activeInsight]);
+
+  const openInsight = (event, slug) => {
+    event.preventDefault();
+    window.history.pushState(null, '', insightPathFor(slug));
+    setActiveInsightSlug(slug);
+    scrollToInsights();
+  };
+
+  const closeInsight = (event) => {
+    event.preventDefault();
+    window.history.pushState(null, '', '/#insights');
+    setActiveInsightSlug('');
+    scrollToInsights();
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -94,10 +133,10 @@ function App() {
                 服务地方政府、产业平台、央国企下属单位及成长型企业，围绕产业咨询、项目包装、企业评价、政策申报与政企协同，提供可落地的专业支持。
               </p>
               <div className="hero__actions">
-                <a className="button button--primary" href="#services">
+                <a className="button button--primary" href="/#services">
                   了解核心服务
                 </a>
-                <a className="button button--ghost" href="#contact">
+                <a className="button button--ghost" href="/#contact">
                   联系合作
                 </a>
               </div>
@@ -288,7 +327,7 @@ function App() {
             </SectionTitle>
             {activeInsight ? (
               <Reveal as="article" className="insight-detail" key={activeInsight.slug}>
-                <a className="insight-back" href="#insights" onClick={() => setActiveInsightSlug('')}>
+                <a className="insight-back" href="/#insights" onClick={closeInsight}>
                   返回研究洞察
                 </a>
                 <span className="insight-detail__category">{activeInsight.category}</span>
@@ -326,7 +365,7 @@ function App() {
               <div className="insight-grid">
                 {insightArticles.map((article, index) => (
                   <Reveal as="article" delay={Math.min(index * 0.04, 0.18)} key={article.slug}>
-                    <a className="insight-card" href={`#insights/${article.slug}`}>
+                    <a className="insight-card" href={insightPathFor(article.slug)} onClick={(event) => openInsight(event, article.slug)}>
                       <span>{article.category}</span>
                       <h3>{article.title}</h3>
                       <p>{article.summary}</p>
@@ -355,7 +394,7 @@ function App() {
                 <a className="button button--primary" href="mailto:contact@xizai.asia">
                   发送合作邮件
                 </a>
-                <a className="button button--ghost button--dark" href="#contact">
+                <a className="button button--ghost button--dark" href="/#contact">
                   查看联系渠道
                 </a>
               </div>

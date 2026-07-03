@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">熙载咨询官网视觉识别</title>
+  <desc id="desc">熙载咨询（北京）有限公司，县域产业与中小企业发展服务机构。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0D1B2A" />
+      <stop offset="1" stop-color="#10233F" />
+    </linearGradient>
+    <radialGradient id="glow" cx="82%" cy="20%" r="65%">
+      <stop offset="0" stop-color="#C8A46B" stop-opacity="0.28" />
+      <stop offset="1" stop-color="#C8A46B" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <rect width="1200" height="630" fill="url(#glow)" />
+  <path d="M90 510 C270 438 410 470 560 408 C720 342 828 208 1112 154" fill="none" stroke="#C8A46B" stroke-width="2" stroke-opacity="0.26" />
+  <g transform="translate(860 132)">
+    <circle cx="130" cy="130" r="126" fill="none" stroke="#C8A46B" stroke-width="3" stroke-opacity="0.86" />
+    <circle cx="130" cy="130" r="96" fill="none" stroke="#F7F4EC" stroke-width="1.5" stroke-opacity="0.2" />
+    <g stroke="#F7F4EC" stroke-width="13" stroke-linecap="round">
+      <line x1="64" y1="68" x2="112" y2="68" />
+      <line x1="148" y1="68" x2="196" y2="68" />
+      <line x1="64" y1="103" x2="112" y2="103" />
+      <line x1="148" y1="103" x2="196" y2="103" />
+      <line x1="64" y1="138" x2="112" y2="138" />
+      <line x1="148" y1="138" x2="196" y2="138" />
+      <line x1="64" y1="173" x2="196" y2="173" />
+      <line x1="64" y1="208" x2="196" y2="208" />
+      <line x1="64" y1="243" x2="196" y2="243" />
+    </g>
+  </g>
+  <g fill="#F7F4EC">
+    <text x="88" y="158" font-size="34" font-family="Noto Sans SC, Microsoft YaHei, Arial, sans-serif" opacity="0.78">县域产业与中小企业发展服务机构</text>
+    <text x="88" y="252" font-size="78" font-weight="700" font-family="Noto Serif SC, Source Han Serif SC, SimSun, serif">熙载咨询</text>
+    <text x="88" y="316" font-size="32" font-family="Noto Sans SC, Microsoft YaHei, Arial, sans-serif" opacity="0.86">熙载咨询（北京）有限公司</text>
+    <text x="88" y="408" font-size="30" font-family="Noto Sans SC, Microsoft YaHei, Arial, sans-serif" fill="#C8A46B">地方产业咨询 · 企业评价服务 · 招商项目包装 · 政企协同</text>
+    <text x="88" y="474" font-size="25" font-family="Noto Sans SC, Microsoft YaHei, Arial, sans-serif" opacity="0.72">以专业资源协同，服务县域产业与中小企业成长。</text>
+  </g>
+</svg>
