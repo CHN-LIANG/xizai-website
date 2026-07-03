@@ -225,42 +225,6 @@ svg {
   border-color: currentColor;
 }
 
-.hexagram {
-  display: grid;
-  width: 88px;
-  gap: 8px;
-}
-
-.brand-mark--compact .hexagram {
-  width: 24px;
-  gap: 3px;
-}
-
-.hexagram__line {
-  display: flex;
-  justify-content: space-between;
-  height: 7px;
-}
-
-.brand-mark--compact .hexagram__line {
-  height: 2px;
-}
-
-.hexagram__line span {
-  display: block;
-  height: 100%;
-  border-radius: 999px;
-  background: currentColor;
-}
-
-.hexagram__line--yin span {
-  width: 38%;
-}
-
-.hexagram__line--yang span {
-  width: 100%;
-}
-
 .hero {
   position: relative;
   display: flex;

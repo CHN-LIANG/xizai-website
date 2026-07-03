@@ -40,7 +40,6 @@ export const publicEmailContacts = [
 export const wechatAccount = {
   name: '熙载咨询',
   qrCode: '/wechat-qrcode.jpg',
-  fallback: '微信公众号 / 熙载咨询 / 二维码待上传',
 };
 
 export const cooperationOptions = [
