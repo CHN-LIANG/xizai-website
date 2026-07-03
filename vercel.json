@@ -4,54 +4,14 @@
   "cleanUrls": true,
   "redirects": [
     {
-      "source": "/about",
-      "destination": "/?section=about",
-      "permanent": true
-    },
-    {
-      "source": "/about/:path*",
-      "destination": "/?section=about",
-      "permanent": true
-    },
-    {
-      "source": "/services",
-      "destination": "/?section=services",
-      "permanent": true
-    },
-    {
-      "source": "/services/:path*",
-      "destination": "/?section=services",
-      "permanent": true
-    },
-    {
       "source": "/news",
-      "destination": "/?section=insights",
+      "destination": "/insights",
       "permanent": true
     },
     {
       "source": "/news/:path*",
-      "destination": "/?section=insights",
+      "destination": "/insights",
       "permanent": true
-    },
-    {
-      "source": "/contact",
-      "destination": "/?section=contact",
-      "permanent": true
-    },
-    {
-      "source": "/contact/:path*",
-      "destination": "/?section=contact",
-      "permanent": true
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/insights/:slug",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/insights/:slug/:path*",
-      "destination": "/index.html"
     }
   ],
   "headers": [
