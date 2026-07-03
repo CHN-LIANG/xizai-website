@@ -42,6 +42,11 @@ export const wechatAccount = {
   qrCode: '/wechat-qrcode.jpg',
 };
 
+export const instagramAccount = {
+  name: '@XIZAI_CONSULTING',
+  qrCode: '/instagram-qrcode.png',
+};
+
 export const cooperationOptions = [
   '地方产业咨询',
   '企业政策与评价服务',

@@ -1,4 +1,4 @@
-import { publicEmailContacts, wechatAccount } from '../data/siteData.js';
+import { instagramAccount, publicEmailContacts, wechatAccount } from '../data/siteData.js';
 
 export default function ContactBlock({ compact = false }) {
   return (
@@ -33,6 +33,22 @@ export default function ContactBlock({ compact = false }) {
           <span>{wechatAccount.name}</span>
           <em>微信搜一搜：{wechatAccount.name}</em>
           <p>{compact ? '扫码关注，持续获取县域产业观察与企业服务研究。' : `如二维码暂不可用，可在微信内搜索“${wechatAccount.name}”。`}</p>
+        </div>
+      </div>
+      <div className="wechat-card social-card social-card--instagram">
+        <img
+          src={instagramAccount.qrCode}
+          alt={`${instagramAccount.name} Instagram 二维码`}
+          width="132"
+          height="132"
+          loading="lazy"
+          decoding="async"
+        />
+        <div>
+          <strong>Instagram</strong>
+          <span>{instagramAccount.name}</span>
+          <em>扫码关注 ins 动态</em>
+          <p>{compact ? '用于关注熙载咨询海外社媒动态。' : '如需海外社媒关注，可使用 Instagram 扫码或搜索账号。'}</p>
         </div>
       </div>
     </div>

@@ -1880,6 +1880,12 @@ svg {
   color: rgba(255, 253, 248, 0.7);
 }
 
+.home-cta .wechat-card em {
+  border-color: rgba(200, 164, 107, 0.28);
+  color: rgba(255, 253, 248, 0.88);
+  background: rgba(255, 253, 248, 0.08);
+}
+
 .contact {
   background: linear-gradient(180deg, var(--paper), var(--paper-deep));
 }
@@ -1984,6 +1990,12 @@ svg {
   border-radius: var(--radius);
   background: var(--white);
   box-shadow: var(--shadow-sm);
+}
+
+.social-card--instagram img {
+  width: 132px;
+  height: 132px;
+  border-width: 6px;
 }
 
 .wechat-card strong {

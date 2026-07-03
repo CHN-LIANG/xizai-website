@@ -2,7 +2,7 @@ import ContactBlock from './ContactBlock.jsx';
 
 export default function CTASection({
   eyebrow = '合作入口',
-  title = '欢迎通过邮箱或微信公众号交流合作',
+  title = '欢迎通过邮箱、微信公众号或 Instagram 交流合作',
   text = '面向政府平台、协会、科研院所、园区、国企平台、农业产业企业和中小企业，熙载咨询提供克制、合规、可落地的产业服务协同。',
 }) {
   return (
