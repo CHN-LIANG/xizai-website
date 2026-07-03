@@ -5,42 +5,42 @@
   "redirects": [
     {
       "source": "/about",
-      "destination": "/#about",
+      "destination": "/?section=about",
       "permanent": true
     },
     {
       "source": "/about/:path*",
-      "destination": "/#about",
+      "destination": "/?section=about",
       "permanent": true
     },
     {
       "source": "/services",
-      "destination": "/#services",
+      "destination": "/?section=services",
       "permanent": true
     },
     {
       "source": "/services/:path*",
-      "destination": "/#services",
+      "destination": "/?section=services",
       "permanent": true
     },
     {
       "source": "/news",
-      "destination": "/#insights",
+      "destination": "/?section=insights",
       "permanent": true
     },
     {
       "source": "/news/:path*",
-      "destination": "/#insights",
+      "destination": "/?section=insights",
       "permanent": true
     },
     {
       "source": "/contact",
-      "destination": "/#contact",
+      "destination": "/?section=contact",
       "permanent": true
     },
     {
       "source": "/contact/:path*",
-      "destination": "/#contact",
+      "destination": "/?section=contact",
       "permanent": true
     }
   ],

@@ -22,10 +22,25 @@ const getInsightSlugFromHash = () => {
   return window.location.hash.startsWith(prefix) ? decodeURIComponent(window.location.hash.slice(prefix.length)) : '';
 };
 
+const legacySectionIds = new Set(['about', 'services', 'finance', 'methodology', 'network', 'insights', 'contact']);
+
 function App() {
   const [formStatus, setFormStatus] = useState('');
   const [activeInsightSlug, setActiveInsightSlug] = useState(getInsightSlugFromHash);
   const activeInsight = insightArticles.find((article) => article.slug === activeInsightSlug);
+
+  useEffect(() => {
+    const section = new URLSearchParams(window.location.search).get('section');
+
+    if (!section || !legacySectionIds.has(section)) {
+      return;
+    }
+
+    window.history.replaceState(null, '', `/#${section}`);
+    window.requestAnimationFrame(() => {
+      document.getElementById(section)?.scrollIntoView({ block: 'start' });
+    });
+  }, []);
 
   useEffect(() => {
     const handleHashChange = () => {
