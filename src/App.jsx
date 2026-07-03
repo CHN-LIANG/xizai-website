@@ -7,7 +7,7 @@ import MethodCard from './components/MethodCard.jsx';
 import TaiHexagramMark from './components/TaiHexagramMark.jsx';
 import Reveal from './components/Reveal.jsx';
 import ComplianceCard from './components/ComplianceCard.jsx';
-import { businessServices } from './data/services.js';
+import { businessServices, serviceOutcomes } from './data/services.js';
 import { methods, networkNodes, partnerTypes, values } from './data/culture.js';
 import { complianceRules, financeDirections } from './data/finance.js';
 import { insightArticles } from './data/insights.js';
@@ -76,11 +76,11 @@ function App() {
               <h1>熙载咨询</h1>
               <p className="hero__subtitle">县域产业与中小企业发展服务机构</p>
               <p className="hero__text">
-                依托首都专业资源，连接协会、科研院所、专家、金融机构和产业服务平台，服务县域产业升级与中小企业成长。
+                服务地方政府、产业平台、央国企下属单位及成长型企业，围绕产业咨询、项目包装、企业评价、政策申报与政企协同，提供可落地的专业支持。
               </p>
               <div className="hero__actions">
                 <a className="button button--primary" href="#services">
-                  了解业务服务
+                  了解核心服务
                 </a>
                 <a className="button button--ghost" href="#contact">
                   联系合作
@@ -132,8 +132,8 @@ function App() {
 
         <section className="section section--warm" id="services">
           <div className="container">
-            <SectionTitle eyebrow="业务服务" title="围绕县域产业与企业成长的七大服务板块" align="center">
-              不做空泛咨询，聚焦资源组织、方案协同、项目协调、服务承接和合规对接。
+            <SectionTitle eyebrow="业务服务" title="围绕地方产业与企业成长的四类核心服务" align="center">
+              不做空泛咨询，聚焦产业判断、材料成型、项目包装、评价申报和政企协同。
             </SectionTitle>
             <div className="business-grid">
               {businessServices.map((service, index) => (
@@ -141,6 +141,20 @@ function App() {
                   <BusinessCard service={service} index={index} />
                 </Reveal>
               ))}
+            </div>
+            <div className="service-outcomes">
+              <div className="service-outcomes__head">
+                <span className="eyebrow">典型服务成果</span>
+                <h3>不披露客户名称，也能说明服务能交付什么</h3>
+              </div>
+              <div className="outcome-grid">
+                {serviceOutcomes.map((outcome, index) => (
+                  <Reveal as="article" delay={Math.min(index * 0.04, 0.16)} key={outcome.title}>
+                    <h4>{outcome.title}</h4>
+                    <p>{outcome.text}</p>
+                  </Reveal>
+                ))}
+              </div>
             </div>
           </div>
         </section>
@@ -347,12 +361,12 @@ function App() {
           <div className="container contact__grid">
             <div>
               <SectionTitle eyebrow="联系我们" title="联系我们">
-                如您关注县域产业服务、中小企业成长、农业产业项目、企业信用评价、项目资源对接或产业金融咨询服务，欢迎与熙载咨询联系。
+                如需就地方产业咨询、企业评价、政策申报、项目包装、政企协同或产业金融咨询事项沟通，欢迎联系熙载咨询。
               </SectionTitle>
               <div className="contact-card contact-card--company">
                 <strong>熙载咨询（北京）有限公司</strong>
                 <span>总部所在地：北京</span>
-                <span>合作方向：县域产业、中小企业服务、项目策划、资源对接、产业金融咨询</span>
+                <span>合作方向：地方产业咨询、企业评价、政策申报、项目包装、政企协同、产业金融咨询</span>
               </div>
               <div className="email-grid">
                 {publicEmailContacts.map((contact) => (
