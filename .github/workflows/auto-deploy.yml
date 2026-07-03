@@ -1,12 +1,16 @@
-name: 构建校验官网
+name: 构建与外网部署校验
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   build:
+    name: 构建校验官网
     runs-on: ubuntu-latest
     steps:
       - name: 检出代码
@@ -23,3 +27,28 @@ jobs:
 
       - name: 构建静态站点
         run: npm run build
+
+  live-deploy-guard:
+    name: 外网部署守卫
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name == 'push'
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 配置 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: 校验外网部署，必要时触发 Vercel 兜底部署
+        run: node scripts/verify-live-deployment.mjs
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+          SITE_URL: https://www.xizai.asia
+          VERCEL_DEPLOY_HOOK_URL: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
+          INITIAL_WAIT_SECONDS: 180
+          POST_HOOK_WAIT_SECONDS: 420
+          POLL_INTERVAL_SECONDS: 15
+          REQUIRED_PATHS: /media/city-development-shanghai.jpg,/media/county-agriculture-panjin.jpg,/media/industry-energy-dunhuang.jpg,/media/service-meeting-room-shanghai.jpg

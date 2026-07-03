@@ -1,5 +1,7 @@
+import { execFile as execFileCallback } from 'node:child_process';
 import { mkdir, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import { promisify } from 'node:util';
 import { fileURLToPath } from 'node:url';
 import { complianceRules, financeDirections } from '../src/data/finance.js';
 import { insightArticles } from '../src/data/insights.js';
@@ -15,6 +17,48 @@ const siteName = '熙载咨询';
 const companyName = '熙载咨询（北京）有限公司';
 const ogImage = `${siteUrl}/og-image.png`;
 const today = '2026-07-04';
+const execFile = promisify(execFileCallback);
+
+const getBuildCommit = async () => {
+  const envCommit =
+    process.env.VERCEL_GIT_COMMIT_SHA ||
+    process.env.GITHUB_SHA ||
+    process.env.COMMIT_SHA ||
+    '';
+
+  if (envCommit) {
+    return envCommit;
+  }
+
+  try {
+    const { stdout } = await execFile('git', ['rev-parse', 'HEAD'], { cwd: rootDir });
+    return stdout.trim();
+  } catch {
+    return 'unknown';
+  }
+};
+
+const renderDeployMeta = async () => {
+  const commit = await getBuildCommit();
+  const branch =
+    process.env.VERCEL_GIT_COMMIT_REF ||
+    process.env.GITHUB_REF_NAME ||
+    process.env.BRANCH_NAME ||
+    'unknown';
+
+  return JSON.stringify(
+    {
+      site: siteUrl,
+      commit,
+      shortCommit: commit === 'unknown' ? 'unknown' : commit.slice(0, 7),
+      branch,
+      builtAt: new Date().toISOString(),
+      source: process.env.VERCEL ? 'vercel' : process.env.GITHUB_ACTIONS ? 'github-actions' : 'local',
+    },
+    null,
+    2,
+  );
+};
 
 const servicePages = [
   {
@@ -1194,6 +1238,7 @@ for (const article of insightArticles) {
 
 await writeFile(path.join(publicDir, 'sitemap.xml'), cleanOutput(renderSitemapXml()), 'utf8');
 await writeFile(path.join(publicDir, 'sitemap.txt'), cleanOutput(renderSitemapTxt()), 'utf8');
+await writeFile(path.join(publicDir, 'deploy-meta.json'), await renderDeployMeta(), 'utf8');
 await mkdir(path.join(publicDir, 'news'), { recursive: true });
 await writeFile(path.join(publicDir, 'news', 'index.html'), cleanOutput(renderRedirectPage('/insights', '新闻栏目已迁移')), 'utf8');
 await writeFile(path.join(publicDir, 'news.html'), cleanOutput(renderRedirectPage('/insights', '新闻栏目已迁移')), 'utf8');
