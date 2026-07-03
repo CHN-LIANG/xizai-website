@@ -153,6 +153,9 @@
         --surface: #fffdf8;
         --line: rgba(16, 35, 63, 0.12);
         --shadow: 0 18px 42px rgba(13, 27, 42, 0.08);
+        --radius: 8px;
+        --content: 1040px;
+        --measure: 760px;
       }
 
       :root[data-theme='dark'] {
@@ -222,7 +225,7 @@
       }
 
       main {
-        width: min(960px, calc(100% - 40px));
+        width: min(var(--content), calc(100% - 40px));
         margin: 0 auto;
         padding: 62px 0 72px;
       }
@@ -244,6 +247,7 @@
       }
 
       .lead {
+        max-width: var(--measure);
         margin: 24px 0 32px;
         padding: 22px 24px;
         border-left: 4px solid var(--gold);
@@ -253,7 +257,7 @@
       }
 
       section {
-        margin-top: 34px;
+        margin-top: 42px;
       }
 
       h2 {
@@ -267,6 +271,13 @@
         margin: 8px 0;
       }
 
+      h3 {
+        margin: 22px 0 10px;
+        color: var(--navy);
+        font-family: var(--font-serif);
+        font-size: 20px;
+      }
+
       .cards {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -276,7 +287,7 @@
       .card {
         padding: 22px;
         border: 1px solid var(--line);
-        border-radius: 8px;
+        border-radius: var(--radius);
         background: var(--surface);
         box-shadow: var(--shadow);
       }
@@ -293,6 +304,78 @@
         font-weight: 800;
       }
 
+      .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 18px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .tag {
+        display: inline-flex;
+        width: fit-content;
+        margin-bottom: 18px;
+        padding: 6px 10px;
+        border: 1px solid rgba(200, 164, 107, 0.32);
+        border-radius: 999px;
+        color: #0f5b53;
+        background: rgba(200, 164, 107, 0.1);
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .quote {
+        margin: 30px 0 0;
+        padding: 24px 0 24px 28px;
+        border-left: 4px solid var(--gold);
+        color: var(--navy);
+        font-family: var(--font-serif);
+        font-size: clamp(22px, 3vw, 30px);
+        line-height: 1.35;
+      }
+
+      .related {
+        margin-top: 44px;
+        padding-top: 28px;
+        border-top: 1px solid var(--line);
+      }
+
+      .related-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 18px;
+      }
+
+      .related-item,
+      .cta {
+        padding: 20px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--surface);
+      }
+
+      .related-item strong,
+      .cta strong {
+        display: block;
+        color: var(--navy);
+      }
+
+      .related-item p,
+      .cta p {
+        margin: 10px 0 0;
+        font-size: 14px;
+        line-height: 1.75;
+      }
+
+      .cta {
+        margin-top: 34px;
+        border-color: rgba(200, 164, 107, 0.32);
+        background: rgba(200, 164, 107, 0.08);
+      }
+
       .source {
         margin-top: 42px;
         padding: 20px 22px;
@@ -302,7 +385,7 @@
 
       .back {
         padding: 12px 18px;
-        border-radius: 8px;
+        border-radius: var(--radius);
         color: var(--ivory);
         background: #10233f;
         text-decoration: none;
@@ -331,6 +414,15 @@
         .cards {
           grid-template-columns: 1fr;
         }
+
+        .related-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .quote {
+          padding-left: 18px;
+          font-size: 21px;
+        }
       }
     </style>
   </head>
@@ -348,9 +440,14 @@
     </header>
     <main>
       <article>
-        <span class="eyebrow">中小企业服务研究</span>
+        <span class="tag">中小企业服务研究</span>
         <h1>全国中小企业法律政策宣传月启动，企业合规服务需求上升</h1>
+        <div class="meta">
+          <span>2026-06-12</span>
+          <span>新华网</span>
+        </div>
         <p class="lead">全国中小企业法律政策宣传月活动启动，面向中小企业强化法律政策宣传、权益保护和合规经营服务。</p>
+        <blockquote class="quote">企业服务平台如果只提供政策申报，会逐渐无法满足企业真实需求。合规诊断和风险提示应成为基础服务。</blockquote>
         <section>
           <h2>行业要点</h2>
           <ul><li>中小企业服务需要把政策咨询、合同管理、劳动用工、知识产权和融资合规放在同一框架中。</li>
@@ -362,10 +459,47 @@
           <p>企业服务平台如果只提供政策申报，会逐渐无法满足企业真实需求。合规诊断和风险提示应成为基础服务。</p>
 <p>对政府平台、园区和服务站而言，法律政策宣传可以与企业走访、信用建设和项目策划同步推进。</p>
         </section>
+        <section class="related">
+          <span class="eyebrow">关联服务</span>
+          <h2>这篇观察可延伸到的服务事项</h2>
+          <div class="related-grid">
+            <a class="related-item" href="/services">
+              <strong>企业政策与评价服务</strong>
+              <p>围绕企业信用、资质、政策项目和第三方评价，把企业经营事实转化为规范、可信的材料表达。</p>
+            </a>
+<a class="related-item" href="/services">
+              <strong>政企协同与资源对接</strong>
+              <p>在多方参与的项目中明确角色、边界和沟通节奏，帮助政府平台、协会、国企平台和企业围绕具体事项协同推进。</p>
+            </a>
+          </div>
+        </section>
+        <section class="related">
+          <span class="eyebrow">相关文章</span>
+          <h2>继续阅读相关观察</h2>
+          <div class="related-grid">
+            <a class="related-item" href="/insights/sme-service-action-2026">
+              <strong>2026年“一起益企”服务行动释放中小企业服务升级信号</strong>
+              <p>多部门部署2026年“一起益企”中小企业服务行动，服务重点覆盖政策、人才、投融资、技术创新、数智化转型和融通对接。</p>
+            </a>
+<a class="related-item" href="/insights/enterprise-credit-evaluation">
+              <strong>企业信用状况综合评价体系将影响融资、合作与市场准入</strong>
+              <p>相关方案提出建立企业信用状况综合评价体系，推动信用评价结果在公共治理、市场交易、融资服务和企业信用修复中发挥作用。</p>
+            </a>
+<a class="related-item" href="/insights/sme-ip-public-service">
+              <strong>两部门开展中小企业知识产权公共服务专项行动</strong>
+              <p>国家知识产权局、工业和信息化部组织开展中小企业知识产权公共服务专项行动，强调面向重点产业链、科技型企业和专精特新企业提供专业服务。</p>
+            </a>
+          </div>
+        </section>
         <section class="source">
           <strong>公开来源</strong>
           <p><a href="https://www.xinhuanet.com/info/20260612/45e62b53a6c44fa8b395aee6b9a8a4ba/c.html" target="_blank" rel="noreferrer">查看原文：新华网</a></p>
           <p>本站仅作公开信息摘要与行业观察，不构成政策承诺、融资承诺或法律意见。</p>
+        </section>
+        <section class="cta">
+          <strong>需要把政策信息转化为项目材料或企业服务方案？</strong>
+          <p>可通过合作邮箱沟通具体事项，熙载咨询将先判断需求边界，再给出适合的服务路径。</p>
+          <a class="back" href="mailto:contact@xizai.asia">联系合作</a>
         </section>
         <a class="back" href="/insights">返回研究洞察</a>
       </article>

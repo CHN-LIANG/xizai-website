@@ -224,6 +224,9 @@
         --surface: #fffdf8;
         --line: rgba(16, 35, 63, 0.12);
         --shadow: 0 18px 42px rgba(13, 27, 42, 0.08);
+        --radius: 8px;
+        --content: 1040px;
+        --measure: 760px;
       }
 
       :root[data-theme='dark'] {
@@ -293,7 +296,7 @@
       }
 
       main {
-        width: min(960px, calc(100% - 40px));
+        width: min(var(--content), calc(100% - 40px));
         margin: 0 auto;
         padding: 62px 0 72px;
       }
@@ -315,6 +318,7 @@
       }
 
       .lead {
+        max-width: var(--measure);
         margin: 24px 0 32px;
         padding: 22px 24px;
         border-left: 4px solid var(--gold);
@@ -324,7 +328,7 @@
       }
 
       section {
-        margin-top: 34px;
+        margin-top: 42px;
       }
 
       h2 {
@@ -338,6 +342,13 @@
         margin: 8px 0;
       }
 
+      h3 {
+        margin: 22px 0 10px;
+        color: var(--navy);
+        font-family: var(--font-serif);
+        font-size: 20px;
+      }
+
       .cards {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -347,7 +358,7 @@
       .card {
         padding: 22px;
         border: 1px solid var(--line);
-        border-radius: 8px;
+        border-radius: var(--radius);
         background: var(--surface);
         box-shadow: var(--shadow);
       }
@@ -364,6 +375,78 @@
         font-weight: 800;
       }
 
+      .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 18px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .tag {
+        display: inline-flex;
+        width: fit-content;
+        margin-bottom: 18px;
+        padding: 6px 10px;
+        border: 1px solid rgba(200, 164, 107, 0.32);
+        border-radius: 999px;
+        color: #0f5b53;
+        background: rgba(200, 164, 107, 0.1);
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .quote {
+        margin: 30px 0 0;
+        padding: 24px 0 24px 28px;
+        border-left: 4px solid var(--gold);
+        color: var(--navy);
+        font-family: var(--font-serif);
+        font-size: clamp(22px, 3vw, 30px);
+        line-height: 1.35;
+      }
+
+      .related {
+        margin-top: 44px;
+        padding-top: 28px;
+        border-top: 1px solid var(--line);
+      }
+
+      .related-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 18px;
+      }
+
+      .related-item,
+      .cta {
+        padding: 20px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--surface);
+      }
+
+      .related-item strong,
+      .cta strong {
+        display: block;
+        color: var(--navy);
+      }
+
+      .related-item p,
+      .cta p {
+        margin: 10px 0 0;
+        font-size: 14px;
+        line-height: 1.75;
+      }
+
+      .cta {
+        margin-top: 34px;
+        border-color: rgba(200, 164, 107, 0.32);
+        background: rgba(200, 164, 107, 0.08);
+      }
+
       .source {
         margin-top: 42px;
         padding: 20px 22px;
@@ -373,7 +456,7 @@
 
       .back {
         padding: 12px 18px;
-        border-radius: 8px;
+        border-radius: var(--radius);
         color: var(--ivory);
         background: #10233f;
         text-decoration: none;
@@ -401,6 +484,15 @@
 
         .cards {
           grid-template-columns: 1fr;
+        }
+
+        .related-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .quote {
+          padding-left: 18px;
+          font-size: 21px;
         }
       }
     </style>
@@ -449,6 +541,26 @@
           <h2>产业金融咨询</h2>
           <p>面向实体产业项目、建筑央企上下游、地方国企平台和成长型企业，提供供应链融资咨询、项目资金需求诊断、材料梳理、合规路径判断和持牌机构沟通协同。</p>
           <a href="/services/industrial-finance-consulting">查看详情</a>
+        </article></div>
+      </section>
+<section>
+        <h2>服务对象分类</h2>
+
+
+        <div class="cards"><article class="card">
+          <h2>地方政府与平台公司</h2>
+          <p>适用于县域产业定位、农业产业链梳理、招商项目包装、会议材料和政企协同事项。</p>
+
+        </article>
+<article class="card">
+          <h2>央国企上下游与成长型企业</h2>
+          <p>适用于信用评价、政策项目申报、资质材料规范、供应链协同和企业服务事项。</p>
+
+        </article>
+<article class="card">
+          <h2>协会、园区与产业服务机构</h2>
+          <p>适用于服务平台共建、企业走访、政策服务、产业资源对接和项目联合推进。</p>
+
         </article></div>
       </section>
 <section>

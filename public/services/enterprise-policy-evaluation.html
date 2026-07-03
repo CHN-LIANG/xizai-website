@@ -169,6 +169,9 @@
         --surface: #fffdf8;
         --line: rgba(16, 35, 63, 0.12);
         --shadow: 0 18px 42px rgba(13, 27, 42, 0.08);
+        --radius: 8px;
+        --content: 1040px;
+        --measure: 760px;
       }
 
       :root[data-theme='dark'] {
@@ -238,7 +241,7 @@
       }
 
       main {
-        width: min(960px, calc(100% - 40px));
+        width: min(var(--content), calc(100% - 40px));
         margin: 0 auto;
         padding: 62px 0 72px;
       }
@@ -260,6 +263,7 @@
       }
 
       .lead {
+        max-width: var(--measure);
         margin: 24px 0 32px;
         padding: 22px 24px;
         border-left: 4px solid var(--gold);
@@ -269,7 +273,7 @@
       }
 
       section {
-        margin-top: 34px;
+        margin-top: 42px;
       }
 
       h2 {
@@ -283,6 +287,13 @@
         margin: 8px 0;
       }
 
+      h3 {
+        margin: 22px 0 10px;
+        color: var(--navy);
+        font-family: var(--font-serif);
+        font-size: 20px;
+      }
+
       .cards {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -292,7 +303,7 @@
       .card {
         padding: 22px;
         border: 1px solid var(--line);
-        border-radius: 8px;
+        border-radius: var(--radius);
         background: var(--surface);
         box-shadow: var(--shadow);
       }
@@ -309,6 +320,78 @@
         font-weight: 800;
       }
 
+      .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 18px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .tag {
+        display: inline-flex;
+        width: fit-content;
+        margin-bottom: 18px;
+        padding: 6px 10px;
+        border: 1px solid rgba(200, 164, 107, 0.32);
+        border-radius: 999px;
+        color: #0f5b53;
+        background: rgba(200, 164, 107, 0.1);
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .quote {
+        margin: 30px 0 0;
+        padding: 24px 0 24px 28px;
+        border-left: 4px solid var(--gold);
+        color: var(--navy);
+        font-family: var(--font-serif);
+        font-size: clamp(22px, 3vw, 30px);
+        line-height: 1.35;
+      }
+
+      .related {
+        margin-top: 44px;
+        padding-top: 28px;
+        border-top: 1px solid var(--line);
+      }
+
+      .related-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 18px;
+      }
+
+      .related-item,
+      .cta {
+        padding: 20px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--surface);
+      }
+
+      .related-item strong,
+      .cta strong {
+        display: block;
+        color: var(--navy);
+      }
+
+      .related-item p,
+      .cta p {
+        margin: 10px 0 0;
+        font-size: 14px;
+        line-height: 1.75;
+      }
+
+      .cta {
+        margin-top: 34px;
+        border-color: rgba(200, 164, 107, 0.32);
+        background: rgba(200, 164, 107, 0.08);
+      }
+
       .source {
         margin-top: 42px;
         padding: 20px 22px;
@@ -318,7 +401,7 @@
 
       .back {
         padding: 12px 18px;
-        border-radius: 8px;
+        border-radius: var(--radius);
         color: var(--ivory);
         background: #10233f;
         text-decoration: none;
@@ -346,6 +429,15 @@
 
         .cards {
           grid-template-columns: 1fr;
+        }
+
+        .related-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .quote {
+          padding-left: 18px;
+          font-size: 21px;
         }
       }
     </style>
@@ -375,17 +467,18 @@
       </section>
       <section>
         <h2>服务交付方式</h2>
+        <h3>适用对象</h3>
+        <p>成长型中小企业、建筑央企上下游单位、农业与制造业企业、平台公司合作企业</p>
+        <h3>解决问题</h3>
         <p>围绕企业信用、资质、政策项目和第三方评价，把企业经营事实转化为规范、可信的材料表达。</p>
         <h3>主要工作</h3>
         <ul><li>企业基础材料体检</li>
 <li>评价与政策路径适配</li>
 <li>申报材料结构整理与流程协同</li></ul>
-        <h3>交付内容</h3>
+        <h3>交付成果</h3>
         <ul><li>信用评价材料包</li>
 <li>政策申报材料清单</li>
 <li>资质与荣誉展示建议</li></ul>
-        <h3>适合对象</h3>
-        <p>成长型中小企业、建筑央企上下游单位、农业与制造业企业、平台公司合作企业</p>
         <h3>形成结果</h3>
         <p>提升企业在政府平台、协会评价、合作伙伴沟通和项目申报中的可信呈现。</p>
       </section>

@@ -153,6 +153,9 @@
         --surface: #fffdf8;
         --line: rgba(16, 35, 63, 0.12);
         --shadow: 0 18px 42px rgba(13, 27, 42, 0.08);
+        --radius: 8px;
+        --content: 1040px;
+        --measure: 760px;
       }
 
       :root[data-theme='dark'] {
@@ -222,7 +225,7 @@
       }
 
       main {
-        width: min(960px, calc(100% - 40px));
+        width: min(var(--content), calc(100% - 40px));
         margin: 0 auto;
         padding: 62px 0 72px;
       }
@@ -244,6 +247,7 @@
       }
 
       .lead {
+        max-width: var(--measure);
         margin: 24px 0 32px;
         padding: 22px 24px;
         border-left: 4px solid var(--gold);
@@ -253,7 +257,7 @@
       }
 
       section {
-        margin-top: 34px;
+        margin-top: 42px;
       }
 
       h2 {
@@ -267,6 +271,13 @@
         margin: 8px 0;
       }
 
+      h3 {
+        margin: 22px 0 10px;
+        color: var(--navy);
+        font-family: var(--font-serif);
+        font-size: 20px;
+      }
+
       .cards {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -276,7 +287,7 @@
       .card {
         padding: 22px;
         border: 1px solid var(--line);
-        border-radius: 8px;
+        border-radius: var(--radius);
         background: var(--surface);
         box-shadow: var(--shadow);
       }
@@ -293,6 +304,78 @@
         font-weight: 800;
       }
 
+      .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 18px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .tag {
+        display: inline-flex;
+        width: fit-content;
+        margin-bottom: 18px;
+        padding: 6px 10px;
+        border: 1px solid rgba(200, 164, 107, 0.32);
+        border-radius: 999px;
+        color: #0f5b53;
+        background: rgba(200, 164, 107, 0.1);
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .quote {
+        margin: 30px 0 0;
+        padding: 24px 0 24px 28px;
+        border-left: 4px solid var(--gold);
+        color: var(--navy);
+        font-family: var(--font-serif);
+        font-size: clamp(22px, 3vw, 30px);
+        line-height: 1.35;
+      }
+
+      .related {
+        margin-top: 44px;
+        padding-top: 28px;
+        border-top: 1px solid var(--line);
+      }
+
+      .related-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 18px;
+      }
+
+      .related-item,
+      .cta {
+        padding: 20px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--surface);
+      }
+
+      .related-item strong,
+      .cta strong {
+        display: block;
+        color: var(--navy);
+      }
+
+      .related-item p,
+      .cta p {
+        margin: 10px 0 0;
+        font-size: 14px;
+        line-height: 1.75;
+      }
+
+      .cta {
+        margin-top: 34px;
+        border-color: rgba(200, 164, 107, 0.32);
+        background: rgba(200, 164, 107, 0.08);
+      }
+
       .source {
         margin-top: 42px;
         padding: 20px 22px;
@@ -302,7 +385,7 @@
 
       .back {
         padding: 12px 18px;
-        border-radius: 8px;
+        border-radius: var(--radius);
         color: var(--ivory);
         background: #10233f;
         text-decoration: none;
@@ -331,6 +414,15 @@
         .cards {
           grid-template-columns: 1fr;
         }
+
+        .related-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .quote {
+          padding-left: 18px;
+          font-size: 21px;
+        }
       }
     </style>
   </head>
@@ -348,9 +440,14 @@
     </header>
     <main>
       <article>
-        <span class="eyebrow">县域产业观察</span>
+        <span class="tag">县域产业观察</span>
         <h1>农业农村现代化规划强调县域富民产业与城乡融合</h1>
+        <div class="meta">
+          <span>2026-06-03</span>
+          <span>国务院文件</span>
+        </div>
         <p class="lead">《加快农业农村现代化“十五五”规划》提出发展县域富民产业、推进城乡融合，县域产业服务需要更关注产业链、就业和公共服务协同。</p>
+        <blockquote class="quote">县域产业咨询的关键不是替地方包装概念，而是把产业基础、企业主体、平台资源和外部服务连接起来。</blockquote>
         <section>
           <h2>行业要点</h2>
           <ul><li>县域富民产业被放在农业农村现代化和城乡融合的大框架中观察。</li>
@@ -362,10 +459,30 @@
           <p>县域产业咨询的关键不是替地方包装概念，而是把产业基础、企业主体、平台资源和外部服务连接起来。</p>
 <p>农业产业项目尤其需要避免“只讲品类、不讲链条”，应当围绕加工能力、品牌信用、销售场景和企业成长同步设计。</p>
         </section>
+        <section class="related">
+          <span class="eyebrow">关联服务</span>
+          <h2>这篇观察可延伸到的服务事项</h2>
+          <div class="related-grid">
+            <a class="related-item" href="/services">
+              <strong>地方产业咨询</strong>
+              <p>把地方资源、产业基础、政策方向和企业主体梳理成可汇报、可沟通、可推进的产业判断。</p>
+            </a>
+<a class="related-item" href="/services">
+              <strong>招商项目包装</strong>
+              <p>把项目背景、投资逻辑、建设内容、合作方式和落地路径整理成对外可讲、对上可报的项目材料。</p>
+            </a>
+          </div>
+        </section>
+
         <section class="source">
           <strong>公开来源</strong>
           <p><a href="https://www.mee.gov.cn/zcwj/gwywj/202606/t20260603_1157890.shtml" target="_blank" rel="noreferrer">查看原文：国务院文件</a></p>
           <p>本站仅作公开信息摘要与行业观察，不构成政策承诺、融资承诺或法律意见。</p>
+        </section>
+        <section class="cta">
+          <strong>需要把政策信息转化为项目材料或企业服务方案？</strong>
+          <p>可通过合作邮箱沟通具体事项，熙载咨询将先判断需求边界，再给出适合的服务路径。</p>
+          <a class="back" href="mailto:contact@xizai.asia">联系合作</a>
         </section>
         <a class="back" href="/insights">返回研究洞察</a>
       </article>

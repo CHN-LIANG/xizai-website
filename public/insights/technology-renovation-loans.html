@@ -153,6 +153,9 @@
         --surface: #fffdf8;
         --line: rgba(16, 35, 63, 0.12);
         --shadow: 0 18px 42px rgba(13, 27, 42, 0.08);
+        --radius: 8px;
+        --content: 1040px;
+        --measure: 760px;
       }
 
       :root[data-theme='dark'] {
@@ -222,7 +225,7 @@
       }
 
       main {
-        width: min(960px, calc(100% - 40px));
+        width: min(var(--content), calc(100% - 40px));
         margin: 0 auto;
         padding: 62px 0 72px;
       }
@@ -244,6 +247,7 @@
       }
 
       .lead {
+        max-width: var(--measure);
         margin: 24px 0 32px;
         padding: 22px 24px;
         border-left: 4px solid var(--gold);
@@ -253,7 +257,7 @@
       }
 
       section {
-        margin-top: 34px;
+        margin-top: 42px;
       }
 
       h2 {
@@ -267,6 +271,13 @@
         margin: 8px 0;
       }
 
+      h3 {
+        margin: 22px 0 10px;
+        color: var(--navy);
+        font-family: var(--font-serif);
+        font-size: 20px;
+      }
+
       .cards {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -276,7 +287,7 @@
       .card {
         padding: 22px;
         border: 1px solid var(--line);
-        border-radius: 8px;
+        border-radius: var(--radius);
         background: var(--surface);
         box-shadow: var(--shadow);
       }
@@ -293,6 +304,78 @@
         font-weight: 800;
       }
 
+      .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 18px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .tag {
+        display: inline-flex;
+        width: fit-content;
+        margin-bottom: 18px;
+        padding: 6px 10px;
+        border: 1px solid rgba(200, 164, 107, 0.32);
+        border-radius: 999px;
+        color: #0f5b53;
+        background: rgba(200, 164, 107, 0.1);
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .quote {
+        margin: 30px 0 0;
+        padding: 24px 0 24px 28px;
+        border-left: 4px solid var(--gold);
+        color: var(--navy);
+        font-family: var(--font-serif);
+        font-size: clamp(22px, 3vw, 30px);
+        line-height: 1.35;
+      }
+
+      .related {
+        margin-top: 44px;
+        padding-top: 28px;
+        border-top: 1px solid var(--line);
+      }
+
+      .related-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 18px;
+      }
+
+      .related-item,
+      .cta {
+        padding: 20px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--surface);
+      }
+
+      .related-item strong,
+      .cta strong {
+        display: block;
+        color: var(--navy);
+      }
+
+      .related-item p,
+      .cta p {
+        margin: 10px 0 0;
+        font-size: 14px;
+        line-height: 1.75;
+      }
+
+      .cta {
+        margin-top: 34px;
+        border-color: rgba(200, 164, 107, 0.32);
+        background: rgba(200, 164, 107, 0.08);
+      }
+
       .source {
         margin-top: 42px;
         padding: 20px 22px;
@@ -302,7 +385,7 @@
 
       .back {
         padding: 12px 18px;
-        border-radius: 8px;
+        border-radius: var(--radius);
         color: var(--ivory);
         background: #10233f;
         text-decoration: none;
@@ -331,6 +414,15 @@
         .cards {
           grid-template-columns: 1fr;
         }
+
+        .related-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .quote {
+          padding-left: 18px;
+          font-size: 21px;
+        }
       }
     </style>
   </head>
@@ -348,9 +440,14 @@
     </header>
     <main>
       <article>
-        <span class="eyebrow">产业金融合规观察</span>
+        <span class="tag">产业金融合规观察</span>
         <h1>科技创新和技术改造贷款政策扩围，设备更新成为企业升级抓手</h1>
+        <div class="meta">
+          <span>2026-04-30</span>
+          <span>新华网</span>
+        </div>
         <p class="lead">相关部门进一步扩大科技创新和技术改造贷款投放，支持企业设备更新、技术改造和创新能力提升，民营和中小企业被纳入重点服务范围。</p>
+        <blockquote class="quote">这类政策适合放在产业金融咨询中做“路径判断”，但不能被包装成融资承诺。</blockquote>
         <section>
           <h2>行业要点</h2>
           <ul><li>产业金融服务正在更强调真实项目、设备更新、技术改造和企业创新能力。</li>
@@ -362,10 +459,43 @@
           <p>这类政策适合放在产业金融咨询中做“路径判断”，但不能被包装成融资承诺。</p>
 <p>熙载咨询应坚持不设资金池、不经手客户资金、不提供担保、不承诺融资结果，只做项目诊断、材料梳理、合规资源协同和方案翻译。</p>
         </section>
+        <section class="related">
+          <span class="eyebrow">关联服务</span>
+          <h2>这篇观察可延伸到的服务事项</h2>
+          <div class="related-grid">
+            <a class="related-item" href="/services">
+              <strong>地方产业咨询</strong>
+              <p>把地方资源、产业基础、政策方向和企业主体梳理成可汇报、可沟通、可推进的产业判断。</p>
+            </a>
+<a class="related-item" href="/services">
+              <strong>企业政策与评价服务</strong>
+              <p>围绕企业信用、资质、政策项目和第三方评价，把企业经营事实转化为规范、可信的材料表达。</p>
+            </a>
+<a class="related-item" href="/services">
+              <strong>招商项目包装</strong>
+              <p>把项目背景、投资逻辑、建设内容、合作方式和落地路径整理成对外可讲、对上可报的项目材料。</p>
+            </a>
+          </div>
+        </section>
+        <section class="related">
+          <span class="eyebrow">相关文章</span>
+          <h2>继续阅读相关观察</h2>
+          <div class="related-grid">
+            <a class="related-item" href="/insights/supply-chain-security-rules">
+              <strong>产业链供应链安全调查办法发布，供应链韧性成为企业合规议题</strong>
+              <p>商务部发布《产业链供应链安全调查工作办法》，从供应、采购、销售、数据、资金和基础设施等维度关注产业链供应链安全。</p>
+            </a>
+          </div>
+        </section>
         <section class="source">
           <strong>公开来源</strong>
           <p><a href="https://www.news.cn/fortune/20260430/4688b86c63934f0982854fb320000728/c.html" target="_blank" rel="noreferrer">查看原文：新华网</a></p>
           <p>本站仅作公开信息摘要与行业观察，不构成政策承诺、融资承诺或法律意见。</p>
+        </section>
+        <section class="cta">
+          <strong>需要把政策信息转化为项目材料或企业服务方案？</strong>
+          <p>可通过合作邮箱沟通具体事项，熙载咨询将先判断需求边界，再给出适合的服务路径。</p>
+          <a class="back" href="mailto:contact@xizai.asia">联系合作</a>
         </section>
         <a class="back" href="/insights">返回研究洞察</a>
       </article>

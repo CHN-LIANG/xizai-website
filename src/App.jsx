@@ -1,17 +1,22 @@
 import { useEffect, useState } from 'react';
-import Navbar from './components/Navbar.jsx';
-import Footer from './components/Footer.jsx';
-import SectionTitle from './components/SectionTitle.jsx';
-import BusinessCard from './components/BusinessCard.jsx';
+import SiteHeader from './components/SiteHeader.jsx';
+import SiteFooter from './components/SiteFooter.jsx';
+import SectionHeader from './components/SectionHeader.jsx';
+import PageHero from './components/PageHero.jsx';
+import ServiceCard from './components/ServiceCard.jsx';
+import InsightCard from './components/InsightCard.jsx';
+import CaseScenarioCard from './components/CaseScenarioCard.jsx';
+import CTASection from './components/CTASection.jsx';
+import ContactBlock from './components/ContactBlock.jsx';
 import MethodCard from './components/MethodCard.jsx';
-import TaiHexagramMark from './components/TaiHexagramMark.jsx';
 import Reveal from './components/Reveal.jsx';
 import ComplianceCard from './components/ComplianceCard.jsx';
 import { businessServices, serviceDetails, serviceOutcomes, serviceScenarios } from './data/services.js';
 import { methods, networkNodes, partnerTypes, values } from './data/culture.js';
 import { complianceRules, financeDirections } from './data/finance.js';
 import { insightArticles } from './data/insights.js';
-import { cooperationOptions, publicEmailContacts, wechatAccount } from './data/siteData.js';
+import { cooperationOptions, publicEmailContacts } from './data/siteData.js';
+import { siteImages } from './data/media.js';
 import { insightPathFor, updatePageSeo } from './utils/seo.js';
 
 const getInsightSlugFromHash = () => {
@@ -50,6 +55,37 @@ const serviceEntryLinks = [
   { label: '政企协同', href: '/#services', text: '会议筹备、项目协调、资源连接、平台共建' },
 ];
 
+const serviceKeywordMap = [
+  { keywords: ['县域', '农业', '产业', '园区', '招商'], services: ['地方产业咨询', '招商项目包装'] },
+  { keywords: ['中小企业', '信用', '评价', '政策', '资质', '合规'], services: ['企业政策与评价服务', '政企协同与资源对接'] },
+  { keywords: ['融资', '金融', '贷款', '供应链', '资金'], services: ['产业金融咨询', '企业政策与评价服务'] },
+];
+
+const getRelatedArticles = (article) => {
+  if (!article) {
+    return [];
+  }
+
+  return insightArticles
+    .filter((item) => item.slug !== article.slug)
+    .filter((item) => item.category === article.category || item.tags.some((tag) => article.tags.includes(tag)))
+    .slice(0, 3);
+};
+
+const getRelatedServices = (article) => {
+  if (!article) {
+    return [];
+  }
+
+  const text = [article.category, article.title, article.summary, ...article.tags].join(' ');
+  const serviceNames = serviceKeywordMap
+    .filter((group) => group.keywords.some((keyword) => text.includes(keyword)))
+    .flatMap((group) => group.services);
+  const uniqueNames = [...new Set(serviceNames.length ? serviceNames : ['地方产业咨询', '企业政策与评价服务'])];
+
+  return serviceDetails.filter((service) => uniqueNames.includes(service.title)).slice(0, 3);
+};
+
 const scrollToInsights = () => {
   window.requestAnimationFrame(() => {
     document.getElementById('insights')?.scrollIntoView({ block: 'start' });
@@ -60,6 +96,10 @@ function App() {
   const [formStatus, setFormStatus] = useState('');
   const [activeInsightSlug, setActiveInsightSlug] = useState(getInsightSlugFromLocation);
   const activeInsight = insightArticles.find((article) => article.slug === activeInsightSlug);
+  const relatedArticles = getRelatedArticles(activeInsight);
+  const relatedServices = getRelatedServices(activeInsight);
+  const featuredInsight = insightArticles[0];
+  const secondaryInsights = insightArticles.slice(1);
 
   useEffect(() => {
     const section = new URLSearchParams(window.location.search).get('section');
@@ -133,45 +173,24 @@ function App() {
 
   return (
     <>
-      <Navbar />
+      <SiteHeader />
       <main>
-        <section className="hero" id="home">
-          <div className="hero__texture" />
-          <div className="container hero__grid">
-            <Reveal className="hero__content">
-              <span className="eyebrow">专业资源协同 · 县域产业 · 中小企业服务</span>
-              <h1>熙载咨询</h1>
-              <p className="hero__subtitle">县域产业与中小企业发展服务机构</p>
-              <p className="hero__text">
-                服务地方政府、产业平台、央国企下属单位及成长型企业，围绕产业咨询、项目包装、企业评价、政策申报与政企协同，提供可落地的专业支持。
-              </p>
-              <div className="hero__actions">
-                <a className="button button--primary" href="/#services">
-                  了解核心服务
-                </a>
-                <a className="button button--ghost" href="/#contact">
-                  联系合作
-                </a>
-              </div>
-              <div className="hero__proofs" aria-label="服务概览">
-                {heroProofs.map((item) => (
-                  <div className="hero__proof" key={item.label}>
-                    <span>{item.label}</span>
-                    <strong>{item.value}</strong>
-                  </div>
-                ))}
-              </div>
-            </Reveal>
-
-            <Reveal className="hero__symbol" delay={0.12}>
-              <TaiHexagramMark size={142} color="rgba(255,253,248,0.9)" accent="#C8A46B" withCircle />
-              <div>
-                <strong>地天交泰，百业通达</strong>
-                <span>上坤下乾，象征上下贯通、资源流动。用于表达咨询机构的组织、连接和落地能力。</span>
-              </div>
-            </Reveal>
-          </div>
-        </section>
+        <PageHero
+          eyebrow="专业资源协同 · 县域产业 · 中小企业服务"
+          title="熙载咨询"
+          subtitle="县域产业与中小企业发展服务机构"
+          text="服务地方政府、产业平台、央国企下属单位及成长型企业，围绕产业咨询、项目包装、企业评价、政策申报与政企协同，提供可落地的专业支持。"
+          actions={[
+            { label: '了解核心服务', href: '/#services' },
+            { label: '联系合作', href: '/#contact', variant: 'ghost' },
+          ]}
+          proofs={heroProofs}
+          symbol={{
+            title: '地天交泰，百业通达',
+            text: '上坤下乾，象征上下贯通、资源流动。用于表达咨询机构的组织、连接和落地能力。',
+          }}
+          media={siteImages.hero}
+        />
 
         <section className="quick-entry" aria-label="核心服务入口">
           <div className="container quick-entry__grid">
@@ -186,9 +205,9 @@ function App() {
 
         <section className="section intro" id="about">
           <div className="container intro__grid">
-            <SectionTitle eyebrow="关于熙载" title="熙载咨询（北京）有限公司">
+            <SectionHeader eyebrow="关于熙载" title="熙载咨询（北京）有限公司">
               熙载咨询是一家面向县域产业与中小企业发展服务的综合咨询机构，重视资源协同、方案组织、项目推进和合规边界。
-            </SectionTitle>
+            </SectionHeader>
             <div className="intro__panel">
               <h3>文化理念：熙载太和</h3>
               <p>
@@ -218,13 +237,33 @@ function App() {
 
         <section className="section section--warm" id="services">
           <div className="container">
-            <SectionTitle eyebrow="业务服务" title="围绕地方产业与企业成长的四类核心服务" align="center">
+            <SectionHeader eyebrow="业务服务" title="围绕地方产业与企业成长的四类核心服务" align="center">
               不做空泛咨询，聚焦产业判断、材料成型、项目包装、评价申报和政企协同。
-            </SectionTitle>
+            </SectionHeader>
+            <div className="service-showcase">
+              <figure className="media-frame">
+                <img src={siteImages.countyAgriculture.src} alt={siteImages.countyAgriculture.alt} loading="lazy" decoding="async" />
+                <figcaption>{siteImages.countyAgriculture.caption}</figcaption>
+              </figure>
+              <div className="service-showcase__content">
+                <span className="eyebrow">服务能力矩阵</span>
+                <h3>把产业判断、企业材料、项目包装和协同推进放在同一个工作台</h3>
+                <p>
+                  参考国际咨询机构的服务组织方式，熙载咨询把服务拆成能力、对象和交付三条线：先识别产业和企业真实问题，再组织材料、资源和协同路径。
+                </p>
+                <div className="service-axis">
+                  <span>产业定位</span>
+                  <span>企业评价</span>
+                  <span>项目包装</span>
+                  <span>政企协同</span>
+                  <span>合规金融</span>
+                </div>
+              </div>
+            </div>
             <div className="business-grid">
               {businessServices.map((service, index) => (
                 <Reveal as="div" delay={Math.min(index * 0.04, 0.18)} key={service.title}>
-                  <BusinessCard service={service} index={index} />
+                  <ServiceCard service={service} index={index} />
                 </Reveal>
               ))}
             </div>
@@ -291,21 +330,8 @@ function App() {
               </div>
               <div className="scenario-grid">
                 {serviceScenarios.map((scenario, index) => (
-                  <Reveal as="article" className="scenario-card" delay={Math.min(index * 0.035, 0.18)} key={scenario.title}>
-                    <span className="scenario-card__index">{String(index + 1).padStart(2, '0')}</span>
-                    <h4>{scenario.title}</h4>
-                    <div className="scenario-card__row">
-                      <strong>常见问题</strong>
-                      <p>{scenario.problem}</p>
-                    </div>
-                    <div className="scenario-card__row">
-                      <strong>服务支持</strong>
-                      <p>{scenario.support}</p>
-                    </div>
-                    <div className="scenario-card__output">
-                      <strong>形成结果</strong>
-                      <p>{scenario.output}</p>
-                    </div>
+                  <Reveal as="div" delay={Math.min(index * 0.035, 0.18)} key={scenario.title}>
+                    <CaseScenarioCard scenario={scenario} index={index} />
                   </Reveal>
                 ))}
               </div>
@@ -315,12 +341,18 @@ function App() {
 
         <section className="section finance" id="finance">
           <div className="container finance__intro">
-            <SectionTitle eyebrow="产业金融" title="产业金融咨询与融资方案协同服务">
+            <SectionHeader eyebrow="产业金融" title="产业金融咨询与融资方案协同服务">
               熙载咨询定位为实体产业与金融机构之间的翻译者、组织者和方案协同者。以产业为根，以信用为桥，以资产为底，以合规为界。
-            </SectionTitle>
-            <div className="quote-panel">
-              不做资金中介，做产业金融的翻译者与组织者。
-              <span>金融服务产业，信用承载发展。</span>
+            </SectionHeader>
+            <div className="finance-side">
+              <div className="quote-panel">
+                不做资金中介，做产业金融的翻译者与组织者。
+                <span>金融服务产业，信用承载发展。</span>
+              </div>
+              <figure className="media-frame media-frame--finance">
+                <img src={siteImages.industryEnergy.src} alt={siteImages.industryEnergy.alt} loading="lazy" decoding="async" />
+                <figcaption>{siteImages.industryEnergy.caption}</figcaption>
+              </figure>
             </div>
           </div>
 
@@ -346,9 +378,9 @@ function App() {
 
         <section className="section" id="methodology">
           <div className="container">
-            <SectionTitle eyebrow="核心方法论" title="熙载五法" align="center">
+            <SectionHeader eyebrow="核心方法论" title="熙载五法" align="center">
               观势、识企、聚源、成案、落地，把需求变成路径，把资源变成项目，把合作变成结果。
-            </SectionTitle>
+            </SectionHeader>
             <div className="method-flow">
               {methods.map((method, index) => (
                 <Reveal as="div" delay={index * 0.05} key={method.title}>
@@ -361,9 +393,9 @@ function App() {
 
         <section className="section section--warm" id="network">
           <div className="container">
-            <SectionTitle eyebrow="服务网络" title="首都资源枢纽、省域项目节点、县域服务触点、合作服务网络" align="center">
+            <SectionHeader eyebrow="服务网络" title="首都资源枢纽、省域项目节点、县域服务触点、合作服务网络" align="center">
               通过总部资源组织、省域项目推进、县域服务触点和合作伙伴网络，形成资源下沉与需求上达的双向通道。
-            </SectionTitle>
+            </SectionHeader>
             <div className="network">
               {networkNodes.map((node, index) => (
                 <Reveal as="article" delay={index * 0.06} key={node.title}>
@@ -384,9 +416,9 @@ function App() {
 
         <section className="section values">
           <div className="container values__grid">
-            <SectionTitle eyebrow="价值观" title="守正、明势、承载、贯通、成事、长久">
-              坚持长期主义，以信用积累关系，以服务沉淀口碑，以项目形成样板。
-            </SectionTitle>
+            <SectionHeader eyebrow="专业优势" title="以研究判断、材料组织和资源协同支撑项目落地">
+              既重视产业判断，也重视企业材料、沟通机制、合规边界和后续推进节奏。
+            </SectionHeader>
             <div className="value-list">
               {values.map((value) => (
                 <article key={value.title}>
@@ -400,9 +432,9 @@ function App() {
 
         <section className="section partners">
           <div className="container">
-            <SectionTitle eyebrow="合作对象" title="面向政府平台、国企央企上下游与中小企业" align="center">
+            <SectionHeader eyebrow="合作对象" title="面向政府平台、国企央企上下游与中小企业" align="center">
               服务对象清晰，责任边界清晰，合作目标清晰。
-            </SectionTitle>
+            </SectionHeader>
             <div className="partner-grid">
               {partnerTypes.map((partner) => (
                 <span key={partner}>{partner}</span>
@@ -413,9 +445,9 @@ function App() {
 
         <section className="section insights section--warm" id="insights">
           <div className="container">
-            <SectionTitle eyebrow="研究洞察" title="公开行业新闻与熙载观察" align="center">
+            <SectionHeader eyebrow="研究洞察" title="公开行业新闻与熙载观察" align="center">
               选取与县域产业、中小企业服务、企业信用和合规产业金融相关的公开权威信息，做摘要、要点和服务启示，不转载全文。
-            </SectionTitle>
+            </SectionHeader>
             {activeInsight ? (
               <Reveal as="article" className="insight-detail" key={activeInsight.slug}>
                 <a className="insight-back" href="/#insights" onClick={closeInsight}>
@@ -428,6 +460,9 @@ function App() {
                   <span>{activeInsight.sourceName}</span>
                 </div>
                 <p className="insight-detail__lead">{activeInsight.summary}</p>
+                <blockquote className="insight-detail__quote">
+                  {activeInsight.xizaiView[0] || activeInsight.summary}
+                </blockquote>
                 <div className="insight-detail__body">
                   <div>
                     <h4>行业要点</h4>
@@ -444,6 +479,43 @@ function App() {
                     ))}
                   </div>
                 </div>
+                {relatedServices.length > 0 && (
+                  <div className="insight-related">
+                    <div>
+                      <span className="eyebrow">关联服务</span>
+                      <h4>这篇观察可延伸到的服务事项</h4>
+                    </div>
+                    <div className="insight-related__grid">
+                      {relatedServices.map((service) => (
+                        <a href="/#services" className="insight-related__item" key={service.title}>
+                          <strong>{service.title}</strong>
+                          <p>{service.summary}</p>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {relatedArticles.length > 0 && (
+                  <div className="insight-related">
+                    <div>
+                      <span className="eyebrow">相关文章</span>
+                      <h4>继续阅读相关观察</h4>
+                    </div>
+                    <div className="insight-related__grid">
+                      {relatedArticles.map((article) => (
+                        <a
+                          href={insightPathFor(article.slug)}
+                          className="insight-related__item"
+                          key={article.slug}
+                          onClick={(event) => openInsight(event, article.slug)}
+                        >
+                          <strong>{article.title}</strong>
+                          <p>{article.summary}</p>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                )}
                 <div className="insight-detail__source">
                   <span>公开来源</span>
                   <a href={activeInsight.sourceUrl} target="_blank" rel="noreferrer">
@@ -451,100 +523,57 @@ function App() {
                   </a>
                   <p>本站仅作公开信息摘要与行业观察，不构成政策承诺、融资承诺或法律意见。</p>
                 </div>
+                <div className="insight-detail__cta">
+                  <strong>需要把政策信息转化为项目材料或企业服务方案？</strong>
+                  <p>可通过合作邮箱沟通具体事项，熙载咨询将先判断需求边界，再给出适合的服务路径。</p>
+                  <a className="button button--primary" href="mailto:contact@xizai.asia">
+                    联系合作
+                  </a>
+                </div>
               </Reveal>
             ) : (
-              <div className="insight-grid">
-                {insightArticles.map((article, index) => (
-                  <Reveal as="article" delay={Math.min(index * 0.04, 0.18)} key={article.slug}>
-                    <a className="insight-card" href={insightPathFor(article.slug)} onClick={(event) => openInsight(event, article.slug)}>
-                      <span>{article.category}</span>
-                      <h3>{article.title}</h3>
-                      <p>{article.summary}</p>
+              <>
+                {featuredInsight && (
+                  <Reveal as="article" className="insight-feature">
+                    <div className="insight-feature__content">
+                      <span>{featuredInsight.category}</span>
+                      <h3>{featuredInsight.title}</h3>
+                      <p>{featuredInsight.summary}</p>
                       <div className="insight-card__meta">
-                        <small>{article.date}</small>
-                        <small>{article.sourceName}</small>
+                        <small>{featuredInsight.date}</small>
+                        <small>{featuredInsight.sourceName}</small>
                       </div>
-                      <strong>阅读详情</strong>
-                    </a>
+                      <a href={insightPathFor(featuredInsight.slug)} onClick={(event) => openInsight(event, featuredInsight.slug)}>
+                        阅读主文章
+                      </a>
+                    </div>
+                    <figure className="media-frame">
+                      <img src={siteImages.meetingRoom.src} alt={siteImages.meetingRoom.alt} loading="lazy" decoding="async" />
+                      <figcaption>{siteImages.meetingRoom.caption}</figcaption>
+                    </figure>
                   </Reveal>
-                ))}
-              </div>
+                )}
+                <div className="insight-grid">
+                  {secondaryInsights.map((article, index) => (
+                    <Reveal as="article" delay={Math.min(index * 0.04, 0.18)} key={article.slug}>
+                      <InsightCard article={article} href={insightPathFor(article.slug)} onOpen={(event) => openInsight(event, article.slug)} />
+                    </Reveal>
+                  ))}
+                </div>
+              </>
             )}
           </div>
         </section>
 
-        <section className="section home-cta">
-          <div className="container home-cta__grid">
-            <div>
-              <span className="eyebrow">合作入口</span>
-              <h2>欢迎通过邮箱或微信公众号交流合作</h2>
-              <p>
-                面向政府平台、协会、科研院所、园区、国企平台、农业产业企业和中小企业，熙载咨询提供克制、合规、可落地的产业服务协同。
-              </p>
-              <div className="hero__actions">
-                <a className="button button--primary" href="mailto:contact@xizai.asia">
-                  发送合作邮件
-                </a>
-                <a className="button button--ghost button--dark" href="/#contact">
-                  查看联系渠道
-                </a>
-              </div>
-            </div>
-            <div className="wechat-card wechat-card--featured">
-              <img
-                src={wechatAccount.qrCode}
-                alt={`${wechatAccount.name}微信公众号二维码`}
-                width="112"
-                height="112"
-                loading="lazy"
-                decoding="async"
-              />
-              <div>
-                <strong>微信公众号</strong>
-                <span>{wechatAccount.name}</span>
-                <em>微信搜一搜：{wechatAccount.name}</em>
-                <p>扫码关注，后续将持续更新县域产业观察、中小企业服务研究与产业金融合规观察。</p>
-              </div>
-            </div>
-          </div>
-        </section>
+        <CTASection />
 
         <section className="section contact" id="contact">
           <div className="container contact__grid">
             <div>
-              <SectionTitle eyebrow="合作咨询" title="把需求说清楚，把合作接得住">
+              <SectionHeader eyebrow="合作咨询" title="把需求说清楚，把合作接得住">
                 如需就地方产业咨询、企业评价、政策申报、项目包装、政企协同或产业金融咨询事项沟通，欢迎联系熙载咨询。
-              </SectionTitle>
-              <div className="contact-card contact-card--company">
-                <strong>熙载咨询（北京）有限公司</strong>
-                <span>总部所在地：北京</span>
-                <span>合作方向：地方产业咨询、企业评价、政策申报、项目包装、政企协同、产业金融咨询</span>
-              </div>
-              <div className="email-grid">
-                {publicEmailContacts.map((contact) => (
-                  <a className="email-card" href={`mailto:${contact.email}`} key={contact.email}>
-                    <strong>{contact.label}</strong>
-                    <span>{contact.email}</span>
-                    <p>{contact.text}</p>
-                  </a>
-                ))}
-              </div>
-              <div className="wechat-card">
-                <img
-                  src={wechatAccount.qrCode}
-                  alt={`${wechatAccount.name}微信公众号二维码`}
-                  width="112"
-                  height="112"
-                  loading="lazy"
-                  decoding="async"
-                />
-                <div>
-                  <strong>微信公众号</strong>
-                  <span>{wechatAccount.name}</span>
-                  <em>微信搜一搜：{wechatAccount.name}</em>
-                  <p>如二维码暂不可用，可在微信内搜索“{wechatAccount.name}”。</p>
-                </div>
-              </div>
+              </SectionHeader>
+              <ContactBlock />
             </div>
             <form className="contact-form" onSubmit={handleSubmit}>
               <label>
@@ -589,7 +618,7 @@ function App() {
           </div>
         </section>
       </main>
-      <Footer />
+      <SiteFooter />
     </>
   );
 }

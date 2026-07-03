@@ -74,6 +74,27 @@ const servicePages = [
   },
 ];
 
+const serviceClientSegments = [
+  {
+    title: '地方政府与平台公司',
+    text: '适用于县域产业定位、农业产业链梳理、招商项目包装、会议材料和政企协同事项。',
+  },
+  {
+    title: '央国企上下游与成长型企业',
+    text: '适用于信用评价、政策项目申报、资质材料规范、供应链协同和企业服务事项。',
+  },
+  {
+    title: '协会、园区与产业服务机构',
+    text: '适用于服务平台共建、企业走访、政策服务、产业资源对接和项目联合推进。',
+  },
+];
+
+const articleServiceKeywordMap = [
+  { keywords: ['县域', '农业', '产业', '园区', '招商'], services: ['地方产业咨询', '招商项目包装'] },
+  { keywords: ['中小企业', '信用', '评价', '政策', '资质', '合规'], services: ['企业政策与评价服务', '政企协同与资源对接'] },
+  { keywords: ['融资', '金融', '贷款', '供应链', '资金'], services: ['产业金融咨询', '企业政策与评价服务'] },
+];
+
 const staticPages = [
   {
     slug: '',
@@ -141,6 +162,10 @@ const staticPages = [
           text: service.summary,
           href: `/services/${service.slug}`,
         })),
+      },
+      {
+        heading: '服务对象分类',
+        cards: serviceClientSegments,
       },
       {
         heading: '服务详情',
@@ -260,6 +285,22 @@ const renderCards = (cards = []) =>
         </article>`,
     )
     .join('\n');
+
+const getRelatedArticles = (article) =>
+  insightArticles
+    .filter((item) => item.slug !== article.slug)
+    .filter((item) => item.category === article.category || item.tags.some((tag) => article.tags.includes(tag)))
+    .slice(0, 3);
+
+const getRelatedServices = (article) => {
+  const text = [article.category, article.title, article.summary, ...article.tags].join(' ');
+  const serviceNames = articleServiceKeywordMap
+    .filter((group) => group.keywords.some((keyword) => text.includes(keyword)))
+    .flatMap((group) => group.services);
+  const uniqueNames = [...new Set(serviceNames.length ? serviceNames : ['地方产业咨询', '企业政策与评价服务'])];
+
+  return serviceDetails.filter((service) => uniqueNames.includes(service.title)).slice(0, 3);
+};
 
 const renderSections = (sections = []) =>
   sections
@@ -484,6 +525,9 @@ const pageShell = ({ title, description, canonicalUrl, body, jsonLd, ogType = 'w
         --surface: #fffdf8;
         --line: rgba(16, 35, 63, 0.12);
         --shadow: 0 18px 42px rgba(13, 27, 42, 0.08);
+        --radius: 8px;
+        --content: 1040px;
+        --measure: 760px;
       }
 
       :root[data-theme='dark'] {
@@ -553,7 +597,7 @@ const pageShell = ({ title, description, canonicalUrl, body, jsonLd, ogType = 'w
       }
 
       main {
-        width: min(960px, calc(100% - 40px));
+        width: min(var(--content), calc(100% - 40px));
         margin: 0 auto;
         padding: 62px 0 72px;
       }
@@ -575,6 +619,7 @@ const pageShell = ({ title, description, canonicalUrl, body, jsonLd, ogType = 'w
       }
 
       .lead {
+        max-width: var(--measure);
         margin: 24px 0 32px;
         padding: 22px 24px;
         border-left: 4px solid var(--gold);
@@ -584,7 +629,7 @@ const pageShell = ({ title, description, canonicalUrl, body, jsonLd, ogType = 'w
       }
 
       section {
-        margin-top: 34px;
+        margin-top: 42px;
       }
 
       h2 {
@@ -598,6 +643,13 @@ const pageShell = ({ title, description, canonicalUrl, body, jsonLd, ogType = 'w
         margin: 8px 0;
       }
 
+      h3 {
+        margin: 22px 0 10px;
+        color: var(--navy);
+        font-family: var(--font-serif);
+        font-size: 20px;
+      }
+
       .cards {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -607,7 +659,7 @@ const pageShell = ({ title, description, canonicalUrl, body, jsonLd, ogType = 'w
       .card {
         padding: 22px;
         border: 1px solid var(--line);
-        border-radius: 8px;
+        border-radius: var(--radius);
         background: var(--surface);
         box-shadow: var(--shadow);
       }
@@ -624,6 +676,78 @@ const pageShell = ({ title, description, canonicalUrl, body, jsonLd, ogType = 'w
         font-weight: 800;
       }
 
+      .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 18px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .tag {
+        display: inline-flex;
+        width: fit-content;
+        margin-bottom: 18px;
+        padding: 6px 10px;
+        border: 1px solid rgba(200, 164, 107, 0.32);
+        border-radius: 999px;
+        color: #0f5b53;
+        background: rgba(200, 164, 107, 0.1);
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .quote {
+        margin: 30px 0 0;
+        padding: 24px 0 24px 28px;
+        border-left: 4px solid var(--gold);
+        color: var(--navy);
+        font-family: var(--font-serif);
+        font-size: clamp(22px, 3vw, 30px);
+        line-height: 1.35;
+      }
+
+      .related {
+        margin-top: 44px;
+        padding-top: 28px;
+        border-top: 1px solid var(--line);
+      }
+
+      .related-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 18px;
+      }
+
+      .related-item,
+      .cta {
+        padding: 20px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--surface);
+      }
+
+      .related-item strong,
+      .cta strong {
+        display: block;
+        color: var(--navy);
+      }
+
+      .related-item p,
+      .cta p {
+        margin: 10px 0 0;
+        font-size: 14px;
+        line-height: 1.75;
+      }
+
+      .cta {
+        margin-top: 34px;
+        border-color: rgba(200, 164, 107, 0.32);
+        background: rgba(200, 164, 107, 0.08);
+      }
+
       .source {
         margin-top: 42px;
         padding: 20px 22px;
@@ -633,7 +757,7 @@ const pageShell = ({ title, description, canonicalUrl, body, jsonLd, ogType = 'w
 
       .back {
         padding: 12px 18px;
-        border-radius: 8px;
+        border-radius: var(--radius);
         color: var(--ivory);
         background: #10233f;
         text-decoration: none;
@@ -661,6 +785,15 @@ const pageShell = ({ title, description, canonicalUrl, body, jsonLd, ogType = 'w
 
         .cards {
           grid-template-columns: 1fr;
+        }
+
+        .related-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .quote {
+          padding-left: 18px;
+          font-size: 21px;
         }
       }
     </style>
@@ -778,13 +911,14 @@ const renderServicePage = (service) => {
         detail
           ? `<section>
         <h2>服务交付方式</h2>
+        <h3>适用对象</h3>
+        <p>${escapeHtml(detail.suitableFor.join('、'))}</p>
+        <h3>解决问题</h3>
         <p>${escapeHtml(detail.summary)}</p>
         <h3>主要工作</h3>
         <ul>${renderList(detail.work)}</ul>
-        <h3>交付内容</h3>
+        <h3>交付成果</h3>
         <ul>${renderList(detail.deliverables)}</ul>
-        <h3>适合对象</h3>
-        <p>${escapeHtml(detail.suitableFor.join('、'))}</p>
         <h3>形成结果</h3>
         <p>${escapeHtml(detail.result)}</p>
       </section>`
@@ -828,11 +962,18 @@ const renderArticlePage = (article) => {
   const canonicalUrl = urlForSlug(slug);
   const title = `${article.title} | 研究洞察 | ${siteName}`;
   const organizationSchema = buildOrganizationSchema();
+  const relatedArticles = getRelatedArticles(article);
+  const relatedServices = getRelatedServices(article);
   const body = `<main>
       <article>
-        <span class="eyebrow">${escapeHtml(article.category)}</span>
+        <span class="tag">${escapeHtml(article.category)}</span>
         <h1>${escapeHtml(article.title)}</h1>
+        <div class="meta">
+          <span>${escapeHtml(article.date)}</span>
+          <span>${escapeHtml(article.sourceName)}</span>
+        </div>
         <p class="lead">${escapeHtml(article.summary)}</p>
+        <blockquote class="quote">${escapeHtml(article.xizaiView[0] || article.summary)}</blockquote>
         <section>
           <h2>行业要点</h2>
           <ul>${renderList(article.keyPoints)}</ul>
@@ -841,10 +982,51 @@ const renderArticlePage = (article) => {
           <h2>熙载观察</h2>
           ${renderParagraphs(article.xizaiView)}
         </section>
+        ${
+          relatedServices.length
+            ? `<section class="related">
+          <span class="eyebrow">关联服务</span>
+          <h2>这篇观察可延伸到的服务事项</h2>
+          <div class="related-grid">
+            ${relatedServices
+              .map(
+                (service) => `<a class="related-item" href="/services">
+              <strong>${escapeHtml(service.title)}</strong>
+              <p>${escapeHtml(service.summary)}</p>
+            </a>`,
+              )
+              .join('\n')}
+          </div>
+        </section>`
+            : ''
+        }
+        ${
+          relatedArticles.length
+            ? `<section class="related">
+          <span class="eyebrow">相关文章</span>
+          <h2>继续阅读相关观察</h2>
+          <div class="related-grid">
+            ${relatedArticles
+              .map(
+                (item) => `<a class="related-item" href="/insights/${item.slug}">
+              <strong>${escapeHtml(item.title)}</strong>
+              <p>${escapeHtml(item.summary)}</p>
+            </a>`,
+              )
+              .join('\n')}
+          </div>
+        </section>`
+            : ''
+        }
         <section class="source">
           <strong>公开来源</strong>
           <p><a href="${article.sourceUrl}" target="_blank" rel="noreferrer">查看原文：${escapeHtml(article.sourceName)}</a></p>
           <p>本站仅作公开信息摘要与行业观察，不构成政策承诺、融资承诺或法律意见。</p>
+        </section>
+        <section class="cta">
+          <strong>需要把政策信息转化为项目材料或企业服务方案？</strong>
+          <p>可通过合作邮箱沟通具体事项，熙载咨询将先判断需求边界，再给出适合的服务路径。</p>
+          <a class="back" href="mailto:contact@xizai.asia">联系合作</a>
         </section>
         <a class="back" href="/insights">返回研究洞察</a>
       </article>
