@@ -7,7 +7,7 @@ import MethodCard from './components/MethodCard.jsx';
 import TaiHexagramMark from './components/TaiHexagramMark.jsx';
 import Reveal from './components/Reveal.jsx';
 import ComplianceCard from './components/ComplianceCard.jsx';
-import { businessServices, serviceOutcomes } from './data/services.js';
+import { businessServices, serviceDetails, serviceOutcomes, serviceScenarios } from './data/services.js';
 import { methods, networkNodes, partnerTypes, values } from './data/culture.js';
 import { complianceRules, financeDirections } from './data/finance.js';
 import { insightArticles } from './data/insights.js';
@@ -36,6 +36,19 @@ const getInsightSlugFromPath = () => {
 const getInsightSlugFromLocation = () => getInsightSlugFromHash() || getInsightSlugFromPath();
 
 const legacySectionIds = new Set(['about', 'services', 'finance', 'methodology', 'network', 'insights', 'contact']);
+
+const heroProofs = [
+  { label: '服务对象', value: '地方政府、产业平台、央国企下属单位、成长型企业' },
+  { label: '典型事项', value: '产业咨询、项目包装、企业评价、政策申报、政企协同' },
+  { label: '交付成果', value: '可汇报、可申报、可沟通、可推进的项目材料' },
+];
+
+const serviceEntryLinks = [
+  { label: '地方产业咨询', href: '/#services', text: '产业定位、农业产业链、园区发展、招商方向' },
+  { label: '企业政策与评价', href: '/#services', text: 'AAA信用评价、协会评价、资质材料、政策申报' },
+  { label: '招商项目包装', href: '/#services', text: '项目建议书、招商手册、汇报材料、合作方案' },
+  { label: '政企协同', href: '/#services', text: '会议筹备、项目协调、资源连接、平台共建' },
+];
 
 const scrollToInsights = () => {
   window.requestAnimationFrame(() => {
@@ -140,15 +153,34 @@ function App() {
                   联系合作
                 </a>
               </div>
+              <div className="hero__proofs" aria-label="服务概览">
+                {heroProofs.map((item) => (
+                  <div className="hero__proof" key={item.label}>
+                    <span>{item.label}</span>
+                    <strong>{item.value}</strong>
+                  </div>
+                ))}
+              </div>
             </Reveal>
 
             <Reveal className="hero__symbol" delay={0.12}>
-              <TaiHexagramMark size={180} color="rgba(255,253,248,0.9)" accent="#C8A46B" withCircle />
+              <TaiHexagramMark size={142} color="rgba(255,253,248,0.9)" accent="#C8A46B" withCircle />
               <div>
                 <strong>地天交泰，百业通达</strong>
                 <span>上坤下乾，象征上下贯通、资源流动。用于表达咨询机构的组织、连接和落地能力。</span>
               </div>
             </Reveal>
+          </div>
+        </section>
+
+        <section className="quick-entry" aria-label="核心服务入口">
+          <div className="container quick-entry__grid">
+            {serviceEntryLinks.map((item) => (
+              <a href={item.href} className="quick-entry__item" key={item.label}>
+                <span>{item.label}</span>
+                <strong>{item.text}</strong>
+              </a>
+            ))}
           </div>
         </section>
 
@@ -196,6 +228,47 @@ function App() {
                 </Reveal>
               ))}
             </div>
+            <div className="service-details" aria-labelledby="service-details-title">
+              <div className="service-details__head">
+                <span className="eyebrow">服务详情</span>
+                <h3 id="service-details-title">从需求判断到材料交付，明确每类服务的工作边界</h3>
+                <p>把服务拆成主要工作、交付内容、适合对象和形成结果，方便合作方快速判断是否匹配。</p>
+              </div>
+              <div className="service-detail-grid">
+                {serviceDetails.map((service, index) => (
+                  <Reveal as="article" className="service-detail-card" delay={Math.min(index * 0.04, 0.2)} key={service.title}>
+                    <div className="service-detail-card__title">
+                      <span>{String(index + 1).padStart(2, '0')}</span>
+                      <h4>{service.title}</h4>
+                    </div>
+                    <p className="service-detail-card__summary">{service.summary}</p>
+                    <div className="service-detail-card__columns">
+                      <div>
+                        <strong>主要工作</strong>
+                        <ul>
+                          {service.work.map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div>
+                        <strong>交付内容</strong>
+                        <ul>
+                          {service.deliverables.map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                    <div className="service-detail-card__fit">
+                      <strong>适合对象</strong>
+                      <p>{service.suitableFor.join('、')}</p>
+                    </div>
+                    <p className="service-detail-card__result">{service.result}</p>
+                  </Reveal>
+                ))}
+              </div>
+            </div>
             <div className="service-outcomes">
               <div className="service-outcomes__head">
                 <span className="eyebrow">典型服务成果</span>
@@ -210,26 +283,44 @@ function App() {
                 ))}
               </div>
             </div>
+            <div className="service-scenarios" aria-labelledby="service-scenarios-title">
+              <div className="service-scenarios__head">
+                <span className="eyebrow">典型服务场景</span>
+                <h3 id="service-scenarios-title">客户通常不是缺概念，而是缺一套能落地的组织方式</h3>
+                <p>以下场景覆盖地方产业、企业评价、项目包装、政策申报、政企协同与产业金融合规咨询。</p>
+              </div>
+              <div className="scenario-grid">
+                {serviceScenarios.map((scenario, index) => (
+                  <Reveal as="article" className="scenario-card" delay={Math.min(index * 0.035, 0.18)} key={scenario.title}>
+                    <span className="scenario-card__index">{String(index + 1).padStart(2, '0')}</span>
+                    <h4>{scenario.title}</h4>
+                    <div className="scenario-card__row">
+                      <strong>常见问题</strong>
+                      <p>{scenario.problem}</p>
+                    </div>
+                    <div className="scenario-card__row">
+                      <strong>服务支持</strong>
+                      <p>{scenario.support}</p>
+                    </div>
+                    <div className="scenario-card__output">
+                      <strong>形成结果</strong>
+                      <p>{scenario.output}</p>
+                    </div>
+                  </Reveal>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
 
         <section className="section finance" id="finance">
-          <div className="container finance__grid">
-            <div>
-              <SectionTitle eyebrow="产业金融" title="产业金融咨询与融资方案协同服务">
-                熙载咨询定位为实体产业与金融机构之间的翻译者、组织者和方案协同者。以产业为根，以信用为桥，以资产为底，以合规为界。
-              </SectionTitle>
-              <div className="quote-panel">
-                不做资金中介，做产业金融的翻译者与组织者。
-                <span>金融服务产业，信用承载发展。</span>
-              </div>
-            </div>
-            <div className="finance__boundary">
-              <h3>服务边界</h3>
-              <strong>不经手客户资金、不提供担保、不承诺融资结果。</strong>
-              <p>
-                熙载咨询提供产业金融咨询、项目诊断、方案协同和持牌机构对接服务，不设立资金池，不经手客户资金，不直接从事放贷、担保、理财、资管、证券发行承销等需持牌经营的金融业务。涉及银行、保理、融资租赁、担保、证券化等持牌事项，由具备相应资质的机构依法独立办理。
-              </p>
+          <div className="container finance__intro">
+            <SectionTitle eyebrow="产业金融" title="产业金融咨询与融资方案协同服务">
+              熙载咨询定位为实体产业与金融机构之间的翻译者、组织者和方案协同者。以产业为根，以信用为桥，以资产为底，以合规为界。
+            </SectionTitle>
+            <div className="quote-panel">
+              不做资金中介，做产业金融的翻译者与组织者。
+              <span>金融服务产业，信用承载发展。</span>
             </div>
           </div>
 
@@ -400,7 +491,14 @@ function App() {
               </div>
             </div>
             <div className="wechat-card wechat-card--featured">
-              <img src={wechatAccount.qrCode} alt={`${wechatAccount.name}微信公众号二维码`} />
+              <img
+                src={wechatAccount.qrCode}
+                alt={`${wechatAccount.name}微信公众号二维码`}
+                width="112"
+                height="112"
+                loading="lazy"
+                decoding="async"
+              />
               <div>
                 <strong>微信公众号</strong>
                 <span>{wechatAccount.name}</span>
@@ -414,7 +512,7 @@ function App() {
         <section className="section contact" id="contact">
           <div className="container contact__grid">
             <div>
-              <SectionTitle eyebrow="联系我们" title="联系我们">
+              <SectionTitle eyebrow="合作咨询" title="把需求说清楚，把合作接得住">
                 如需就地方产业咨询、企业评价、政策申报、项目包装、政企协同或产业金融咨询事项沟通，欢迎联系熙载咨询。
               </SectionTitle>
               <div className="contact-card contact-card--company">
@@ -432,7 +530,14 @@ function App() {
                 ))}
               </div>
               <div className="wechat-card">
-                <img src={wechatAccount.qrCode} alt={`${wechatAccount.name}微信公众号二维码`} />
+                <img
+                  src={wechatAccount.qrCode}
+                  alt={`${wechatAccount.name}微信公众号二维码`}
+                  width="112"
+                  height="112"
+                  loading="lazy"
+                  decoding="async"
+                />
                 <div>
                   <strong>微信公众号</strong>
                   <span>{wechatAccount.name}</span>

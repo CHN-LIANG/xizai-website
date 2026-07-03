@@ -4,6 +4,24 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0D1B2A" />
+    <script>
+      (function () {
+        try {
+          var key = 'xizai-theme';
+          var stored = localStorage.getItem(key);
+          var preference = stored === 'light' || stored === 'dark' || stored === 'system' ? stored : 'system';
+          var systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var theme = preference === 'system' ? (systemDark ? 'dark' : 'light') : preference;
+          document.documentElement.dataset.theme = theme;
+          document.documentElement.dataset.themePreference = preference;
+          document.documentElement.style.colorScheme = theme;
+          document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#07111F' : '#0D1B2A');
+        } catch (error) {
+          document.documentElement.dataset.theme = 'light';
+          document.documentElement.dataset.themePreference = 'system';
+        }
+      })();
+    </script>
     <meta
       name="description"
       content="熙载咨询（北京）有限公司面向地方政府、产业平台、央国企下属单位及成长型企业，提供地方产业咨询、企业政策与评价服务、招商项目包装、政企协同和产业金融咨询服务。"
@@ -15,6 +33,8 @@
     <meta name="author" content="熙载咨询（北京）有限公司" />
     <meta name="application-name" content="熙载咨询" />
     <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="robots" content="index, follow" />
@@ -151,6 +171,48 @@
               "@id": "https://www.xizai.asia/#organization"
             },
             "inLanguage": "zh-CN"
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "首页",
+                "item": "https://www.xizai.asia/"
+              }
+            ]
+          },
+          {
+            "@type": "ItemList",
+            "@id": "https://www.xizai.asia/#service-scenarios",
+            "name": "熙载咨询典型服务场景",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "县域农业产业项目包装",
+                "description": "围绕产业基础、政策方向、项目亮点和落地路径，形成可用于汇报、招商和沟通的项目材料。"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "企业信用评价与政策资质服务",
+                "description": "协助成长型企业梳理信用评价、协会评价、政策项目申报和资质材料。"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "政企协同与资源对接",
+                "description": "协助政府平台、协会、国企平台和企业围绕具体项目建立沟通机制。"
+              },
+              {
+                "@type": "ListItem",
+                "position": 4,
+                "name": "产业金融合规咨询",
+                "description": "围绕真实交易背景、权属清晰、材料完整和持牌机构执行，提供合规边界内的方案协同。"
+              }
+            ]
           }
         ]
       }

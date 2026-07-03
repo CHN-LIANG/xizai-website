@@ -9,6 +9,11 @@
       "permanent": true
     },
     {
+      "source": "/news/",
+      "destination": "/insights",
+      "permanent": true
+    },
+    {
       "source": "/news/:path*",
       "destination": "/insights",
       "permanent": true

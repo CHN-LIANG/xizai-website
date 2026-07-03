@@ -29,7 +29,14 @@ export default function Footer() {
           <a href={`mailto:${publicEmailContacts[0].email}`}>{publicEmailContacts[0].email}</a>
           <a href={`mailto:${publicEmailContacts[1].email}`}>{publicEmailContacts[1].email}</a>
           <div className="footer__wechat">
-            <img src={wechatAccount.qrCode} alt={`${wechatAccount.name}微信公众号二维码`} />
+            <img
+              src={wechatAccount.qrCode}
+              alt={`${wechatAccount.name}微信公众号二维码`}
+              width="72"
+              height="72"
+              loading="lazy"
+              decoding="async"
+            />
             <span>微信公众号：{wechatAccount.name}<br />微信搜一搜：{wechatAccount.name}</span>
           </div>
         </div>

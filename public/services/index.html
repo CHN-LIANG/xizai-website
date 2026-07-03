@@ -4,11 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0D1B2A" />
+    <script>(function(){try{var key='xizai-theme';var stored=localStorage.getItem(key);var preference=stored==='light'||stored==='dark'||stored==='system'?stored:'system';var systemDark=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;var theme=preference==='system'?(systemDark?'dark':'light'):preference;document.documentElement.dataset.theme=theme;document.documentElement.dataset.themePreference=preference;document.documentElement.style.colorScheme=theme;document.querySelector('meta[name="theme-color"]')?.setAttribute('content',theme==='dark'?'#07111F':'#0D1B2A');}catch(error){document.documentElement.dataset.theme='light';document.documentElement.dataset.themePreference='system';}})();</script>
     <meta name="description" content="熙载咨询业务服务包括地方产业咨询、企业政策与评价服务、招商项目包装、政企协同与资源对接、产业金融咨询与融资方案协同服务。" />
     <meta name="keywords" content="熙载咨询,县域产业咨询,中小企业服务,企业信用评价,政策项目申报,招商项目包装,政企协同,产业金融咨询" />
     <meta name="author" content="熙载咨询（北京）有限公司" />
     <meta name="application-name" content="熙载咨询" />
     <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="robots" content="index, follow" />
     <meta property="og:type" content="website" />
@@ -102,16 +106,135 @@
       "about": {
         "@id": "https://www.xizai.asia/#organization"
       }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "首页",
+          "item": "https://www.xizai.asia/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "业务服务",
+          "item": "https://www.xizai.asia/services"
+        }
+      ]
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://www.xizai.asia/services#service-catalog",
+      "name": "熙载咨询核心服务目录",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "url": "https://www.xizai.asia/services/local-industry-consulting",
+          "name": "地方产业咨询",
+          "description": "面向地方政府平台、园区载体、产业主管部门和特色产业企业，围绕产业基础、资源禀赋、企业主体、政策方向和招商场景，形成可用于汇报、沟通、招商和项目推进的产业咨询成果。"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "url": "https://www.xizai.asia/services/enterprise-policy-evaluation",
+          "name": "企业政策与评价服务",
+          "description": "面向成长型企业和央国企上下游单位，帮助企业梳理信用资料、资质材料、政策申报路径和第三方评价表达，提升企业在合作、融资、市场准入和政府平台沟通中的可信呈现。"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "url": "https://www.xizai.asia/services/investment-project-packaging",
+          "name": "招商项目包装",
+          "description": "围绕项目背景、产业基础、投资逻辑、合作方式、政策依据和落地路径，帮助地方产业项目形成能对上汇报、对外招商、对接企业和推动合作的项目材料。"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "url": "https://www.xizai.asia/services/government-enterprise-collaboration",
+          "name": "政企协同与资源对接",
+          "description": "在多方参与的产业项目中，熙载咨询协助建立沟通机制、明确合作边界、组织会议材料和对接专业资源，让政府平台、协会、企业和服务机构围绕具体项目形成可推进的协同关系。"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "url": "https://www.xizai.asia/services/industrial-finance-consulting",
+          "name": "产业金融咨询",
+          "description": "面向实体产业项目、建筑央企上下游、地方国企平台和成长型企业，提供供应链融资咨询、项目资金需求诊断、材料梳理、合规路径判断和持牌机构沟通协同。"
+        }
+      ]
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://www.xizai.asia/services#service-scenarios",
+      "name": "熙载咨询典型服务场景",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "县域农业产业项目需要形成可汇报材料",
+          "description": "项目基础真实，但产业链、政策依据、建设内容和招商逻辑分散，难以对上汇报或对外推介。 熙载咨询可协助梳理产业基础、政策方向、项目亮点、建设路径和合作方式。 形成项目建议书、汇报提纲、招商要点和后续推进清单。"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "成长型企业需要信用评价与资质材料规范",
+          "description": "企业经营事实较多，但信用、资质、荣誉、合同、财税和项目资料缺少统一表达。 协助进行材料体检、评价路径匹配、资料清单整理和申报流程协同。 形成信用评价材料包、政策申报资料清单和企业资质展示建议。"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "平台公司需要把招商项目讲清楚",
+          "description": "项目有资源和场景，但投资逻辑、收益边界、合作方式和落地路径不够清晰。 围绕项目定位、目标企业、合作条件、建设节奏和风险边界进行系统化包装。 形成招商手册、项目推介演示稿、合作方案摘要和洽谈问题清单。"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "政府、协会、企业之间需要建立协作机制",
+          "description": "多方都有合作意向，但角色分工、会议议题、材料准备和后续动作容易断档。 协助搭建沟通议程、整理会议材料、明确事项边界并推动资源匹配。 形成会议材料包、事项推进清单、合作沟通方案和资源对接建议。"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "name": "政策项目申报前需要判断适配度",
+          "description": "企业看到政策机会，但不清楚自身条件、材料缺口、申报节奏和第三方评价要求。 帮助企业进行政策适配、条件核对、材料缺口识别和路径建议。 形成政策适配判断、材料补正清单、申报节奏建议和风险提示。"
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "name": "产业金融事项需要先划清合规边界",
+          "description": "企业有资金需求，但项目基础、交易背景、资产权属和持牌机构要求尚未说清。 先做产业事实和材料诊断，明确不碰钱、不担保、不承诺结果的服务边界。 形成融资需求诊断、材料清单、合规提示和持牌机构沟通准备。"
+        }
+      ]
     }
   ]
 }</script>
     <style>
       :root {
+        color-scheme: light;
+        --font-sans: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+        --font-serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
         --ink: #0d1b2a;
         --navy: #10233f;
         --gold: #c8a46b;
         --ivory: #f7f4ec;
         --muted: #6b7280;
+        --surface: #fffdf8;
+        --line: rgba(16, 35, 63, 0.12);
+        --shadow: 0 18px 42px rgba(13, 27, 42, 0.08);
+      }
+
+      :root[data-theme='dark'] {
+        color-scheme: dark;
+        --ink: #f2eadc;
+        --navy: #fff8ed;
+        --ivory: #07111f;
+        --muted: #aeb9c8;
+        --surface: #101f33;
+        --line: rgba(247, 244, 236, 0.14);
+        --shadow: 0 18px 42px rgba(0, 0, 0, 0.28);
       }
 
       * {
@@ -122,7 +245,7 @@
         margin: 0;
         color: var(--ink);
         background: var(--ivory);
-        font-family: "Noto Sans SC", "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+        font-family: var(--font-sans);
         line-height: 1.75;
       }
 
@@ -136,7 +259,7 @@
         gap: 20px;
         padding: 22px min(6vw, 72px);
         color: var(--ivory);
-        background: var(--ink);
+        background: #0d1b2a;
       }
 
       .brand {
@@ -156,6 +279,19 @@
         text-decoration: none;
       }
 
+      .theme-toggle-static {
+        min-height: 34px;
+        padding: 0 12px;
+        border: 1px solid rgba(247, 244, 236, 0.34);
+        border-radius: 8px;
+        color: rgba(247, 244, 236, 0.88);
+        background: transparent;
+        font: inherit;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
       main {
         width: min(960px, calc(100% - 40px));
         margin: 0 auto;
@@ -173,7 +309,7 @@
       h1 {
         margin: 0;
         color: var(--navy);
-        font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
+        font-family: var(--font-serif);
         font-size: clamp(2rem, 5vw, 3.8rem);
         line-height: 1.18;
       }
@@ -182,8 +318,8 @@
         margin: 24px 0 32px;
         padding: 22px 24px;
         border-left: 4px solid var(--gold);
-        color: #263548;
-        background: #fffdf8;
+        color: var(--ink);
+        background: var(--surface);
         font-size: 18px;
       }
 
@@ -194,7 +330,7 @@
       h2 {
         margin: 0 0 14px;
         color: var(--navy);
-        font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
+        font-family: var(--font-serif);
         font-size: 26px;
       }
 
@@ -210,9 +346,10 @@
 
       .card {
         padding: 22px;
-        border: 1px solid rgba(16, 35, 63, 0.12);
+        border: 1px solid var(--line);
         border-radius: 8px;
-        background: #fffdf8;
+        background: var(--surface);
+        box-shadow: var(--shadow);
       }
 
       .card h2 {
@@ -230,15 +367,15 @@
       .source {
         margin-top: 42px;
         padding: 20px 22px;
-        border: 1px solid rgba(16, 35, 63, 0.12);
-        background: #fffdf8;
+        border: 1px solid var(--line);
+        background: var(--surface);
       }
 
       .back {
         padding: 12px 18px;
         border-radius: 8px;
         color: var(--ivory);
-        background: var(--navy);
+        background: #10233f;
         text-decoration: none;
       }
 
@@ -258,6 +395,10 @@
           margin-top: 12px;
         }
 
+        .theme-toggle-static {
+          margin-top: 14px;
+        }
+
         .cards {
           grid-template-columns: 1fr;
         }
@@ -273,6 +414,7 @@
         <a href="/finance">产业金融</a>
         <a href="/insights">研究洞察</a>
         <a href="/contact">联系我们</a>
+        <button class="theme-toggle-static" type="button" data-theme-toggle aria-label="切换主题">跟随系统</button>
       </nav>
     </header>
     <main>
@@ -309,11 +451,77 @@
           <a href="/services/industrial-finance-consulting">查看详情</a>
         </article></div>
       </section>
+<section>
+        <h2>服务详情</h2>
+        <p>从需求判断、材料整理、方案组织到推进清单，熙载咨询强调边界清晰、材料清晰和结果可交付。</p>
+
+        <div class="cards"><article class="card">
+          <h2>地方产业咨询</h2>
+          <p>把地方资源、产业基础、政策方向和企业主体梳理成可汇报、可沟通、可推进的产业判断。 主要工作：产业基础与资源禀赋梳理、政策方向与产业链环节研判、园区、平台招商和项目承接方向建议。交付内容：产业梳理报告、汇报提纲与演示要点、招商方向清单。</p>
+          <a href="/services/local-industry-consulting">查看详情</a>
+        </article>
+<article class="card">
+          <h2>企业政策与评价服务</h2>
+          <p>围绕企业信用、资质、政策项目和第三方评价，把企业经营事实转化为规范、可信的材料表达。 主要工作：企业基础材料体检、评价与政策路径适配、申报材料结构整理与流程协同。交付内容：信用评价材料包、政策申报材料清单、资质与荣誉展示建议。</p>
+          <a href="/services/enterprise-policy-evaluation">查看详情</a>
+        </article>
+<article class="card">
+          <h2>招商项目包装</h2>
+          <p>把项目背景、投资逻辑、建设内容、合作方式和落地路径整理成对外可讲、对上可报的项目材料。 主要工作：项目亮点和市场逻辑梳理、投资合作结构与汇报逻辑设计、招商手册、建议书和汇报材料组织。交付内容：项目建议书、招商手册、项目推介演示稿、合作方案摘要。</p>
+          <a href="/services/investment-project-packaging">查看详情</a>
+        </article>
+<article class="card">
+          <h2>政企协同与资源对接</h2>
+          <p>在多方参与的项目中明确角色、边界和沟通节奏，帮助政府平台、协会、国企平台和企业围绕具体事项协同推进。 主要工作：合作对象与事项边界梳理、会议议程、纪要和材料准备、专家、协会、服务机构资源协同。交付内容：合作沟通方案、会议材料包、事项推进清单、资源对接建议。</p>
+          <a href="/services/government-enterprise-collaboration">查看详情</a>
+        </article>
+<article class="card">
+          <h2>产业金融咨询</h2>
+          <p>围绕真实交易背景、资产权属、信用材料和持牌机构要求，提供融资需求诊断、材料组织和合规方案协同。 主要工作：融资需求与项目基础诊断、交易背景、权属和材料完整性梳理、与持牌机构沟通前的方案准备。交付内容：资金需求诊断说明、材料补充清单、合规边界提示、持牌机构沟通要点。</p>
+          <a href="/finance">查看详情</a>
+        </article></div>
+      </section>
+<section>
+        <h2>典型服务场景</h2>
+
+
+        <div class="cards"><article class="card">
+          <h2>县域农业产业项目需要形成可汇报材料</h2>
+          <p>项目基础真实，但产业链、政策依据、建设内容和招商逻辑分散，难以对上汇报或对外推介。 熙载咨询可协助梳理产业基础、政策方向、项目亮点、建设路径和合作方式。 形成项目建议书、汇报提纲、招商要点和后续推进清单。</p>
+
+        </article>
+<article class="card">
+          <h2>成长型企业需要信用评价与资质材料规范</h2>
+          <p>企业经营事实较多，但信用、资质、荣誉、合同、财税和项目资料缺少统一表达。 协助进行材料体检、评价路径匹配、资料清单整理和申报流程协同。 形成信用评价材料包、政策申报资料清单和企业资质展示建议。</p>
+
+        </article>
+<article class="card">
+          <h2>平台公司需要把招商项目讲清楚</h2>
+          <p>项目有资源和场景，但投资逻辑、收益边界、合作方式和落地路径不够清晰。 围绕项目定位、目标企业、合作条件、建设节奏和风险边界进行系统化包装。 形成招商手册、项目推介演示稿、合作方案摘要和洽谈问题清单。</p>
+
+        </article>
+<article class="card">
+          <h2>政府、协会、企业之间需要建立协作机制</h2>
+          <p>多方都有合作意向，但角色分工、会议议题、材料准备和后续动作容易断档。 协助搭建沟通议程、整理会议材料、明确事项边界并推动资源匹配。 形成会议材料包、事项推进清单、合作沟通方案和资源对接建议。</p>
+
+        </article>
+<article class="card">
+          <h2>政策项目申报前需要判断适配度</h2>
+          <p>企业看到政策机会，但不清楚自身条件、材料缺口、申报节奏和第三方评价要求。 帮助企业进行政策适配、条件核对、材料缺口识别和路径建议。 形成政策适配判断、材料补正清单、申报节奏建议和风险提示。</p>
+
+        </article>
+<article class="card">
+          <h2>产业金融事项需要先划清合规边界</h2>
+          <p>企业有资金需求，但项目基础、交易背景、资产权属和持牌机构要求尚未说清。 先做产业事实和材料诊断，明确不碰钱、不担保、不承诺结果的服务边界。 形成融资需求诊断、材料清单、合规提示和持牌机构沟通准备。</p>
+
+        </article></div>
+      </section>
       <a class="back" href="/#home">进入官网首页</a>
     </main>
     <footer>
       <span>© 2026 熙载咨询（北京）有限公司</span>
       <span> · 县域产业与中小企业发展服务机构</span>
     </footer>
+    <script>(function(){var key='xizai-theme';var labels={system:'跟随系统',light:'浅色',dark:'深色'};var order=['system','light','dark'];var button=document.querySelector('[data-theme-toggle]');function valid(value){return order.indexOf(value)>-1;}function systemTheme(){return window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}function apply(preference,save){if(!valid(preference)){preference='system';}var theme=preference==='system'?systemTheme():preference;document.documentElement.dataset.theme=theme;document.documentElement.dataset.themePreference=preference;document.documentElement.style.colorScheme=theme;document.querySelector('meta[name="theme-color"]')?.setAttribute('content',theme==='dark'?'#07111F':'#0D1B2A');if(save){if(preference==='system'){localStorage.removeItem(key);}else{localStorage.setItem(key,preference);}}if(button){button.textContent=labels[preference];button.setAttribute('aria-label','切换主题，当前为'+labels[preference]);}}var current=document.documentElement.dataset.themePreference||'system';apply(current,false);if(button){button.addEventListener('click',function(){var next=order[(order.indexOf(document.documentElement.dataset.themePreference||'system')+1)%order.length];apply(next,true);});}if(window.matchMedia){window.matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change',function(){if((document.documentElement.dataset.themePreference||'system')==='system'){apply('system',false);}});}})();</script>
   </body>
 </html>

@@ -3,6 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { complianceRules, financeDirections } from '../src/data/finance.js';
 import { insightArticles } from '../src/data/insights.js';
+import { serviceDetails, serviceScenarios } from '../src/data/services.js';
 import { methods, networkNodes, partnerTypes, values } from '../src/data/culture.js';
 import { publicEmailContacts, wechatAccount } from '../src/data/siteData.js';
 
@@ -13,7 +14,7 @@ const siteUrl = 'https://www.xizai.asia';
 const siteName = '熙载咨询';
 const companyName = '熙载咨询（北京）有限公司';
 const ogImage = `${siteUrl}/og-image.png`;
-const today = '2026-07-03';
+const today = '2026-07-04';
 
 const servicePages = [
   {
@@ -141,6 +142,22 @@ const staticPages = [
           href: `/services/${service.slug}`,
         })),
       },
+      {
+        heading: '服务详情',
+        paragraphs: ['从需求判断、材料整理、方案组织到推进清单，熙载咨询强调边界清晰、材料清晰和结果可交付。'],
+        cards: serviceDetails.map((service) => ({
+          title: service.title,
+          text: `${service.summary} 主要工作：${service.work.join('、')}。交付内容：${service.deliverables.join('、')}。`,
+          href: service.title === '产业金融咨询' ? '/finance' : `/services/${servicePages.find((item) => item.title === service.title)?.slug ?? ''}`,
+        })),
+      },
+      {
+        heading: '典型服务场景',
+        cards: serviceScenarios.map((scenario) => ({
+          title: scenario.title,
+          text: `${scenario.problem} ${scenario.support} ${scenario.output}`,
+        })),
+      },
     ],
   },
   {
@@ -256,6 +273,10 @@ const renderSections = (sections = []) =>
     )
     .join('\n');
 
+const themeBootScript = `(function(){try{var key='xizai-theme';var stored=localStorage.getItem(key);var preference=stored==='light'||stored==='dark'||stored==='system'?stored:'system';var systemDark=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;var theme=preference==='system'?(systemDark?'dark':'light'):preference;document.documentElement.dataset.theme=theme;document.documentElement.dataset.themePreference=preference;document.documentElement.style.colorScheme=theme;document.querySelector('meta[name="theme-color"]')?.setAttribute('content',theme==='dark'?'#07111F':'#0D1B2A');}catch(error){document.documentElement.dataset.theme='light';document.documentElement.dataset.themePreference='system';}})();`;
+
+const themeClientScript = `(function(){var key='xizai-theme';var labels={system:'跟随系统',light:'浅色',dark:'深色'};var order=['system','light','dark'];var button=document.querySelector('[data-theme-toggle]');function valid(value){return order.indexOf(value)>-1;}function systemTheme(){return window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}function apply(preference,save){if(!valid(preference)){preference='system';}var theme=preference==='system'?systemTheme():preference;document.documentElement.dataset.theme=theme;document.documentElement.dataset.themePreference=preference;document.documentElement.style.colorScheme=theme;document.querySelector('meta[name="theme-color"]')?.setAttribute('content',theme==='dark'?'#07111F':'#0D1B2A');if(save){if(preference==='system'){localStorage.removeItem(key);}else{localStorage.setItem(key,preference);}}if(button){button.textContent=labels[preference];button.setAttribute('aria-label','切换主题，当前为'+labels[preference]);}}var current=document.documentElement.dataset.themePreference||'system';apply(current,false);if(button){button.addEventListener('click',function(){var next=order[(order.indexOf(document.documentElement.dataset.themePreference||'system')+1)%order.length];apply(next,true);});}if(window.matchMedia){window.matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change',function(){if((document.documentElement.dataset.themePreference||'system')==='system'){apply('system',false);}});}})();`;
+
 const buildOrganizationSchema = () => ({
   '@context': 'https://schema.org',
   '@graph': [
@@ -349,6 +370,41 @@ const buildServiceSchema = (service, canonicalUrl) => ({
   },
 });
 
+const buildBreadcrumbSchema = (items) => ({
+  '@type': 'BreadcrumbList',
+  itemListElement: items.map((item, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: item.name,
+    item: item.url,
+  })),
+});
+
+const buildServiceCatalogSchema = (canonicalUrl) => ({
+  '@type': 'ItemList',
+  '@id': `${canonicalUrl}#service-catalog`,
+  name: '熙载咨询核心服务目录',
+  itemListElement: servicePages.map((service, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    url: `${siteUrl}/services/${service.slug}`,
+    name: service.title,
+    description: service.summary,
+  })),
+});
+
+const buildScenarioListSchema = (canonicalUrl) => ({
+  '@type': 'ItemList',
+  '@id': `${canonicalUrl}#service-scenarios`,
+  name: '熙载咨询典型服务场景',
+  itemListElement: serviceScenarios.map((scenario, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: scenario.title,
+    description: `${scenario.problem} ${scenario.support} ${scenario.output}`,
+  })),
+});
+
 const buildArticleSchema = (article, canonicalUrl) => ({
   '@context': 'https://schema.org',
   '@type': 'Article',
@@ -385,11 +441,15 @@ const pageShell = ({ title, description, canonicalUrl, body, jsonLd, ogType = 'w
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0D1B2A" />
+    <script>${themeBootScript}</script>
     <meta name="description" content="${escapeHtml(description)}" />
     ${keywords.length ? `<meta name="keywords" content="${escapeHtml(keywords.join(','))}" />` : ''}
     <meta name="author" content="${companyName}" />
     <meta name="application-name" content="${siteName}" />
     <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="robots" content="index, follow" />
     <meta property="og:type" content="${ogType}" />
@@ -413,11 +473,28 @@ const pageShell = ({ title, description, canonicalUrl, body, jsonLd, ogType = 'w
     <script type="application/ld+json">${JSON.stringify(jsonLd, null, 2)}</script>
     <style>
       :root {
+        color-scheme: light;
+        --font-sans: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+        --font-serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
         --ink: #0d1b2a;
         --navy: #10233f;
         --gold: #c8a46b;
         --ivory: #f7f4ec;
         --muted: #6b7280;
+        --surface: #fffdf8;
+        --line: rgba(16, 35, 63, 0.12);
+        --shadow: 0 18px 42px rgba(13, 27, 42, 0.08);
+      }
+
+      :root[data-theme='dark'] {
+        color-scheme: dark;
+        --ink: #f2eadc;
+        --navy: #fff8ed;
+        --ivory: #07111f;
+        --muted: #aeb9c8;
+        --surface: #101f33;
+        --line: rgba(247, 244, 236, 0.14);
+        --shadow: 0 18px 42px rgba(0, 0, 0, 0.28);
       }
 
       * {
@@ -428,7 +505,7 @@ const pageShell = ({ title, description, canonicalUrl, body, jsonLd, ogType = 'w
         margin: 0;
         color: var(--ink);
         background: var(--ivory);
-        font-family: "Noto Sans SC", "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+        font-family: var(--font-sans);
         line-height: 1.75;
       }
 
@@ -442,7 +519,7 @@ const pageShell = ({ title, description, canonicalUrl, body, jsonLd, ogType = 'w
         gap: 20px;
         padding: 22px min(6vw, 72px);
         color: var(--ivory);
-        background: var(--ink);
+        background: #0d1b2a;
       }
 
       .brand {
@@ -462,6 +539,19 @@ const pageShell = ({ title, description, canonicalUrl, body, jsonLd, ogType = 'w
         text-decoration: none;
       }
 
+      .theme-toggle-static {
+        min-height: 34px;
+        padding: 0 12px;
+        border: 1px solid rgba(247, 244, 236, 0.34);
+        border-radius: 8px;
+        color: rgba(247, 244, 236, 0.88);
+        background: transparent;
+        font: inherit;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
       main {
         width: min(960px, calc(100% - 40px));
         margin: 0 auto;
@@ -479,7 +569,7 @@ const pageShell = ({ title, description, canonicalUrl, body, jsonLd, ogType = 'w
       h1 {
         margin: 0;
         color: var(--navy);
-        font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
+        font-family: var(--font-serif);
         font-size: clamp(2rem, 5vw, 3.8rem);
         line-height: 1.18;
       }
@@ -488,8 +578,8 @@ const pageShell = ({ title, description, canonicalUrl, body, jsonLd, ogType = 'w
         margin: 24px 0 32px;
         padding: 22px 24px;
         border-left: 4px solid var(--gold);
-        color: #263548;
-        background: #fffdf8;
+        color: var(--ink);
+        background: var(--surface);
         font-size: 18px;
       }
 
@@ -500,7 +590,7 @@ const pageShell = ({ title, description, canonicalUrl, body, jsonLd, ogType = 'w
       h2 {
         margin: 0 0 14px;
         color: var(--navy);
-        font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
+        font-family: var(--font-serif);
         font-size: 26px;
       }
 
@@ -516,9 +606,10 @@ const pageShell = ({ title, description, canonicalUrl, body, jsonLd, ogType = 'w
 
       .card {
         padding: 22px;
-        border: 1px solid rgba(16, 35, 63, 0.12);
+        border: 1px solid var(--line);
         border-radius: 8px;
-        background: #fffdf8;
+        background: var(--surface);
+        box-shadow: var(--shadow);
       }
 
       .card h2 {
@@ -536,15 +627,15 @@ const pageShell = ({ title, description, canonicalUrl, body, jsonLd, ogType = 'w
       .source {
         margin-top: 42px;
         padding: 20px 22px;
-        border: 1px solid rgba(16, 35, 63, 0.12);
-        background: #fffdf8;
+        border: 1px solid var(--line);
+        background: var(--surface);
       }
 
       .back {
         padding: 12px 18px;
         border-radius: 8px;
         color: var(--ivory);
-        background: var(--navy);
+        background: #10233f;
         text-decoration: none;
       }
 
@@ -564,6 +655,10 @@ const pageShell = ({ title, description, canonicalUrl, body, jsonLd, ogType = 'w
           margin-top: 12px;
         }
 
+        .theme-toggle-static {
+          margin-top: 14px;
+        }
+
         .cards {
           grid-template-columns: 1fr;
         }
@@ -579,6 +674,7 @@ const pageShell = ({ title, description, canonicalUrl, body, jsonLd, ogType = 'w
         <a href="/finance">产业金融</a>
         <a href="/insights">研究洞察</a>
         <a href="/contact">联系我们</a>
+        <button class="theme-toggle-static" type="button" data-theme-toggle aria-label="切换主题">跟随系统</button>
       </nav>
     </header>
     ${body}
@@ -586,6 +682,7 @@ const pageShell = ({ title, description, canonicalUrl, body, jsonLd, ogType = 'w
       <span>© ${new Date().getFullYear()} ${companyName}</span>
       <span> · 县域产业与中小企业发展服务机构</span>
     </footer>
+    <script>${themeClientScript}</script>
   </body>
 </html>
 `;
@@ -619,6 +716,21 @@ const writePage = async ({ slug, html, priority = '0.7', lastmod = today, change
 
 const renderStaticPage = (page) => {
   const canonicalUrl = urlForSlug(page.slug);
+  const organizationSchema = buildOrganizationSchema();
+  const graph = [
+    organizationSchema['@graph'][0],
+    organizationSchema['@graph'][1],
+    buildPageSchema(page, canonicalUrl),
+    buildBreadcrumbSchema([
+      { name: '首页', url: `${siteUrl}/` },
+      ...(page.slug ? [{ name: page.title.split('|')[0].trim(), url: canonicalUrl }] : []),
+    ]),
+  ];
+
+  if (page.slug === 'services') {
+    graph.push(buildServiceCatalogSchema(canonicalUrl), buildScenarioListSchema(canonicalUrl));
+  }
+
   const body = `<main>
       <span class="eyebrow">熙载咨询</span>
       <h1>${escapeHtml(page.title.split('|')[0].trim())}</h1>
@@ -634,7 +746,7 @@ const renderStaticPage = (page) => {
     body,
     jsonLd: {
       '@context': 'https://schema.org',
-      '@graph': [buildOrganizationSchema()['@graph'][0], buildOrganizationSchema()['@graph'][1], buildPageSchema(page, canonicalUrl)],
+      '@graph': graph,
     },
     keywords: [
       '熙载咨询',
@@ -652,6 +764,8 @@ const renderStaticPage = (page) => {
 const renderServicePage = (service) => {
   const slug = `services/${service.slug}`;
   const canonicalUrl = urlForSlug(slug);
+  const detail = serviceDetails.find((item) => item.title === service.title);
+  const organizationSchema = buildOrganizationSchema();
   const body = `<main>
       <span class="eyebrow">业务服务</span>
       <h1>${escapeHtml(service.title)}</h1>
@@ -660,6 +774,22 @@ const renderServicePage = (service) => {
         <h2>服务内容</h2>
         <ul>${renderList(service.items)}</ul>
       </section>
+      ${
+        detail
+          ? `<section>
+        <h2>服务交付方式</h2>
+        <p>${escapeHtml(detail.summary)}</p>
+        <h3>主要工作</h3>
+        <ul>${renderList(detail.work)}</ul>
+        <h3>交付内容</h3>
+        <ul>${renderList(detail.deliverables)}</ul>
+        <h3>适合对象</h3>
+        <p>${escapeHtml(detail.suitableFor.join('、'))}</p>
+        <h3>形成结果</h3>
+        <p>${escapeHtml(detail.result)}</p>
+      </section>`
+          : ''
+      }
       <section>
         <h2>适合搜索与合作的业务关键词</h2>
         <ul>${renderList(service.keywords)}</ul>
@@ -679,7 +809,15 @@ const renderServicePage = (service) => {
     ogType: 'website',
     jsonLd: {
       '@context': 'https://schema.org',
-      '@graph': [buildOrganizationSchema()['@graph'][0], buildServiceSchema(service, canonicalUrl)],
+      '@graph': [
+        organizationSchema['@graph'][0],
+        buildServiceSchema(service, canonicalUrl),
+        buildBreadcrumbSchema([
+          { name: '首页', url: `${siteUrl}/` },
+          { name: '业务服务', url: `${siteUrl}/services` },
+          { name: service.title, url: canonicalUrl },
+        ]),
+      ],
     },
     keywords: ['熙载咨询', ...service.keywords],
   });
@@ -689,6 +827,7 @@ const renderArticlePage = (article) => {
   const slug = `insights/${article.slug}`;
   const canonicalUrl = urlForSlug(slug);
   const title = `${article.title} | 研究洞察 | ${siteName}`;
+  const organizationSchema = buildOrganizationSchema();
   const body = `<main>
       <article>
         <span class="eyebrow">${escapeHtml(article.category)}</span>
@@ -717,7 +856,18 @@ const renderArticlePage = (article) => {
     canonicalUrl,
     body,
     ogType: 'article',
-    jsonLd: buildArticleSchema(article, canonicalUrl),
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        organizationSchema['@graph'][0],
+        buildArticleSchema(article, canonicalUrl),
+        buildBreadcrumbSchema([
+          { name: '首页', url: `${siteUrl}/` },
+          { name: '研究洞察', url: `${siteUrl}/insights` },
+          { name: article.title, url: canonicalUrl },
+        ]),
+      ],
+    },
     keywords: ['熙载咨询', article.category, ...article.tags],
   });
 };
@@ -727,6 +877,7 @@ const renderInsightIndexPage = () => {
   const canonicalUrl = urlForSlug(slug);
   const title = `研究洞察 | 县域产业、中小企业服务、企业信用与产业金融合规观察 | ${siteName}`;
   const description = '熙载咨询研究洞察，聚焦县域产业、中小企业服务、企业信用和合规产业金融相关公开信息。';
+  const organizationSchema = buildOrganizationSchema();
   const body = `<main>
       <span class="eyebrow">研究洞察</span>
       <h1>公开行业新闻与熙载观察</h1>
@@ -749,18 +900,27 @@ const renderInsightIndexPage = () => {
     body,
     jsonLd: {
       '@context': 'https://schema.org',
-      '@type': 'CollectionPage',
-      '@id': `${canonicalUrl}#collection`,
-      url: canonicalUrl,
-      name: title,
-      description,
-      inLanguage: 'zh-CN',
-      hasPart: insightArticles.map((article) => ({
-        '@type': 'Article',
-        headline: article.title,
-        url: `${siteUrl}/insights/${article.slug}`,
-        datePublished: article.date,
-      })),
+      '@graph': [
+        organizationSchema['@graph'][0],
+        {
+          '@type': 'CollectionPage',
+          '@id': `${canonicalUrl}#collection`,
+          url: canonicalUrl,
+          name: title,
+          description,
+          inLanguage: 'zh-CN',
+          hasPart: insightArticles.map((article) => ({
+            '@type': 'Article',
+            headline: article.title,
+            url: `${siteUrl}/insights/${article.slug}`,
+            datePublished: article.date,
+          })),
+        },
+        buildBreadcrumbSchema([
+          { name: '首页', url: `${siteUrl}/` },
+          { name: '研究洞察', url: canonicalUrl },
+        ]),
+      ],
     },
     keywords: ['熙载咨询', '县域产业观察', '中小企业服务研究', '产业金融合规观察'],
   });
@@ -783,6 +943,27 @@ ${allSeoUrls
 
 const renderSitemapTxt = () => `${allSeoUrls.map((url) => url.loc).join('\n')}\n`;
 
+const renderRedirectPage = (target, title = '页面已迁移') => `<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="refresh" content="0; url=${target}" />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href="${siteUrl}${target}" />
+    <title>${title} | ${siteName}</title>
+    <script>location.replace('${target}');</script>
+  </head>
+  <body>
+    <main style="max-width:720px;margin:80px auto;padding:0 20px;font-family:PingFang SC,Microsoft YaHei,Arial,sans-serif;line-height:1.8;">
+      <h1>${title}</h1>
+      <p>原新闻路径已调整为研究洞察栏目。</p>
+      <p><a href="${target}">进入研究洞察</a></p>
+    </main>
+  </body>
+</html>
+`;
+
 await Promise.all([
   rm(path.join(publicDir, 'insights'), { recursive: true, force: true }),
   rm(path.join(publicDir, 'services'), { recursive: true, force: true }),
@@ -791,6 +972,7 @@ await Promise.all([
   rm(path.join(publicDir, 'methodology'), { recursive: true, force: true }),
   rm(path.join(publicDir, 'network'), { recursive: true, force: true }),
   rm(path.join(publicDir, 'contact'), { recursive: true, force: true }),
+  rm(path.join(publicDir, 'news'), { recursive: true, force: true }),
 ]);
 
 for (const page of staticPages) {
@@ -830,5 +1012,8 @@ for (const article of insightArticles) {
 
 await writeFile(path.join(publicDir, 'sitemap.xml'), cleanOutput(renderSitemapXml()), 'utf8');
 await writeFile(path.join(publicDir, 'sitemap.txt'), cleanOutput(renderSitemapTxt()), 'utf8');
+await mkdir(path.join(publicDir, 'news'), { recursive: true });
+await writeFile(path.join(publicDir, 'news', 'index.html'), cleanOutput(renderRedirectPage('/insights', '新闻栏目已迁移')), 'utf8');
+await writeFile(path.join(publicDir, 'news.html'), cleanOutput(renderRedirectPage('/insights', '新闻栏目已迁移')), 'utf8');
 
 console.log(`Generated ${allSeoUrls.length} SEO pages and sitemap entries.`);

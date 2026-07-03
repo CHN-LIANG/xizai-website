@@ -3,53 +3,141 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, follow" />
+    <meta name="theme-color" content="#0D1B2A" />
     <title>页面未找到 | 熙载咨询</title>
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('xizai-theme');
+          var preference = stored === 'light' || stored === 'dark' || stored === 'system' ? stored : 'system';
+          var systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var theme = preference === 'system' ? (systemDark ? 'dark' : 'light') : preference;
+          document.documentElement.dataset.theme = theme;
+          document.documentElement.style.colorScheme = theme;
+          document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#07111F' : '#0D1B2A');
+        } catch (error) {
+          document.documentElement.dataset.theme = 'light';
+        }
+      })();
+    </script>
     <style>
+      :root {
+        color-scheme: light;
+        --font-sans: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+        --font-serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
+        --ink: #0d1b2a;
+        --navy: #10233f;
+        --gold: #c8a46b;
+        --ivory: #f7f4ec;
+        --surface: #fffdf8;
+        --muted: #6b7280;
+        --line: rgba(13, 27, 42, 0.14);
+      }
+
+      :root[data-theme='dark'] {
+        color-scheme: dark;
+        --ink: #f2eadc;
+        --navy: #fff8ed;
+        --ivory: #07111f;
+        --surface: #101f33;
+        --muted: #aeb9c8;
+        --line: rgba(247, 244, 236, 0.14);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
       body {
         margin: 0;
         min-height: 100vh;
         display: grid;
         place-items: center;
-        color: #f7f4ec;
-        background: #0d1b2a;
-        font-family: "Microsoft YaHei", system-ui, sans-serif;
+        color: var(--ink);
+        background:
+          linear-gradient(135deg, rgba(13, 27, 42, 0.08), transparent 38%),
+          var(--ivory);
+        font-family: var(--font-sans);
       }
 
       main {
-        width: min(680px, calc(100% - 40px));
-        padding: 42px;
-        border: 1px solid rgba(200, 164, 107, 0.35);
+        width: min(760px, calc(100% - 32px));
+        padding: clamp(28px, 6vw, 48px);
+        border: 1px solid var(--line);
         border-radius: 8px;
-        background: rgba(255, 253, 248, 0.06);
+        background: var(--surface);
+        box-shadow: 0 18px 48px rgba(13, 27, 42, 0.12);
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        gap: 10px;
+        align-items: center;
+        color: var(--gold);
+        font-size: 14px;
+        font-weight: 800;
+      }
+
+      .eyebrow::before {
+        width: 34px;
+        height: 1px;
+        content: "";
+        background: currentColor;
       }
 
       h1 {
-        margin: 0 0 12px;
-        font-size: clamp(2rem, 6vw, 3.5rem);
+        margin: 18px 0 12px;
+        color: var(--navy);
+        font-family: var(--font-serif);
+        font-size: clamp(2rem, 7vw, 3.6rem);
+        line-height: 1.16;
       }
 
       p {
-        line-height: 1.8;
-        color: rgba(247, 244, 236, 0.78);
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.85;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 26px;
       }
 
       a {
         display: inline-flex;
-        margin-top: 18px;
-        padding: 12px 18px;
+        min-height: 44px;
+        align-items: center;
+        justify-content: center;
+        padding: 0 16px;
         border-radius: 8px;
-        color: #0d1b2a;
-        background: #c8a46b;
+        color: var(--ink);
+        border: 1px solid var(--line);
         text-decoration: none;
-        font-weight: 700;
+        font-weight: 800;
+      }
+
+      a:first-child {
+        color: #0d1b2a;
+        border-color: var(--gold);
+        background: var(--gold);
       }
     </style>
   </head>
   <body>
     <main>
-      <h1>页面未找到</h1>
-      <p>您访问的页面暂时不存在。请返回熙载咨询官网首页，继续了解业务服务与合作方式。</p>
-      <a href="/">返回首页</a>
+      <span class="eyebrow">404</span>
+      <h1>页面暂时没有找到</h1>
+      <p>可能是旧链接、搜索引擎缓存或栏目路径调整。可以回到官网首页，或直接查看业务服务、研究洞察与联系方式。</p>
+      <div class="actions">
+        <a href="/#home">返回首页</a>
+        <a href="/services">业务服务</a>
+        <a href="/insights">研究洞察</a>
+        <a href="/contact">联系我们</a>
+      </div>
     </main>
   </body>
 </html>
