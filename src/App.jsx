@@ -55,8 +55,6 @@ const serviceEntryLinks = [
   { label: '政企协同', href: '/#services', text: '会议筹备、项目协调、资源连接、平台共建' },
 ];
 
-const visualServiceScenes = assetScenes;
-
 const serviceKeywordMap = [
   { keywords: ['县域', '农业', '产业', '园区', '招商'], services: ['地方产业咨询', '招商项目包装'] },
   { keywords: ['中小企业', '信用', '评价', '政策', '资质', '合规'], services: ['企业政策与评价服务', '政企协同与资源对接'] },
@@ -236,12 +234,10 @@ function App() {
             </article>
           </div>
 
-          <div className="container visual-strip" aria-label="服务场景图片">
-            {visualServiceScenes.map((image) => (
-              <figure key={image.src}>
-                <img src={image.src} alt={image.alt} loading="lazy" decoding="async" />
-              </figure>
-            ))}
+          <div className="container section-visual section-visual--about" aria-label={assetScenes[0].alt}>
+            <figure>
+              <img src={assetScenes[0].src} alt={assetScenes[0].alt} decoding="async" />
+            </figure>
           </div>
         </section>
 
@@ -252,7 +248,7 @@ function App() {
             </SectionHeader>
             <div className="service-showcase">
               <figure className="media-frame">
-                <img src={siteImages.countyAgriculture.src} alt={siteImages.countyAgriculture.alt} loading="lazy" decoding="async" />
+                <img src={assetScenes[1].src} alt={assetScenes[1].alt} decoding="async" />
               </figure>
               <div className="service-showcase__content">
                 <span className="eyebrow">服务能力矩阵</span>
@@ -344,6 +340,9 @@ function App() {
                   </Reveal>
                 ))}
               </div>
+              <figure className="section-visual section-visual--scenario" aria-label={assetScenes[3].alt}>
+                <img src={assetScenes[3].src} alt={assetScenes[3].alt} decoding="async" />
+              </figure>
             </div>
           </div>
         </section>
@@ -359,7 +358,7 @@ function App() {
                 <span>金融服务产业，信用承载发展。</span>
               </div>
               <figure className="media-frame media-frame--finance">
-                <img src={siteImages.industryEnergy.src} alt={siteImages.industryEnergy.alt} loading="lazy" decoding="async" />
+                <img src={assetScenes[4].src} alt={assetScenes[4].alt} decoding="async" />
               </figure>
             </div>
           </div>
@@ -556,7 +555,7 @@ function App() {
                       </a>
                     </div>
                     <figure className="media-frame">
-                      <img src={siteImages.meetingRoom.src} alt={siteImages.meetingRoom.alt} loading="lazy" decoding="async" />
+                      <img src={assetScenes[2].src} alt={assetScenes[2].alt} decoding="async" />
                     </figure>
                   </Reveal>
                 )}
