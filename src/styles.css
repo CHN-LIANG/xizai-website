@@ -425,16 +425,6 @@ svg {
   display: none;
 }
 
-.hero__caption {
-  position: absolute;
-  right: min(32px, 4vw);
-  bottom: 18px;
-  z-index: 2;
-  color: rgba(255, 253, 248, 0.54);
-  font-family: var(--font-sans);
-  font-size: var(--text-xs);
-}
-
 .hero__grid {
   position: relative;
   z-index: 1;
@@ -779,6 +769,35 @@ svg {
   line-height: var(--leading-body);
 }
 
+.visual-strip {
+  display: grid;
+  grid-template-columns: 1.05fr 0.9fr 1.05fr;
+  gap: 0;
+  margin-top: 46px;
+  border: 1px solid var(--line);
+  background: var(--white);
+}
+
+.visual-strip figure {
+  min-height: 280px;
+  margin: 0;
+  overflow: hidden;
+  border-right: 1px solid var(--line);
+  background: var(--deep-bg);
+}
+
+.visual-strip figure:last-child {
+  border-right: 0;
+}
+
+.visual-strip img {
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  object-fit: cover;
+  filter: saturate(0.9) contrast(0.96);
+}
+
 .business-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -820,16 +839,6 @@ svg {
   inset: 0;
   content: "";
   background: linear-gradient(180deg, transparent 45%, rgba(7, 17, 31, 0.56));
-}
-
-.media-frame figcaption {
-  position: absolute;
-  right: 14px;
-  bottom: 12px;
-  z-index: 1;
-  color: rgba(255, 253, 248, 0.72);
-  font-family: var(--font-sans);
-  font-size: var(--text-xs);
 }
 
 .service-showcase__content {
@@ -2396,6 +2405,19 @@ svg {
     grid-template-columns: 1fr;
   }
 
+  .visual-strip {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .visual-strip figure:nth-child(2) {
+    border-right: 0;
+  }
+
+  .visual-strip figure:last-child {
+    grid-column: 1 / -1;
+    border-top: 1px solid var(--line);
+  }
+
   .culture-grid article {
     border-right: 0;
     border-bottom: 1px solid var(--line);
@@ -2528,6 +2550,7 @@ svg {
 
   .business-grid,
   .service-showcase,
+  .visual-strip,
   .insight-feature,
   .method-flow,
   .finance-cards,
@@ -2607,8 +2630,17 @@ svg {
     min-height: 240px;
   }
 
-  .hero__caption {
-    display: none;
+  .visual-strip figure,
+  .visual-strip figure:nth-child(2),
+  .visual-strip figure:last-child {
+    grid-column: auto;
+    min-height: 220px;
+    border-right: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .visual-strip figure:first-child {
+    border-top: 0;
   }
 
   .wechat-card {

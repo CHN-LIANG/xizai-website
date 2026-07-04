@@ -5,7 +5,6 @@ export default function PageHero({ eyebrow, title, subtitle, text, actions = [],
   return (
     <section className={`hero page-hero ${media?.src ? 'hero--image' : ''}`} id="home" style={media?.src ? { '--hero-image': `url(${media.src})` } : undefined}>
       <div className="hero__texture" />
-      {media?.caption && <span className="hero__caption">{media.caption}</span>}
       <div className="container hero__grid">
         <Reveal className="hero__content">
           {eyebrow && <span className="eyebrow">{eyebrow}</span>}

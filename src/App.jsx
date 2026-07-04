@@ -55,6 +55,8 @@ const serviceEntryLinks = [
   { label: '政企协同', href: '/#services', text: '会议筹备、项目协调、资源连接、平台共建' },
 ];
 
+const visualServiceScenes = [siteImages.meetingRoom, siteImages.countyAgriculture, siteImages.industryEnergy];
+
 const serviceKeywordMap = [
   { keywords: ['县域', '农业', '产业', '园区', '招商'], services: ['地方产业咨询', '招商项目包装'] },
   { keywords: ['中小企业', '信用', '评价', '政策', '资质', '合规'], services: ['企业政策与评价服务', '政企协同与资源对接'] },
@@ -233,6 +235,14 @@ function App() {
               <p>厚载、通达、明势、成业。</p>
             </article>
           </div>
+
+          <div className="container visual-strip" aria-label="服务场景图片">
+            {visualServiceScenes.map((image) => (
+              <figure key={image.src}>
+                <img src={image.src} alt={image.alt} loading="lazy" decoding="async" />
+              </figure>
+            ))}
+          </div>
         </section>
 
         <section className="section section--warm" id="services">
@@ -243,7 +253,6 @@ function App() {
             <div className="service-showcase">
               <figure className="media-frame">
                 <img src={siteImages.countyAgriculture.src} alt={siteImages.countyAgriculture.alt} loading="lazy" decoding="async" />
-                <figcaption>{siteImages.countyAgriculture.caption}</figcaption>
               </figure>
               <div className="service-showcase__content">
                 <span className="eyebrow">服务能力矩阵</span>
@@ -351,7 +360,6 @@ function App() {
               </div>
               <figure className="media-frame media-frame--finance">
                 <img src={siteImages.industryEnergy.src} alt={siteImages.industryEnergy.alt} loading="lazy" decoding="async" />
-                <figcaption>{siteImages.industryEnergy.caption}</figcaption>
               </figure>
             </div>
           </div>
@@ -549,7 +557,6 @@ function App() {
                     </div>
                     <figure className="media-frame">
                       <img src={siteImages.meetingRoom.src} alt={siteImages.meetingRoom.alt} loading="lazy" decoding="async" />
-                      <figcaption>{siteImages.meetingRoom.caption}</figcaption>
                     </figure>
                   </Reveal>
                 )}
