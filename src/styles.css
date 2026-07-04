@@ -771,7 +771,7 @@ svg {
 
 .visual-strip {
   display: grid;
-  grid-template-columns: 1.05fr 0.9fr 1.05fr;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: 0;
   margin-top: 46px;
   border: 1px solid var(--line);
@@ -779,6 +779,7 @@ svg {
 }
 
 .visual-strip figure {
+  grid-column: span 4;
   min-height: 280px;
   margin: 0;
   overflow: hidden;
@@ -786,8 +787,16 @@ svg {
   background: var(--deep-bg);
 }
 
-.visual-strip figure:last-child {
+.visual-strip figure:nth-child(3),
+.visual-strip figure:nth-child(5) {
   border-right: 0;
+}
+
+.visual-strip figure:nth-child(4),
+.visual-strip figure:nth-child(5) {
+  grid-column: span 6;
+  min-height: 320px;
+  border-top: 1px solid var(--line);
 }
 
 .visual-strip img {
@@ -2406,16 +2415,38 @@ svg {
   }
 
   .visual-strip {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .visual-strip figure,
+  .visual-strip figure:nth-child(4),
+  .visual-strip figure:nth-child(5) {
+    grid-column: auto;
+    min-height: 250px;
+    border-top: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+  }
+
+  .visual-strip figure:nth-child(-n + 2) {
+    border-top: 0;
   }
 
   .visual-strip figure:nth-child(2) {
     border-right: 0;
   }
 
+  .visual-strip figure:nth-child(3) {
+    border-right: 1px solid var(--line);
+  }
+
+  .visual-strip figure:nth-child(4) {
+    border-right: 0;
+  }
+
   .visual-strip figure:last-child {
     grid-column: 1 / -1;
     border-top: 1px solid var(--line);
+    border-right: 0;
   }
 
   .culture-grid article {

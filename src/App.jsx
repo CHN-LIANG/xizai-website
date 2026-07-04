@@ -16,7 +16,7 @@ import { methods, networkNodes, partnerTypes, values } from './data/culture.js';
 import { complianceRules, financeDirections } from './data/finance.js';
 import { insightArticles } from './data/insights.js';
 import { cooperationOptions, publicEmailContacts } from './data/siteData.js';
-import { siteImages } from './data/media.js';
+import { assetScenes, siteImages } from './data/media.js';
 import { insightPathFor, updatePageSeo } from './utils/seo.js';
 
 const getInsightSlugFromHash = () => {
@@ -55,7 +55,7 @@ const serviceEntryLinks = [
   { label: '政企协同', href: '/#services', text: '会议筹备、项目协调、资源连接、平台共建' },
 ];
 
-const visualServiceScenes = [siteImages.meetingRoom, siteImages.countyAgriculture, siteImages.industryEnergy];
+const visualServiceScenes = assetScenes;
 
 const serviceKeywordMap = [
   { keywords: ['县域', '农业', '产业', '园区', '招商'], services: ['地方产业咨询', '招商项目包装'] },
