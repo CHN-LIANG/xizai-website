@@ -23,8 +23,8 @@ export default function ContactBlock({ compact = false }) {
         <img
           src={wechatAccount.qrCode}
           alt={`${wechatAccount.name}微信公众号二维码`}
-          width="112"
-          height="112"
+          width="124"
+          height="124"
           loading="lazy"
           decoding="async"
         />
@@ -39,8 +39,8 @@ export default function ContactBlock({ compact = false }) {
         <img
           src={instagramAccount.qrCode}
           alt={`${instagramAccount.name} Instagram 二维码`}
-          width="132"
-          height="132"
+          width="124"
+          height="124"
           loading="lazy"
           decoding="async"
         />

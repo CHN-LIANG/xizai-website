@@ -2055,19 +2055,18 @@ svg {
 }
 
 .wechat-card img {
-  width: 112px;
-  height: 112px;
+  width: 124px;
+  height: 124px;
   flex: 0 0 auto;
-  border: 8px solid var(--white);
+  border: 6px solid var(--white);
   border-radius: 0;
   background: var(--white);
   box-shadow: none;
 }
 
 .social-card--instagram img {
-  width: 132px;
-  height: 132px;
-  border-width: 6px;
+  width: 124px;
+  height: 124px;
 }
 
 .wechat-card strong {
