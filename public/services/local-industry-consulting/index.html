@@ -7,7 +7,7 @@
     <script>(function(){try{var key='xizai-theme';var stored=localStorage.getItem(key);var preference=stored==='light'||stored==='dark'||stored==='system'?stored:'system';var systemDark=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;var theme=preference==='system'?(systemDark?'dark':'light'):preference;document.documentElement.dataset.theme=theme;document.documentElement.dataset.themePreference=preference;document.documentElement.style.colorScheme=theme;document.querySelector('meta[name="theme-color"]')?.setAttribute('content',theme==='dark'?'#07111F':'#0D1B2A');}catch(error){document.documentElement.dataset.theme='light';document.documentElement.dataset.themePreference='system';}})();</script>
     <meta name="description" content="熙载咨询提供地方产业咨询服务，面向县域、园区和地方产业平台，围绕县域产业定位、农业产业链梳理、园区发展建议和招商方向研究形成可汇报、可执行的咨询成果。" />
     <meta name="keywords" content="熙载咨询,县域产业咨询,地方产业咨询,农业产业链,园区发展建议,招商方向研究" />
-    <meta name="author" content="熙载咨询（北京）有限公司" />
+    <meta name="author" content="熙载咨询" />
     <meta name="application-name" content="熙载咨询" />
     <meta name="applicable-device" content="pc,mobile" />
     <meta name="renderer" content="webkit" />
@@ -39,17 +39,12 @@
     {
       "@type": "Organization",
       "@id": "https://www.xizai.asia/#organization",
-      "name": "熙载咨询（北京）有限公司",
+      "name": "熙载咨询",
       "alternateName": "熙载咨询",
       "url": "https://www.xizai.asia/",
       "logo": "https://www.xizai.asia/favicon.svg",
       "image": "https://www.xizai.asia/og-image.png",
       "email": "contact@xizai.asia",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "北京市",
-        "addressCountry": "CN"
-      },
       "areaServed": {
         "@type": "Country",
         "name": "中国"
@@ -444,7 +439,7 @@
   </head>
   <body>
     <header class="topbar">
-      <a class="brand" href="/#home">熙载咨询（北京）有限公司</a>
+      <a class="brand" href="/#home">熙载咨询</a>
       <nav class="nav" aria-label="主导航">
         <a href="/about">关于熙载</a>
         <a href="/services">业务服务</a>
@@ -497,8 +492,8 @@
       <a class="back" href="/services">返回业务服务</a>
     </main>
     <footer>
-      <span>© 2026 熙载咨询（北京）有限公司</span>
-      <span> · 县域产业与中小企业发展服务机构</span>
+      <span>© 2026 熙载咨询</span>
+      <span> · 县域产业与中小企业发展专业咨询服务</span>
     </footer>
     <script>(function(){var key='xizai-theme';var labels={system:'跟随系统',light:'浅色',dark:'深色'};var order=['system','light','dark'];var button=document.querySelector('[data-theme-toggle]');function valid(value){return order.indexOf(value)>-1;}function systemTheme(){return window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}function apply(preference,save){if(!valid(preference)){preference='system';}var theme=preference==='system'?systemTheme():preference;document.documentElement.dataset.theme=theme;document.documentElement.dataset.themePreference=preference;document.documentElement.style.colorScheme=theme;document.querySelector('meta[name="theme-color"]')?.setAttribute('content',theme==='dark'?'#07111F':'#0D1B2A');if(save){if(preference==='system'){localStorage.removeItem(key);}else{localStorage.setItem(key,preference);}}if(button){button.textContent=labels[preference];button.setAttribute('aria-label','切换主题，当前为'+labels[preference]);}}var current=document.documentElement.dataset.themePreference||'system';apply(current,false);if(button){button.addEventListener('click',function(){var next=order[(order.indexOf(document.documentElement.dataset.themePreference||'system')+1)%order.length];apply(next,true);});}if(window.matchMedia){window.matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change',function(){if((document.documentElement.dataset.themePreference||'system')==='system'){apply('system',false);}});}})();</script>
   </body>

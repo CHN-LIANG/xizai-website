@@ -14,7 +14,7 @@ const rootDir = path.resolve(__dirname, '..');
 const publicDir = path.join(rootDir, 'public');
 const siteUrl = 'https://www.xizai.asia';
 const siteName = '熙载咨询';
-const companyName = '熙载咨询（北京）有限公司';
+const brandName = '熙载咨询';
 const ogImage = `${siteUrl}/og-image.png`;
 const today = '2026-07-04';
 const execFile = promisify(execFileCallback);
@@ -142,16 +142,16 @@ const articleServiceKeywordMap = [
 const staticPages = [
   {
     slug: '',
-    title: '熙载咨询（北京）有限公司 | 县域产业与中小企业发展服务机构',
+    title: '熙载咨询 | 县域产业与中小企业发展专业咨询服务',
     description:
-      '熙载咨询（北京）有限公司面向地方政府、产业平台、央国企下属单位及成长型企业，提供地方产业咨询、企业政策与评价服务、招商项目包装、政企协同和产业金融咨询服务。',
+      '熙载咨询面向地方政府、产业平台、央国企下属单位及成长型企业，提供地方产业咨询、企业政策与评价服务、招商项目包装、政企协同和产业金融咨询服务。',
     priority: '1.0',
     sections: [
       {
         heading: '熙载咨询是谁',
         paragraphs: [
-          '熙载咨询是一家面向县域产业与中小企业发展服务的综合咨询机构，重视资源协同、方案组织、项目推进和合规边界。',
-          '公司服务地方政府、产业平台、央国企下属单位及成长型企业，围绕产业咨询、项目包装、企业评价、政策申报与政企协同，提供可落地的专业支持。',
+          '熙载咨询面向县域产业与中小企业发展提供综合咨询服务，重视资源协同、方案组织、项目推进和合规边界。',
+          '熙载咨询面向地方政府、产业平台、央国企下属单位及成长型企业，围绕产业咨询、项目包装、企业评价、政策申报与政企协同，提供可落地的专业支持。',
         ],
       },
       {
@@ -166,16 +166,16 @@ const staticPages = [
   },
   {
     slug: 'about',
-    title: '关于熙载 | 熙载咨询（北京）有限公司',
+    title: '关于熙载 | 熙载咨询',
     description:
-      '了解熙载咨询（北京）有限公司。熙载咨询面向县域产业与中小企业发展服务，重视专业资源协同、方案组织、项目推进和合规边界。',
+      '了解熙载咨询。熙载咨询面向县域产业与中小企业发展服务，重视专业资源协同、方案组织、项目推进和合规边界。',
     priority: '0.9',
     sections: [
       {
-        heading: '公司定位',
+        heading: '服务定位',
         paragraphs: [
-          '熙载咨询是一家面向县域产业与中小企业发展服务的综合咨询机构，服务对象包括地方政府平台、园区、国有企业、建筑央企上下游、农业产业企业和成长型中小企业。',
-          '公司不以空泛概念包装为目标，而是把产业判断、企业材料、政策路径、项目逻辑和资源协同落到具体服务场景中。',
+          '熙载咨询面向县域产业与中小企业发展提供综合咨询服务，服务对象包括地方政府平台、园区、国有企业、建筑央企上下游、农业产业企业和成长型中小企业。',
+          '熙载咨询不以空泛概念包装为目标，而是把产业判断、企业材料、政策路径、项目逻辑和资源协同落到具体服务场景中。',
         ],
       },
       {
@@ -268,13 +268,13 @@ const staticPages = [
   },
   {
     slug: 'network',
-    title: '服务网络 | 首都资源枢纽、省域项目节点、县域服务触点 | 熙载咨询',
+    title: '服务体系 | 资源组织、方案工作与属地项目协同 | 熙载咨询',
     description:
-      '熙载咨询通过总部资源组织、省域项目推进、县域服务触点和合作伙伴网络，形成资源下沉与需求上达的双向通道。',
+      '熙载咨询以实际合作为前提，根据项目需要组织专业资源、方案工作和属地协同，为县域产业与中小企业发展事项提供支持。',
     priority: '0.75',
     sections: [
       {
-        heading: '服务网络',
+        heading: '服务体系',
         cards: networkNodes.map((node) => ({
           title: node.title,
           text: `${node.subtitle}。${node.text}`,
@@ -286,7 +286,7 @@ const staticPages = [
     slug: 'contact',
     title: '联系熙载咨询 | 地方产业咨询、企业评价、项目包装合作咨询',
     description:
-      '联系熙载咨询（北京）有限公司。合作方向包括地方产业咨询、企业评价、政策申报、项目包装、政企协同和产业金融咨询。',
+      '联系熙载咨询。合作方向包括地方产业咨询、企业评价、政策申报、项目包装、政企协同和产业金融咨询。',
     priority: '0.8',
     sections: [
       {
@@ -368,17 +368,12 @@ const buildOrganizationSchema = () => ({
     {
       '@type': 'Organization',
       '@id': `${siteUrl}/#organization`,
-      name: companyName,
+      name: brandName,
       alternateName: siteName,
       url: `${siteUrl}/`,
       logo: `${siteUrl}/favicon.svg`,
       image: ogImage,
       email: publicEmailContacts[0].email,
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: '北京市',
-        addressCountry: 'CN',
-      },
       areaServed: {
         '@type': 'Country',
         name: '中国',
@@ -508,7 +503,7 @@ const buildArticleSchema = (article, canonicalUrl) => ({
   },
   publisher: {
     '@type': 'Organization',
-    name: companyName,
+    name: brandName,
     url: siteUrl,
     logo: {
       '@type': 'ImageObject',
@@ -529,7 +524,7 @@ const pageShell = ({ title, description, canonicalUrl, body, jsonLd, ogType = 'w
     <script>${themeBootScript}</script>
     <meta name="description" content="${escapeHtml(description)}" />
     ${keywords.length ? `<meta name="keywords" content="${escapeHtml(keywords.join(','))}" />` : ''}
-    <meta name="author" content="${companyName}" />
+    <meta name="author" content="${brandName}" />
     <meta name="application-name" content="${siteName}" />
     <meta name="applicable-device" content="pc,mobile" />
     <meta name="renderer" content="webkit" />
@@ -844,7 +839,7 @@ const pageShell = ({ title, description, canonicalUrl, body, jsonLd, ogType = 'w
   </head>
   <body>
     <header class="topbar">
-      <a class="brand" href="/#home">${companyName}</a>
+      <a class="brand" href="/#home">${brandName}</a>
       <nav class="nav" aria-label="主导航">
         <a href="/about">关于熙载</a>
         <a href="/services">业务服务</a>
@@ -856,8 +851,8 @@ const pageShell = ({ title, description, canonicalUrl, body, jsonLd, ogType = 'w
     </header>
     ${body}
     <footer>
-      <span>© ${new Date().getFullYear()} ${companyName}</span>
-      <span> · 县域产业与中小企业发展服务机构</span>
+      <span>© ${new Date().getFullYear()} ${brandName}</span>
+      <span> · 县域产业与中小企业发展专业咨询服务</span>
     </footer>
     <script>${themeClientScript}</script>
   </body>

@@ -178,7 +178,7 @@ function App() {
         <PageHero
           eyebrow="专业资源协同 · 县域产业 · 中小企业服务"
           title="熙载咨询"
-          subtitle="县域产业与中小企业发展服务机构"
+          subtitle="县域产业与中小企业发展专业咨询服务"
           text="服务地方政府、产业平台、央国企下属单位及成长型企业，围绕产业咨询、项目包装、企业评价、政策申报与政企协同，提供可落地的专业支持。"
           actions={[
             { label: '了解核心服务', href: '/#services' },
@@ -187,7 +187,7 @@ function App() {
           proofs={heroProofs}
           symbol={{
             title: '地天交泰，百业通达',
-            text: '上坤下乾，象征上下贯通、资源流动。用于表达咨询机构的组织、连接和落地能力。',
+            text: '上坤下乾，象征上下贯通、资源流动。用于表达咨询服务中的组织、连接和落地能力。',
           }}
           media={siteImages.hero}
         />
@@ -205,8 +205,8 @@ function App() {
 
         <section className="section intro" id="about">
           <div className="container intro__grid">
-            <SectionHeader eyebrow="关于熙载" title="熙载咨询（北京）有限公司">
-              熙载咨询是一家面向县域产业与中小企业发展服务的综合咨询机构，重视资源协同、方案组织、项目推进和合规边界。
+            <SectionHeader eyebrow="关于熙载" title="熙载咨询">
+              熙载咨询面向县域产业与中小企业发展提供综合咨询服务，重视资源协同、方案组织、项目推进和合规边界。
             </SectionHeader>
             <div className="intro__panel">
               <h3>文化理念：熙载太和</h3>
@@ -214,7 +214,7 @@ function App() {
                 “熙载”为地，为坤厚载物之德；“太和”为天，为乾元通达之道。二者合为《易经》地天泰之象，寓意上下贯通、资源流动、万物通达、百业兴盛。
               </p>
               <p>
-                熙载为地，太和为天；地天交泰，百业通达。公司以专业资源协同为支撑，以县域产业和中小企业需求为服务入口，推动协会、科研、专家、金融、地方平台和企业资源进入具体项目场景。
+                熙载为地，太和为天；地天交泰，百业通达。熙载咨询以专业资源协同为支撑，以县域产业和中小企业需求为服务入口，推动协会、科研、专家、金融、地方平台和企业资源进入具体项目场景。
               </p>
             </div>
           </div>
@@ -226,7 +226,7 @@ function App() {
             </article>
             <article>
               <span>愿景</span>
-              <p>成为中国县域产业与中小企业发展服务领域值得信赖的综合咨询机构。</p>
+              <p>成为县域产业与中小企业发展服务领域值得信赖的专业服务品牌。</p>
             </article>
             <article>
               <span>精神</span>
@@ -400,8 +400,8 @@ function App() {
 
         <section className="section section--warm" id="network">
           <div className="container">
-            <SectionHeader eyebrow="服务网络" title="首都资源枢纽、省域项目节点、县域服务触点、合作服务网络" align="center">
-              通过总部资源组织、省域项目推进、县域服务触点和合作伙伴网络，形成资源下沉与需求上达的双向通道。
+            <SectionHeader eyebrow="服务体系" title="从需求联络到属地协同的项目服务链条" align="center">
+              根据具体项目的合作范围与进度，按需组织专业资源、方案工作和属地协同，让支持方式与真实需求相匹配。
             </SectionHeader>
             <div className="network">
               {networkNodes.map((node, index) => (

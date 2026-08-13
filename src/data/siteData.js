@@ -4,7 +4,7 @@ export const navItems = [
   { label: '业务服务', href: '/#services' },
   { label: '产业金融', href: '/#finance' },
   { label: '核心方法论', href: '/#methodology' },
-  { label: '服务网络', href: '/#network' },
+  { label: '服务体系', href: '/#network' },
   { label: '研究洞察', href: '/#insights' },
   { label: '联系我们', href: '/#contact' },
 ];
@@ -23,7 +23,7 @@ export const publicEmailContacts = [
   {
     label: '项目合作',
     email: 'projects@xizai.asia',
-    text: '适用于项目策划、资源协同、平台共建和地方服务节点合作。',
+    text: '适用于项目策划、资源协同、平台共建和属地项目合作。',
   },
   {
     label: '合作伙伴',

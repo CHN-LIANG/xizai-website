@@ -4,8 +4,8 @@ export default function ContactBlock({ compact = false }) {
   return (
     <div className={`contact-block ${compact ? 'contact-block--compact' : ''}`}>
       <div className="contact-card contact-card--company">
-        <strong>熙载咨询（北京）有限公司</strong>
-        <span>总部所在地：北京</span>
+        <strong>熙载咨询</strong>
+        <span>服务联络地：北京</span>
         <span>合作方向：地方产业咨询、企业评价、政策申报、项目包装、政企协同、产业金融咨询</span>
       </div>
       {!compact && (

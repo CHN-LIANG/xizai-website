@@ -7,7 +7,7 @@
     <script>(function(){try{var key='xizai-theme';var stored=localStorage.getItem(key);var preference=stored==='light'||stored==='dark'||stored==='system'?stored:'system';var systemDark=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;var theme=preference==='system'?(systemDark?'dark':'light'):preference;document.documentElement.dataset.theme=theme;document.documentElement.dataset.themePreference=preference;document.documentElement.style.colorScheme=theme;document.querySelector('meta[name="theme-color"]')?.setAttribute('content',theme==='dark'?'#07111F':'#0D1B2A');}catch(error){document.documentElement.dataset.theme='light';document.documentElement.dataset.themePreference='system';}})();</script>
     <meta name="description" content="多部门部署2026年“一起益企”中小企业服务行动，服务重点覆盖政策、人才、投融资、技术创新、数智化转型和融通对接。" />
     <meta name="keywords" content="熙载咨询,中小企业服务研究,中小企业,服务行动,资源对接" />
-    <meta name="author" content="熙载咨询（北京）有限公司" />
+    <meta name="author" content="熙载咨询" />
     <meta name="application-name" content="熙载咨询" />
     <meta name="applicable-device" content="pc,mobile" />
     <meta name="renderer" content="webkit" />
@@ -39,17 +39,12 @@
     {
       "@type": "Organization",
       "@id": "https://www.xizai.asia/#organization",
-      "name": "熙载咨询（北京）有限公司",
+      "name": "熙载咨询",
       "alternateName": "熙载咨询",
       "url": "https://www.xizai.asia/",
       "logo": "https://www.xizai.asia/favicon.svg",
       "image": "https://www.xizai.asia/og-image.png",
       "email": "contact@xizai.asia",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "北京市",
-        "addressCountry": "CN"
-      },
       "areaServed": {
         "@type": "Country",
         "name": "中国"
@@ -100,7 +95,7 @@
       },
       "publisher": {
         "@type": "Organization",
-        "name": "熙载咨询（北京）有限公司",
+        "name": "熙载咨询",
         "url": "https://www.xizai.asia",
         "logo": {
           "@type": "ImageObject",
@@ -428,7 +423,7 @@
   </head>
   <body>
     <header class="topbar">
-      <a class="brand" href="/#home">熙载咨询（北京）有限公司</a>
+      <a class="brand" href="/#home">熙载咨询</a>
       <nav class="nav" aria-label="主导航">
         <a href="/about">关于熙载</a>
         <a href="/services">业务服务</a>
@@ -457,7 +452,7 @@
         <section>
           <h2>熙载观察</h2>
           <p>这类行动说明，中小企业服务不是简单的信息转发，而是要把政策、机构、专家和企业需求组织到同一个项目场景中。</p>
-<p>对县域服务而言，服务站和项目办公室需要承担“需求识别”和“资源翻译”的角色，帮助企业判断什么政策适配、什么服务可落地。</p>
+<p>对县域服务而言，项目承接团队需要承担“需求识别”和“资源翻译”的角色，帮助企业判断什么政策适配、什么服务可落地。</p>
         </section>
         <section class="related">
           <span class="eyebrow">关联服务</span>
@@ -509,8 +504,8 @@
       </article>
     </main>
     <footer>
-      <span>© 2026 熙载咨询（北京）有限公司</span>
-      <span> · 县域产业与中小企业发展服务机构</span>
+      <span>© 2026 熙载咨询</span>
+      <span> · 县域产业与中小企业发展专业咨询服务</span>
     </footer>
     <script>(function(){var key='xizai-theme';var labels={system:'跟随系统',light:'浅色',dark:'深色'};var order=['system','light','dark'];var button=document.querySelector('[data-theme-toggle]');function valid(value){return order.indexOf(value)>-1;}function systemTheme(){return window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}function apply(preference,save){if(!valid(preference)){preference='system';}var theme=preference==='system'?systemTheme():preference;document.documentElement.dataset.theme=theme;document.documentElement.dataset.themePreference=preference;document.documentElement.style.colorScheme=theme;document.querySelector('meta[name="theme-color"]')?.setAttribute('content',theme==='dark'?'#07111F':'#0D1B2A');if(save){if(preference==='system'){localStorage.removeItem(key);}else{localStorage.setItem(key,preference);}}if(button){button.textContent=labels[preference];button.setAttribute('aria-label','切换主题，当前为'+labels[preference]);}}var current=document.documentElement.dataset.themePreference||'system';apply(current,false);if(button){button.addEventListener('click',function(){var next=order[(order.indexOf(document.documentElement.dataset.themePreference||'system')+1)%order.length];apply(next,true);});}if(window.matchMedia){window.matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change',function(){if((document.documentElement.dataset.themePreference||'system')==='system'){apply('system',false);}});}})();</script>
   </body>

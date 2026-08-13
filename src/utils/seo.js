@@ -1,9 +1,9 @@
 const SITE_URL = 'https://www.xizai.asia';
-const SITE_NAME = '熙载咨询（北京）有限公司';
+const SITE_NAME = '熙载咨询';
 const SHORT_NAME = '熙载咨询';
-const DEFAULT_TITLE = '熙载咨询（北京）有限公司 | 县域产业与中小企业发展服务机构';
+const DEFAULT_TITLE = '熙载咨询 | 县域产业与中小企业发展专业咨询服务';
 const DEFAULT_DESCRIPTION =
-  '熙载咨询（北京）有限公司面向地方政府、产业平台、央国企下属单位及成长型企业，提供地方产业咨询、企业政策与评价服务、招商项目包装、政企协同和产业金融咨询服务。';
+  '熙载咨询面向地方政府、产业平台、央国企下属单位及成长型企业，提供地方产业咨询、企业政策与评价服务、招商项目包装、政企协同和产业金融咨询服务。';
 const OG_IMAGE = `${SITE_URL}/og-image.png`;
 
 const upsertMeta = (attribute, key, content) => {

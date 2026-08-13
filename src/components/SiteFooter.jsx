@@ -9,8 +9,8 @@ export default function SiteFooter() {
           <div className="footer__brand">
             <TaiHexagramLogo compact />
             <div>
-              <strong>熙载咨询（北京）有限公司</strong>
-              <span>县域产业与中小企业发展服务机构</span>
+              <strong>熙载咨询</strong>
+              <span>县域产业与中小企业发展专业咨询服务</span>
             </div>
           </div>
           <p>以专业资源协同，服务县域产业与中小企业成长。守正合规，明势聚源，助企成事。</p>
@@ -23,7 +23,7 @@ export default function SiteFooter() {
           ))}
         </div>
         <div className="footer__contact">
-          <span>总部所在地：北京</span>
+          <span>服务联络地：北京</span>
           <a href={`mailto:${publicEmailContacts[0].email}`}>{publicEmailContacts[0].email}</a>
           <a href={`mailto:${publicEmailContacts[1].email}`}>{publicEmailContacts[1].email}</a>
           <div className="footer__wechat">
@@ -44,7 +44,7 @@ export default function SiteFooter() {
         </div>
       </div>
       <div className="footer__bottom">
-        <span>© {new Date().getFullYear()} 熙载咨询（北京）有限公司</span>
+        <span>© {new Date().getFullYear()} 熙载咨询</span>
         <span>不空谈资源，只解决问题；不制造概念，只推动落地。</span>
       </div>
     </footer>
